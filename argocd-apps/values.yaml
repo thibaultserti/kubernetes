@@ -5,13 +5,16 @@ applications:
       namespace: argocd
       server: https://kubernetes.default.svc
     project: argocd
-    source:
-      helm:
-        valueFiles:
-          - values.yaml
-      path: argocd
-      repoURL: https://github.com/thibaultserti/kubernetes.git
-      targetRevision: HEAD
+    sources:
+      - repoURL: 'https://argoproj.github.io/argo-helm'
+        chart: argo-cd
+        targetRevision: 5.36.2
+        helm:
+          valueFiles:
+          - $values/argocd/values.yaml
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
@@ -21,13 +24,16 @@ applications:
       namespace: argocd
       server: https://kubernetes.default.svc
     project: argocd
-    source:
-      helm:
-        valueFiles:
-          - values.yaml
-      path: argocd-apps
-      repoURL: https://github.com/thibaultserti/kubernetes.git
-      targetRevision: HEAD
+    sources:
+      - repoURL: 'https://argoproj.github.io/argo-helm'
+        chart: argocd-apps
+        targetRevision: 1.2.0
+        helm:
+          valueFiles:
+          - $values/argocd-apps/values.yaml
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
     syncPolicy:
       automated:
         selfHeal: true
