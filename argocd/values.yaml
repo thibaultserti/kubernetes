@@ -1,0 +1,92 @@
+# GLOBAL
+global:
+  logging:
+    format: text
+    level: info
+
+# CONFIGS
+
+configs:
+  cm:
+    admin.enabled: true
+    exec.enabled: false
+    server.rbac.log.enforce.enable: false
+    #dex.config
+    #oidc.config
+
+  params:
+    otlp.adress: ""
+
+  rbac:
+    policy.default: ""
+    policy.csv: ""
+    scopes: "[groups]"
+
+  ssh:
+    extraHosts: ""
+
+  secret:
+    # htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/
+    argocdServerAdminPassword: "$2a$10$tCwP269.mLFpDZjhXqtRt.0038jDzPAoLX8Hkj33idrfC0se9Ab9a"
+
+# CONTROLLER
+
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false #true
+    rules:
+      enabled: false #true
+
+# DEX
+
+dex:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false #true
+
+# REDIS
+
+redis:
+  exporter:
+    enabled: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false #true
+
+# SERVER
+
+server:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false #true
+  ingress:
+    enabled: false
+
+# REPOSERVER
+
+repoServer:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false #true
+
+# APPLICATIONSET
+
+applicationSet:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false #true
+
+# NOTIFICATIONS
+
+notifications:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false #true

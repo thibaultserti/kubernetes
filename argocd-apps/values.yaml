@@ -1,0 +1,50 @@
+applications:
+  - name: argocd
+    namespace: argocd
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: argocd
+    source:
+      helm:
+        valueFiles:
+          - values.yaml
+      path: argocd
+      repoURL: https://github.com/thibaultserti/kubernetes.git
+      targetRevision: HEAD
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+  - name: argocd-apps
+    namespace: argocd
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: argocd
+    source:
+      helm:
+        valueFiles:
+          - values.yaml
+      path: argocd-apps
+      repoURL: https://github.com/thibaultserti/kubernetes.git
+      targetRevision: HEAD
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+projects:
+  - name: argocd
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Argocd Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: argocd
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
