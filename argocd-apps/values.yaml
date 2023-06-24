@@ -6,7 +6,7 @@ applications:
       server: https://kubernetes.default.svc
     project: argocd
     sources:
-      - repoURL: 'https://argoproj.github.io/argo-helm'
+      - repoURL: https://argoproj.github.io/argo-helm
         chart: argo-cd
         targetRevision: 5.36.7
         helm:
@@ -25,12 +25,13 @@ applications:
       server: https://kubernetes.default.svc
     project: argocd
     sources:
-      - repoURL: 'https://argoproj.github.io/argo-helm'
+      - repoURL: https://argoproj.github.io/argo-helm
         chart: argocd-apps
         targetRevision: 1.2.0
         helm:
           valueFiles:
           - $values/argocd-apps/values.yaml
+          - $values/argocd-apps/cilium.yaml
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -48,6 +49,21 @@ projects:
       - "*"
     destinations:
       - namespace: argocd
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+  - name: system
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Kube-System Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: kube-system
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"

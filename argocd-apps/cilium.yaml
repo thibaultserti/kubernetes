@@ -1,0 +1,20 @@
+applications:
+  - name: cilium
+    namespace: argocd
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://helm.cilium.io/
+        chart: cilium
+        targetRevision: 1.13.4
+        helm:
+          valueFiles:
+          - $values/cilium/values.yaml
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
