@@ -21,7 +21,7 @@ applications:
         name: argocd-secret
         namespace: argocd
         jsonPointers:
-          - /spec/data
+          - /data
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
@@ -71,17 +71,17 @@ applications:
         name: cilium-ca
         namespace: kube-system
         jsonPointers:
-          - /spec/data
+          - /data
       - kind: Secret
         name: hubble-ca-secret
         namespace: kube-system
         jsonPointers:
-          - /spec/data
+          - /data
       - kind: Secret
         name: hubble-server-certs
         namespace: kube-system
         jsonPointers:
-          - /spec/data
+          - /data
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
@@ -119,7 +119,6 @@ applications:
     sources:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         path: cluster-issuer
-        targetRevision: HEAD
         helm:
           valueFiles:
           - values.yaml
