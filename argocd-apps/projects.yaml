@@ -29,6 +29,8 @@ projects:
         server: https://kubernetes.default.svc
       - namespace: traefik
         server: https://kubernetes.default.svc
+      - namespace: metallb
+        server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
