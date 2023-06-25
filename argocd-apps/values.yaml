@@ -41,7 +41,7 @@ applications:
         selfHeal: true
         prune: true
 
-  # SYSTEM
+  # NETWORK
   - name: cilium
     namespace: argocd
     destination:
@@ -58,6 +58,41 @@ applications:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+  - name: cert-manager
+    namespace: argocd
+    destination:
+      namespace: cert-manager
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://charts.jetstack.io
+        chart: cert-manager
+        targetRevision: 1.12.2
+        helm:
+          valueFiles:
+          - $values/cert-manager/values.yaml
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+  - name: cluster-issuer
+    namespace: argocd
+    destination:
+      namespace: cert-manager
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        chart: cluster-issuer
+        targetRevision: 0.1.0
+        helm:
+          valueFiles:
+          - cluster-issuer/values.yaml
     syncPolicy:
       syncOptions:
         - CreateNamespace=true

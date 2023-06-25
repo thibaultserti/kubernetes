@@ -1,0 +1,12 @@
+---
+
+acme_registration_email: thibault@ayanides.cloud
+
+
+default_issuer_name_staging: letsencrypt-staging
+server_staging: https://acme-staging-v02.api.letsencrypt.org/directory
+secret_reference_staging: letsencrypt-staging
+
+default_issuer_name_prod: letsencrypt-prod
+server_prod: https://acme-v02.api.letsencrypt.org/directory
+secret_reference_prod: letsencrypt-prod
