@@ -118,11 +118,11 @@ applications:
     project: system
     sources:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
-        chart: cluster-issuer
+        path: cluster-issuer
         targetRevision: 0.1.0
         helm:
           valueFiles:
-          - cluster-issuer/values.yaml
+          - values.yaml
     syncPolicy:
       automated:
         selfHeal: true
