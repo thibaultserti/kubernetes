@@ -129,6 +129,29 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: metallb
+    namespace: argocd
+    destination:
+      namespace: metallb
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://metallb.github.io/metallb
+        chart: metallb
+        targetRevision: 0.13.10
+        helm:
+          valueFiles:
+          - $values/metallb/values.yaml
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
   - name: traefik
     namespace: argocd
     destination:
