@@ -12,7 +12,7 @@ applications:
         targetRevision: 5.36.7
         helm:
           valueFiles:
-          - $values/argocd/values.yaml
+          - $values/argocd/argocd/values.yaml
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -39,8 +39,8 @@ applications:
         targetRevision: 1.2.0
         helm:
           valueFiles:
-          - $values/argocd-apps/values.yaml
-          - $values/argocd-apps/projects.yaml
+          - $values/argocd/argocd-apps/values.yaml
+          - $values/argocd/argocd-apps/projects.yaml
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -100,7 +100,7 @@ applications:
         targetRevision: 1.12.2
         helm:
           valueFiles:
-          - $values/cert-manager/values.yaml
+          - $values/cert-manager/cert-manager/values.yaml
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -119,7 +119,7 @@ applications:
     project: system
     sources:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
-        path: cluster-issuer
+        path: cert-manager/cluster-issuer
         helm:
           valueFiles:
           - values.yaml
@@ -143,7 +143,7 @@ applications:
         targetRevision: 0.13.10
         helm:
           valueFiles:
-          - $values/metallb/values.yaml
+          - $values/metallb/metallb/values.yaml
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -171,7 +171,7 @@ applications:
     project: system
     sources:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
-        path: metallb-ipaddresspool
+        path: metallb/metallb-ipaddresspool
         helm:
           valueFiles:
           - values.yaml
@@ -195,10 +195,29 @@ applications:
         targetRevision: 23.1.0
         helm:
           valueFiles:
-          - $values/traefik/values.yaml
+          - $values/traefik/traefik/values.yaml
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: traefik-dashboard
+    namespace: argocd
+    destination:
+      namespace: traefik
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        path: traefik/traefik-dashboard
+        helm:
+          valueFiles:
+          - values.yaml
     syncPolicy:
       automated:
         selfHeal: true

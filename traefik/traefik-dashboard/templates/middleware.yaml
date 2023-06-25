@@ -1,0 +1,23 @@
+# Add trailing slash
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: add-trailing-slash
+  namespace: {{ .Values.namespace }}
+spec:
+  redirectRegex:
+    regex: ^(https?://[^/]+/[a-z0-9_]+)$
+    replacement: ${1}/
+    permanent: false
+---
+# Redirect / to dashboard
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-dashboard
+  namespace: {{ .Values.namespace }}
+spec:
+  redirectRegex:
+    regex: ^(https?)://{{ .Values.fqdn }}+/$
+    replacement: ${1}://{{ .Values.fqdn }}/dashboard/
+    permanent: false

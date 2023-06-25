@@ -1,0 +1,17 @@
+service:
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.1.100
+
+ingressRoute:
+  dashboard:
+    enabled: true
+
+providers:
+  kubernetesIngress:
+    allowExternalNameServices: true
+    publishedService:
+      enabled: true
+
+ports:
+  web:
+    redirectTo: websecure

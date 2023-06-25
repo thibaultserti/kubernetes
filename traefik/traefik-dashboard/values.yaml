@@ -1,0 +1,11 @@
+---
+name: traefik
+
+serviceName: traefik-dashboard
+namespace: traefik
+
+fqdn: traefik.ayanides.cloud
+
+middlewareNames:
+  - traefik-add-trailing-slash@kubernetescrd
+  - traefik-redirect-to-dashboard@kubernetescrd
