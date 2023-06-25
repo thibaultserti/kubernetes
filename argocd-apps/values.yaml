@@ -119,7 +119,7 @@ applications:
     sources:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         path: cluster-issuer
-        targetRevision: 0.1.0
+        targetRevision: HEAD
         helm:
           valueFiles:
           - values.yaml
