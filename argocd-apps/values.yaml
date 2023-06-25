@@ -16,9 +16,17 @@ applications:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
+    ignoreDifferences:
+      - kind: Secret
+        name: argocd-secret
+        namespace: argocd
+        jsonPointers:
+          - /spec/data
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+
   - name: argocd-apps
     namespace: argocd
     destination:
@@ -58,9 +66,27 @@ applications:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
+    ignoreDifferences:
+      - kind: Secret
+        name: cilium-ca
+        namespace: kube-system
+        jsonPointers:
+          - /spec/data
+      - kind: Secret
+        name: hubble-ca-secret
+        namespace: kube-system
+        jsonPointers:
+          - /spec/data
+      - kind: Secret
+        name: hubble-server-certs
+        namespace: kube-system
+        jsonPointers:
+          - /spec/data
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+
   - name: cert-manager
     namespace: argocd
     destination:
@@ -83,6 +109,7 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
   - name: cluster-issuer
     namespace: argocd
     destination:
