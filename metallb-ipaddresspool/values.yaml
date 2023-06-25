@@ -2,4 +2,4 @@
 name: metallb-ipadresspool
 namespace: metallb
 addresses:
-  - 192.168.100.0/24
+  - 192.168.1.101-192.168.1.200
