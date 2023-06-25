@@ -78,6 +78,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
       syncOptions:
         - CreateNamespace=true
   - name: cluster-issuer
@@ -94,5 +97,8 @@ applications:
           valueFiles:
           - cluster-issuer/values.yaml
     syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
       syncOptions:
         - CreateNamespace=true
