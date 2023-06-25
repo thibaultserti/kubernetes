@@ -49,7 +49,7 @@ applications:
         selfHeal: true
         prune: true
 
-  # NETWORK
+  # CILIUM
   - name: cilium
     namespace: argocd
     destination:
@@ -87,6 +87,7 @@ applications:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
 
+# CERT-MANAGER
   - name: cert-manager
     namespace: argocd
     destination:
@@ -129,6 +130,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# METALLB
   - name: metallb
     namespace: argocd
     destination:
@@ -161,6 +163,26 @@ applications:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
 
+  - name: metallb-ipaddress-pool
+    namespace: argocd
+    destination:
+      namespace: metallb
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        path: metallb-ipaddresspool
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+# TRAEFIK
   - name: traefik
     namespace: argocd
     destination:
