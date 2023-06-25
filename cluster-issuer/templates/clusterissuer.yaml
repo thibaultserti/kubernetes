@@ -10,9 +10,11 @@ spec:
     privateKeySecretRef:
       name: {{ .Values.secret_reference_staging }}
     solvers:
-      - http01:
-          ingress:
-            class: nginx
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -25,6 +27,8 @@ spec:
     privateKeySecretRef:
       name: {{ .Values.secret_reference_prod }}
     solvers:
-      - http01:
-          ingress:
-            class: nginx
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token

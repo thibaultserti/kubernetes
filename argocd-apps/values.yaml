@@ -128,3 +128,26 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
+  - name: traefik
+    namespace: argocd
+    destination:
+      namespace: traefik
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://traefik.github.io/charts
+        chart: traefik
+        targetRevision: 23.1.0
+        helm:
+          valueFiles:
+          - $values/traefik/values.yaml
+      - repoURL: https://github.com/thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
