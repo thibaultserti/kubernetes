@@ -16,6 +16,7 @@ configs:
 
   params:
     otlp.adress: ""
+    server.insecure: true
 
   rbac:
     policy.default: ""
@@ -67,7 +68,10 @@ server:
   ingress:
     enabled: true
     ingressClassName: "traefik"
-
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - argocd.ayanides.cloud
     paths:

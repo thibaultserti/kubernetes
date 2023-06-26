@@ -6,12 +6,12 @@ metadata:
   name: {{ .Values.serviceName }}
   namespace: {{ .Values.namespace }}
   annotations:
-    kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.middlewareNames }}
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  ingressClassName: traefik
   rules:
     - host: {{ .Values.fqdn }}
       http:
