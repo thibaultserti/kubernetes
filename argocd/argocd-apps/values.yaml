@@ -44,10 +44,7 @@ applications:
       - repoURL: https://github.com/thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
+    syncPolicy: {}
 
   # CILIUM
   - name: cilium
