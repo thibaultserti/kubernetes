@@ -22,5 +22,6 @@ ports:
   web:
     redirectTo: websecure
     forwardedHeaders:
-      trustedIPs:
-        - "192.168.1.40/32" #Nginx
+      insecure: true
+      # trustedIPs:
+      #   - "192.168.1.40/32" #Nginx
