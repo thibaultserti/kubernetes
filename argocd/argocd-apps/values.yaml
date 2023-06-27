@@ -13,7 +13,7 @@ applications:
         helm:
           valueFiles:
           - $values/argocd/argocd/values.yaml
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
     ignoreDifferences:
@@ -41,7 +41,7 @@ applications:
           valueFiles:
           - $values/argocd/argocd-apps/values.yaml
           - $values/argocd/argocd-apps/projects.yaml
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
     syncPolicy: {}
@@ -60,7 +60,7 @@ applications:
         helm:
           valueFiles:
           - $values/cilium/values.yaml
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
     ignoreDifferences:
@@ -98,7 +98,7 @@ applications:
         helm:
           valueFiles:
           - $values/cert-manager/cert-manager/values.yaml
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
     syncPolicy:
@@ -115,7 +115,7 @@ applications:
       server: https://kubernetes.default.svc
     project: system
     sources:
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         path: cert-manager/cluster-issuer
         helm:
           valueFiles:
@@ -141,7 +141,7 @@ applications:
         helm:
           valueFiles:
           - $values/metallb/metallb/values.yaml
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
     ignoreDifferences:
@@ -167,7 +167,7 @@ applications:
       server: https://kubernetes.default.svc
     project: system
     sources:
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         path: metallb/metallb-ipaddresspool
         helm:
           valueFiles:
@@ -193,7 +193,7 @@ applications:
         helm:
           valueFiles:
           - $values/traefik/traefik/values.yaml
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
     syncPolicy:
@@ -210,7 +210,7 @@ applications:
       server: https://kubernetes.default.svc
     project: system
     sources:
-      - repoURL: https://github.com/thibaultserti/kubernetes.git
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
         path: traefik/traefik-dashboard
         helm:
           valueFiles:
