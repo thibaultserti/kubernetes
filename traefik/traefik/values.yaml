@@ -1,4 +1,5 @@
-sendanonymoususage: false
+globalArguments:
+  - "--global.checknewversion"
 
 logs:
   access:
