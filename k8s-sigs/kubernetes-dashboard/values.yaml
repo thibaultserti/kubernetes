@@ -22,3 +22,10 @@ metricsScraper:
 
 rbac:
   clusterReadOnlyRole: true
+  clusterReadOnlyRoleAdditionalRules:
+    - apiGroups: ["*"]
+      resources: ["*"]
+      verbs:
+        - get
+        - list
+        - watch
