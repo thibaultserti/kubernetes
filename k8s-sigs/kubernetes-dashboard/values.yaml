@@ -13,7 +13,7 @@ ingress:
     - /
   pathType: Prefix
   tls:
-    - secretName: kubernetes-tls
+    - secretName: kubernetes-dashboard-tls
       hosts:
         - kubernetes.ayanides.cloud
 
