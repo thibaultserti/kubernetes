@@ -19,3 +19,6 @@ ingress:
 
 metricsScraper:
   enabled: true
+
+rbac:
+  clusterReadOnlyRole: true
