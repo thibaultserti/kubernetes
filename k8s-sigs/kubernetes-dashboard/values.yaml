@@ -1,7 +1,3 @@
-
-extraArgs:
-  - --disable-skip
-
 ingress:
   ## If true, Kubernetes Dashboard Ingress will be created.
   ##
