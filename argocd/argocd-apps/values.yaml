@@ -249,7 +249,7 @@ applications:
   - name: kubernetes-dashboard
     namespace: argocd
     destination:
-      namespace: kube-system
+      namespace: kubernetes-dashboard
       server: https://kubernetes.default.svc
     project: system
     sources:
