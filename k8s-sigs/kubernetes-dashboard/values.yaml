@@ -1,0 +1,21 @@
+ingress:
+  ## If true, Kubernetes Dashboard Ingress will be created.
+  ##
+  enabled: true
+  className: "traefik"
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - kubernetes.ayanides.cloud
+  paths:
+    - /
+  pathType: Prefix
+  tls:
+    - secretName: kubernetes-tls
+      hosts:
+        - kubernetes.ayanides.cloud
+
+metricsScraper:
+  enabled: true
