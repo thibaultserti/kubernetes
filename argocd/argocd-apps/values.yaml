@@ -156,6 +156,9 @@ applications:
         jsonPointers:
           - /spec/conversion/webhook/clientConfig/caBundle
     syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
       syncOptions:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
