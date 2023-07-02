@@ -19,7 +19,7 @@ projects:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
-    description: Kube-System Project
+    description: System Project
     sourceRepos:
       - "*"
     destinations:
@@ -32,6 +32,21 @@ projects:
       - namespace: metallb
         server: https://kubernetes.default.svc
       - namespace: kubernetes-dashboard
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+  - name: vault
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Vault Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: vault
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
