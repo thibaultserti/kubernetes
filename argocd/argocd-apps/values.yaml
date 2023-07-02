@@ -310,9 +310,15 @@ applications:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
+    ignoreDifferences:
+      - group: admissionregistration.k8s.io
+        kind: MutatingWebhookConfiguration
+        jqPathExpressions:
+        - .webhooks[]?.clientConfig.caBundle
     syncPolicy:
       automated:
         selfHeal: true
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
