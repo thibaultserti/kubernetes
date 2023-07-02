@@ -33,6 +33,8 @@ projects:
         server: https://kubernetes.default.svc
       - namespace: kubernetes-dashboard
         server: https://kubernetes.default.svc
+      - namespace: longhorn-system
+        server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"

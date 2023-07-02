@@ -1,9 +1,16 @@
 injector:
+  enabled: true
   metrics:
     enabled: true
 
 
 server:
+  dataStorage:
+    enabled: true
+
+  auditStorage:
+    enabled: true
+
   ingress:
     enabled: true
     ingressClassName: "traefik"

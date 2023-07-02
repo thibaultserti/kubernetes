@@ -269,6 +269,30 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# LONGHORN
+  - name: longhorn
+    namespace: argocd
+    destination:
+      namespace: longhorn-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://charts.longhorn.io
+        chart: longhorn
+        targetRevision: 1.4.0
+        helm:
+          valueFiles:
+          - $values/longhorn/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # VAULT
   - name: vault
     namespace: argocd
