@@ -76,4 +76,4 @@ ui:
 
 # secrets-store-csi-driver-provider-vault
 csi:
-  enabled: true
+  enabled: false
