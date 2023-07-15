@@ -6,7 +6,7 @@ grafana:
   serviceMonitor:
     enabled: true
 
-  annotations:
+  podAnnotations:
     vault.hashicorp.com/agent-inject: 'true'
     vault.hashicorp.com/role: 'grafana'
     vault.hashicorp.com/agent-inject-template-config: |
