@@ -1,0 +1,36 @@
+
+# PROMETHEUS-OPERATOR
+prometheusOperator:
+  enabled: true
+  serviceMonitor:
+    selfMonitor: true
+
+# PROMETHEUS
+prometheus:
+  enabled: true
+
+  serviceMonitor:
+    selfMonitor: true
+
+  ingress:
+    enabled: true
+    ingressClassName: "traefik"
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+    hosts:
+      - prometheus.ayanides.cloud
+    path: "/"
+    pathType: Prefix
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - prometheus.ayanides.cloud
+
+
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false

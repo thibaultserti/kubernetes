@@ -1,0 +1,7 @@
+# NODE-EXPORTER
+nodeExporter:
+  enabled: true
+prometheus-node-exporter:
+  prometheus:
+    monitor:
+      enabled: true

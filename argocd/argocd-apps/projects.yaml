@@ -55,3 +55,20 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+  - name: monitoring
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Monitoring
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: monitoring
+        server: https://kubernetes.default.svc
+      - namespace: kube-system
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false

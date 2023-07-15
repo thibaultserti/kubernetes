@@ -1,0 +1,63 @@
+# GRAFANA
+grafana:
+  enabled: true
+
+  useStatefulSet: true
+  serviceMonitor:
+    enabled: true
+
+  ingress:
+    enabled: true
+    ingressClassName: "traefik"
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+    hosts:
+      - grafana.ayanides.cloud
+    path: "/"
+    pathType: Prefix
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.ayanides.cloud
+
+  grafana.ini:
+    server:
+      domain: grafana.ayanides.cloud
+      root_url: https://%(domain)s/
+    smtp:
+      enabled: false
+  plugins:
+    - grafana-piechart-panel
+
+  persistence:
+    enabled: true
+    size: 5Gi
+
+  sidecar:
+    datasources:
+      enabled: true
+      label: grafana_datasource
+      labelValue: "1"
+      defaultDatasourceEnabled: false
+    notifiers:
+      enabled: true
+      label: grafana_notifier
+      labelValue: "1"
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      folderAnnotation: grafana-dashboard-folder
+      provider:
+        foldersFromFilesStructure: true
+        allowUiUpdates: false
+
+    annotations: {}
+    multicluster:
+      global:
+        enabled: false
+      etcd:
+        enabled: false

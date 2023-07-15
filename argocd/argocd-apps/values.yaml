@@ -325,3 +325,65 @@ applications:
       syncOptions:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
+
+# KUBE-PROMETHEUS-STACK
+  - name: prometheus-stack
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://prometheus-community.github.io/helm-charts
+        chart: kube-prometheus-stack
+        targetRevision: 48.1.1
+        helm:
+          skipCrds: true
+          valueFiles:
+          - $values/monitoring/prometheus-stack/alertmanager.yaml
+          - $values/monitoring/prometheus-stack/grafana.yaml
+          - $values/monitoring/prometheus-stack/ksm.yaml
+          - $values/monitoring/prometheus-stack/node-exporter.yaml
+          - $values/monitoring/prometheus-stack/prometheus.yaml
+          - $values/monitoring/prometheus-stack/promrules.yaml
+          - $values/monitoring/prometheus-stack/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    ignoreDifferences:
+      - group: admissionregistration.k8s.io
+        kind: MutatingWebhookConfiguration
+        jqPathExpressions:
+          - '.webhooks[]?.clientConfig.caBundle'
+          - '.webhooks[]?.failurePolicy'
+      - group: admissionregistration.k8s.io
+        kind: ValidatingWebhookConfiguration
+        jqPathExpressions:
+          - '.webhooks[]?.clientConfig.caBundle'
+          - '.webhooks[]?.failurePolicy'
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+
+  - name: prometheus-stack-crds
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    source:
+      repoURL: https://github.com/prometheus-community/helm-charts.git
+      path: charts/kube-prometheus-stack/charts/crds/
+      directory:
+        recurse: true
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+        - Replace=true
+      automated:
+        prune: true
+        selfHeal: true

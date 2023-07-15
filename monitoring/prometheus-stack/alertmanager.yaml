@@ -1,0 +1,23 @@
+# ALERTMANAGER
+alertmanager:
+  enabled: true
+
+  serviceMonitor:
+    selfMonitor: true
+
+  ingress:
+    enabled: true
+    ingressClassName: "traefik"
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+    hosts:
+      - alertmanager.ayanides.cloud
+    path: "/"
+    pathType: Prefix
+    tls:
+      - secretName: alertmanager-tls
+        hosts:
+          - alertmanager.ayanides.cloud

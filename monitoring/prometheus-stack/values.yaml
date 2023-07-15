@@ -1,0 +1,26 @@
+# CONTROLPLANE
+kubeControllerManager:
+  enabled: true
+
+coreDns:
+  enabled: true
+
+kubeDns:
+  enabled: false
+
+kubeEtcd:
+  enabled: true
+
+kubeScheduler:
+  enabled: true
+
+# DATAPLANE
+kubelet:
+  enabled: true
+  namespace: kube-system
+  serviceMonitor:
+    cAdvisor: true
+    probes: true
+
+kubeProxy:
+  enabled: true
