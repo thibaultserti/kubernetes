@@ -5,10 +5,6 @@ grafana:
   serviceMonitor:
     enabled: true
 
-  podAnnotations:
-    vault.hashicorp.com/agent-inject: 'true'
-    vault.hashicorp.com/agent-inject-status: 'update'
-    vault.hashicorp.com/role: 'grafana'
   serviceAccount:
     create: true
     name: grafana
@@ -31,9 +27,6 @@ grafana:
           - grafana.ayanides.cloud
 
   grafana.ini:
-    server:
-      domain: grafana.ayanides.cloud
-      root_url: https://%(domain)s/
     smtp:
       enabled: false
 
@@ -54,29 +47,19 @@ grafana:
         volumeAttributes:
           secretProviderClass: "grafana"
 
-
   persistence:
     enabled: true
     size: 5Gi
 
   sidecar:
+  # Managed by Terraform
     datasources:
-      enabled: true
-      label: grafana_datasource
-      labelValue: "1"
-      defaultDatasourceEnabled: false
+      enabled: false
     notifiers:
-      enabled: true
-      label: grafana_notifier
-      labelValue: "1"
+      enabled: false
     dashboards:
-      enabled: true
-      label: grafana_dashboard
-      labelValue: "1"
-      folderAnnotation: grafana-dashboard-folder
-      provider:
-        foldersFromFilesStructure: true
-        allowUiUpdates: false
+      enabled: false
+
 
     annotations: {}
     multicluster:
