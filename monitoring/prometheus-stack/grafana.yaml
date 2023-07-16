@@ -58,8 +58,13 @@ grafana:
     notifiers:
       enabled: false
     dashboards:
-      enabled: false
-
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      folderAnnotation: grafana-dashboard-folder
+      provider:
+        foldersFromFilesStructure: true
+        allowUiUpdates: false
 
     annotations: {}
     multicluster:
