@@ -1,0 +1,15 @@
+---
+vaultAddress: "https://vault.ayanides.cloud"
+
+secretsStores:
+  - name: grafana
+    namespace: monitoring
+    roleName: grafana
+    secrets:
+      grafana-secret:
+        - kubernetesSecretKey: admin-user
+          vaultSecretPath: secrets/data/grafana
+          vaultSecretKey: user
+        - kubernetesSecretKey: admin-password
+          vaultSecretPath: secrets/data/grafana
+          vaultSecretKey: password

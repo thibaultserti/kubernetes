@@ -332,7 +332,7 @@ applications:
         targetRevision: 0.25.0
         helm:
           valueFiles:
-          - $values/vault/values.yaml
+          - $values/vault/vault/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -348,6 +348,25 @@ applications:
       syncOptions:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
+
+  - name: secrets-stores
+    namespace: argocd
+    destination:
+      namespace: vault
+      server: https://kubernetes.default.svc
+    project: vault
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: vault/secrets-stores
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
 
 # KUBE-PROMETHEUS-STACK
   - name: prometheus-stack

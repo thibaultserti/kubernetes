@@ -48,7 +48,7 @@ projects:
     sourceRepos:
       - "*"
     destinations:
-      - namespace: vault
+      - namespace: "*" # secrets-stores
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
