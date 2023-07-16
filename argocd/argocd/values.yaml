@@ -4,12 +4,13 @@ global:
     format: text
     level: info
 
+
 # CONFIGS
 
 configs:
   cm:
     admin.enabled: true
-    exec.enabled: false
+    exec.enabled: true
     server.rbac.log.enforce.enable: false
     #dex.config
     #oidc.config
