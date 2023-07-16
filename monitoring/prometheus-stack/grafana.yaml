@@ -10,22 +10,9 @@ grafana:
     vault.hashicorp.com/agent-inject: 'true'
     vault.hashicorp.com/agent-inject-status: 'update'
     vault.hashicorp.com/role: 'grafana'
-    vault.hashicorp.com/agent-inject-secret-user.env: 'secrets/data/grafana'
-    vault.hashicorp.com/agent-inject-template-user.env: |
-      {{ with secret "secrets/data/grafana" -}}
-        export GF_SECURITY_ADMIN_USER={{ .Data.data.user }}
-      {{- end }}
-    vault.hashicorp.com/agent-inject-secret-password.env: 'secrets/data/grafana'
-    vault.hashicorp.com/agent-inject-template-password.env: |
-      {{ with secret "secrets/data/grafana" -}}
-        export GF_SECURITY_ADMIN_PASSWORD={{ .Data.data.password }}
-      {{- end }}
   serviceAccount:
     create: true
     name: grafana
-
-  command: ['sh', '-c']
-  args: ['source /vault/secrets/*.env && grafana server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini --packaging=docker cfg:default.log.mode=console cfg:default.paths.data=/var/lib/grafana/ cfg:default.paths.logs=/var/log/grafana cfg:default.paths.plugins=/var/lib/grafana/plugins cfg:default.paths.provisioning=/etc/grafana/provisioning']
 
   ingress:
     enabled: true
@@ -54,9 +41,20 @@ grafana:
   plugins:
     - grafana-piechart-panel
 
-  env:
-    GF_SECURITY_ADMIN_USER: admin
-    GF_SECURITY_ADMIN_PASSWORD__FILE: /vault/secrets/password
+  admin:
+    existingSecret: grafana-secret
+    userKey: admin-user
+    passwordKey: admin-password
+
+  extraSecretMounts:
+    - name: secrets-store-inline
+      mountPath: "/mnt/secrets-store"
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "grafana"
+
 
   persistence:
     enabled: true

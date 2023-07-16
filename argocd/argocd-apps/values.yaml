@@ -272,6 +272,29 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: secrets-store-csi-driver
+    namespace: argocd
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+        chart: secrets-store-csi-driver
+        targetRevision: 1.3.4
+        helm:
+          valueFiles:
+          - $values/k8s-sigs/secrets-store-csi-driver/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # LONGHORN
   - name: longhorn
     namespace: argocd
