@@ -2,7 +2,6 @@
 grafana:
   enabled: true
 
-  useStatefulSet: true
   serviceMonitor:
     enabled: true
 
