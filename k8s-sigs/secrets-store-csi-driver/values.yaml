@@ -2,3 +2,8 @@ syncSecret:
   enabled: true
 
 enableSecretRotation: true
+
+linux:
+  registrar:
+    resources:
+      limits: {}
