@@ -21,3 +21,9 @@ secretsStores:
         - kubernetesSecretKey: discord-url
           vaultSecretPath: secrets/data/argocd/notifications
           vaultSecretKey: discord_url
+        - kubernetesSecretKey: grafana-api-key
+          vaultSecretPath: secrets/data/argocd/notifications
+          vaultSecretKey: grafana_api_key
+        - kubernetesSecretKey: grafana-url
+          vaultSecretPath: secrets/data/argocd/notifications
+          vaultSecretKey: grafana_url
