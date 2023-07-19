@@ -13,3 +13,11 @@ secretsStores:
         - kubernetesSecretKey: admin-password
           vaultSecretPath: secrets/data/grafana
           vaultSecretKey: password
+  - name: argocd-notifications-controller
+    namespace: argocd
+    roleName: argocd-notifications-controller
+    secrets:
+      argocd-notifications-secret:
+        - kubernetesSecretKey: discord-url
+          vaultSecretPath: secrets/data/argocd/notifications
+          vaultSecretKey: discord_url
