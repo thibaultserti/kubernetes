@@ -1,0 +1,164 @@
+extraManifests:
+  - apiVersion: monitoring.coreos.com/v1alpha1
+    kind: AlertmanagerConfig
+    metadata:
+      name: kube-prometheus-stack-alertmanagerconfig
+      labels:
+        app.kubernetes.io/instance: alertmanager-config
+        app.kubernetes.io/name: kube-prometheus-stack-alertmanagerconfig
+    spec:
+      inhibitRules:
+        - sourceMatch:
+            - name: severity
+              matchType: '='
+              value: critical
+          targetMatch:
+            - name: severity
+              matchType: '=~'
+              value: warning|info
+          equal:
+            - 'namespace'
+            - 'alertname'
+        - sourceMatch:
+            - name: severity
+              matchType: '='
+              value: warning
+          targetMatch:
+            - name: severity
+              matchType: '='
+              value: info
+          equal:
+            - 'namespace'
+            - 'alertname'
+        - sourceMatch:
+            - name: alertname
+              matchType: '='
+              value: InfoInhibitor
+          targetMatch:
+            - name: severity
+              matchType: '='
+              value: info
+          equal:
+            - 'namespace'
+
+      route:
+        # The labels by which incoming alerts are grouped together. For example,
+        # multiple alerts coming in for cluster=A and alertname=LatencyHigh would
+        # be batched into a single group.
+        groupBy: ["cluster", "alertname", "service"]
+        # groupBy: ['alertname', 'cluster', 'service', 'job']
+
+        # When the first notification was sent, wait 'groupInterval' to send a betch
+        # of new alerts that started firing for that group.
+        groupInterval: 2m
+
+        # When a new group of alerts is created by an incoming alert, wait at
+        # least 'groupWait' to send the initial notification.
+        # This way ensures that you get multiple alerts for the same group that start
+        # firing shortly after another are batched together on the first
+        # notification.
+        groupWait: 1m
+
+        # If an alert has successfully been sent, wait 'repeatInterval' to
+        # resend them.
+        # repeatInterval: 720h # wait a month before resending alert
+        repeatInterval: 1h
+
+        # A default receiver
+        receiver: alert_manager_critical
+
+        routes:
+          - receiver: blackhole
+            matchers:
+              - name: alertname
+                matchType: '=~'
+                value: InfoInhibitor|Watchdog
+          - receiver: alert_manager_low
+            matchers:
+              - name: severity
+                matchType: '='
+                value: low
+          - receiver: alert_manager_warning
+            matchers:
+              - name: severity
+                matchType: '='
+                value: warning
+          - receiver: alert_manager_critical
+            matchers:
+              - name: severity
+                matchType: '=~'
+                value: critical|incident
+
+
+      receivers:
+        - name: blackhole
+
+        - name: alert_manager_critical
+          slackConfigs:
+            - apiURL:
+                name: alertmanager-secret
+                key: url_critical
+              username: "alertmanager"
+              color: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}danger{{ "{{" }} else {{ "}}" }}good{{ "{{" }} end {{ "}}" }}'
+              title: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}[FIRING]{{ "{{" }} else {{ "}}" }}[OK]{{ "{{" }} end {{ "}}" }} - {{ "{{" }} .CommonLabels.alertname {{ "}}" }}'
+              titleLink: "https://grafana.ayanides.cloud"
+              text: |-
+                {{ "{{" }} range .Alerts -{{ "}}" }}
+
+                *Alert:* {{ "{{" }} .Annotations.summary {{ "}}" }}
+                *Description:* {{ "{{" }} .Annotations.message {{ "}}" }}
+                *Details:*
+                {{ "{{" }} range .Labels.SortedPairs {{ "}}" }}
+                • *{{ "{{" }} .Name {{ "}}" }}:* `{{ "{{" }} .Value {{ "}}" }}`
+                {{ "{{" }} end {{ "}}" }}
+                {{ "{{" }}- if .Annotations.runbook_url {{ "}}" }} :notebook: *<{{ "{{" }} .Annotations.runbook_url {{ "}}" }}|Runbook>* {{ "{{" }} end {{ "}}" }}
+
+                {{ "{{" }} end {{ "}}" }}
+              sendResolved: true
+
+
+        - name: alert_manager_warning
+          slackConfigs:
+            - apiURL:
+                name: alertmanager-secret
+                key: url_warning
+              username: "alertmanager"
+              color: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}warning{{ "{{" }} else {{ "}}" }}good{{ "{{" }} end {{ "}}" }}'
+              title: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}[FIRING]{{ "{{" }} else {{ "}}" }}[OK]{{ "{{" }} end {{ "}}" }} - {{ "{{" }} .CommonLabels.alertname {{ "}}" }}'
+              titleLink: "https://grafana.ayanides.cloud"
+              text: |-
+                {{ "{{" }} range .Alerts -{{ "}}" }}
+
+                *Alert:* {{ "{{" }} .Annotations.summary {{ "}}" }}
+                *Description:* {{ "{{" }} .Annotations.message {{ "}}" }}
+                *Details:*
+                {{ "{{" }} range .Labels.SortedPairs {{ "}}" }}
+                • *{{ "{{" }} .Name {{ "}}" }}:* `{{ "{{" }} .Value {{ "}}" }}`
+                {{ "{{" }} end {{ "}}" }}
+                {{ "{{" }}- if .Annotations.runbook_url {{ "}}" }} :notebook: *<{{ "{{" }} .Annotations.runbook_url {{ "}}" }}|Runbook>* {{ "{{" }} end {{ "}}" }}
+
+                {{ "{{" }} end {{ "}}" }}
+              sendResolved: true
+
+        - name: alert_manager_low
+          slackConfigs:
+            - apiURL:
+                name: alertmanager-secret
+                key: url_low
+              username: "alertmanager"
+              color: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}#439FE0{{ "{{" }} else {{ "}}" }}good{{ "{{" }} end {{ "}}" }}'
+              title: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}[FIRING]{{ "{{" }} else {{ "}}" }}[OK]{{ "{{" }} end {{ "}}" }} - {{ "{{" }} .CommonLabels.alertname {{ "}}" }}'
+              titleLink: "https://grafana.ayanides.cloud"
+              text: |-
+                {{ "{{" }} range .Alerts -{{ "}}" }}
+
+                *Alert:* {{ "{{" }} .Annotations.summary {{ "}}" }}
+                *Description:* {{ "{{" }} .Annotations.message {{ "}}" }}
+                *Details:*
+                {{ "{{" }} range .Labels.SortedPairs {{ "}}" }}
+                • *{{ "{{" }} .Name {{ "}}" }}:* `{{ "{{" }} .Value {{ "}}" }}`
+                {{ "{{" }} end {{ "}}" }}
+                {{ "{{" }}- if .Annotations.runbook_url {{ "}}" }} :notebook: *<{{ "{{" }} .Annotations.runbook_url {{ "}}" }}|Runbook>* {{ "{{" }} end {{ "}}" }}
+
+                {{ "{{" }} end {{ "}}" }}
+              sendResolved: true

@@ -383,6 +383,7 @@ applications:
           skipCrds: true
           valueFiles:
           - $values/monitoring/prometheus-stack/alertmanager.yaml
+          - $values/monitoring/prometheus-stack/alertmanagerconfig.yaml
           - $values/monitoring/prometheus-stack/grafana.yaml
           - $values/monitoring/prometheus-stack/ksm.yaml
           - $values/monitoring/prometheus-stack/node-exporter.yaml

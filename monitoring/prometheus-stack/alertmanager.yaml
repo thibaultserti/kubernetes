@@ -21,3 +21,17 @@ alertmanager:
       - secretName: alertmanager-tls
         hosts:
           - alertmanager.ayanides.cloud
+
+  alertmanagerSpec:
+    alertmanagerConfiguration:
+      name: kube-prometheus-stack-alertmanagerconfig
+    volumeMounts:
+      - mountPath: /mnt/secrets-store
+        name: secrets-store-inline
+    volumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: alertmanager

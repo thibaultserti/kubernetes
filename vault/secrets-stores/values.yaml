@@ -27,3 +27,17 @@ secretsStores:
         - kubernetesSecretKey: grafana-url
           vaultSecretPath: secrets/data/argocd/notifications
           vaultSecretKey: grafana_url
+  - name: alertmanager
+    namespace: monitoring
+    roleName: prometheus-stack-kube-prom-alertmanager
+    secrets:
+      alertmanager-secret:
+        - kubernetesSecretKey: url_critical
+          vaultSecretPath: secrets/data/alertmanager
+          vaultSecretKey: url_critical
+        - kubernetesSecretKey: url_warning
+          vaultSecretPath: secrets/data/alertmanager
+          vaultSecretKey: url_warning
+        - kubernetesSecretKey: url_low
+          vaultSecretPath: secrets/data/alertmanager
+          vaultSecretKey: url_low
