@@ -429,3 +429,27 @@ applications:
       automated:
         prune: true
         selfHeal: true
+
+# EXPORTERS
+  - name: blackbox-exporter
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://prometheus-community.github.io/helm-charts
+        chart: prometheus-blackbox-exporter
+        targetRevision: 8.2.0
+        helm:
+          valueFiles:
+          - $values/monitoring/blackbox-exporter/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

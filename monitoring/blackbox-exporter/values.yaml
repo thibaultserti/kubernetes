@@ -1,0 +1,39 @@
+serviceMonitor:
+  enabled: true
+  selfMonitor:
+    enabled: true
+
+prometheusRule:
+  enabled: true
+
+targets:
+  - name: pihole
+    url: https://pihole.ayanides.cloud
+    hostname: pihole.ayanides.cloud
+  - name: semaphore
+    url: https://semaphore.ayanides.cloud
+    hostname: semaphore.ayanides.cloud
+  - name: traefik
+    url: https://traefik.ayanides.cloud
+    hostname: traefik.ayanides.cloud
+  - name: kubernetes-dashboard
+    url: https://kubernetes.ayanides.cloud
+    hostname: kubernetes.ayanides.cloud
+  - name: argocd
+    url: https://argocd.ayanides.cloud
+    hostname: argocd.ayanides.cloud
+  - name: vault
+    url: https://vault.ayanides.cloud
+    hostname: vault.ayanides.cloud
+  - name: longhorn
+    url: https://longhorn.ayanides.cloud
+    hostname: longhorn.ayanides.cloud
+  - name: grafana
+    url: https://grafana.ayanides.cloud
+    hostname: grafana.ayanides.cloud
+  - name: prometheus
+    url: https://prometheus.ayanides.cloud
+    hostname: prometheus.ayanides.cloud
+  - name: alertmanager
+    url: https://alertmanager.ayanides.cloud
+    hostname: alertmanager.ayanides.cloud
