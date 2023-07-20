@@ -140,6 +140,7 @@ notifications:
         - on-health-degraded
         - on-sync-failed
         - on-sync-status-unknown
+        - on-deployed
     - recipients:
         - grafana:argocd
       triggers:
