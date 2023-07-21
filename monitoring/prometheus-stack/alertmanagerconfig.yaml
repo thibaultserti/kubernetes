@@ -10,12 +10,12 @@ extraManifests:
       inhibitRules:
         - sourceMatch:
             - name: severity
-              matchType: '='
-              value: critical
+              matchType: '=~'
+              value: critical|incident
           targetMatch:
             - name: severity
               matchType: '=~'
-              value: warning|info
+              value: warning|info|low
           equal:
             - 'namespace'
             - 'alertname'
@@ -23,6 +23,17 @@ extraManifests:
             - name: severity
               matchType: '='
               value: warning
+          targetMatch:
+            - name: severity
+              matchType: '=~'
+              value: info|low
+          equal:
+            - 'namespace'
+            - 'alertname'
+        - sourceMatch:
+            - name: severity
+              matchType: '='
+              value: low
           targetMatch:
             - name: severity
               matchType: '='
@@ -81,8 +92,8 @@ extraManifests:
           - receiver: alert_manager_warning
             matchers:
               - name: severity
-                matchType: '='
-                value: warning
+                matchType: '=~'
+                value: warning|info
           - receiver: alert_manager_critical
             matchers:
               - name: severity
