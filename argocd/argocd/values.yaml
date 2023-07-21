@@ -69,10 +69,11 @@ controller:
 
 # DEX
 dex:
+  enabled: false
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
 
 # REDIS
 
