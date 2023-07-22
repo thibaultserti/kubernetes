@@ -454,3 +454,22 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
+  - name: pihole-exporter
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: monitoring/pihole-exporter
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

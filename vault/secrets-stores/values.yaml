@@ -41,3 +41,14 @@ secretsStores:
         - kubernetesSecretKey: url_low
           vaultSecretPath: secrets/data/alertmanager
           vaultSecretKey: url_low
+  - name: pihole-exporter
+    namespace: monitoring
+    roleName: pihole-exporter
+    secrets:
+      pihole-exporter-secret:
+        - kubernetesSecretKey: hostname
+          vaultSecretPath: secrets/data/pihole-exporter
+          vaultSecretKey: hostname
+        - kubernetesSecretKey: api_token
+          vaultSecretPath: secrets/data/pihole-exporter
+          vaultSecretKey: api_token

@@ -1,0 +1,71 @@
+replicaCount: 1
+
+image:
+  repository: ekofr/pihole-exporter
+  pullPolicy: IfNotPresent
+  tag: "v0.4.0"
+
+serviceAccount:
+  create: true
+
+service:
+  type: ClusterIP
+  port: 9617
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+
+serviceMonitor:
+  enabled: true
+
+env:
+  - name: PIHOLE_PROTOCOL
+    value: http
+  - name: PIHOLE_PORT
+    value: "80"
+  - name: PIHOLE_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: pihole-exporter-secret
+        key: api_token
+  - name: PIHOLE_HOSTNAME
+    valueFrom:
+      secretKeyRef:
+        name: pihole-exporter-secret
+        key: hostname
+
+extraSecretMounts:
+  - name: secrets-store-inline
+    mountPath: "/mnt/secrets-store"
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: "pihole-exporter"
+
+extraVolumeMounts:
+  - name: ssl-certs
+    mountPath: /etc/ssl/certs
+
+extraVolumes:
+  - name: ssl-certs
+    hostPath:
+      path: "/etc/ssl/certs"
+
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+
+resources: {}
