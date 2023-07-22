@@ -37,3 +37,6 @@ serviceMonitor:
     - name: alertmanager
       url: https://alertmanager.ayanides.cloud
       hostname: alertmanager.ayanides.cloud
+    - name: hubble
+      url: https://hubble.ayanides.cloud
+      hostname: hubble.ayanides.cloud

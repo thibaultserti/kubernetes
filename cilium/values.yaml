@@ -1,1 +1,68 @@
 upgradeCompatibility: 1.13.4
+
+hubble:
+  enabled: true
+
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+    enableOpenMetrics: true
+    serviceMonitor:
+      enabled: true
+
+  tls:
+    enabled: false
+
+  relay:
+    enabled: true
+    prometheus:
+      enabled: true
+      port: 9966
+      serviceMonitor:
+        enabled: true
+
+  ui:
+    enabled: true
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      className: "traefik"
+      hosts:
+        - hubble.ayanides.cloud
+      tls:
+        - secretName: hubble-tls
+          hosts:
+            - hubble.ayanides.cloud
+
+
+# -- Configure prometheus metrics on the configured port at /metrics
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+
+  # -- Metrics that should be enabled or disabled from the default metric list.
+  # The list is expected to be separated by a space. (+metric_foo to enable
+  # metric_foo , -metric_bar to disable metric_bar).
+  # ref: https://docs.cilium.io/en/stable/observability/metrics/
+  metrics: ~
+
+
+
+operator:
+  enabled: true
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+preflight:
+  enabled: false
