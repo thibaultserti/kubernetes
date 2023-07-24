@@ -38,7 +38,7 @@ volumeMounts:
     name: secrets-store-inline
 volumes:
 - name: secrets-store-inline
-    csi:
+  csi:
     driver: secrets-store.csi.k8s.io
     readOnly: true
     volumeAttributes:

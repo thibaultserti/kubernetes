@@ -1,0 +1,37 @@
+clusterName: belt
+isSmallCluster: true
+globalConfig:
+  signing_key: "{{ env.SIGNING_KEY }}"
+  account_id: "{{ env.ACCOUNT_ID }}"
+sinksConfig:
+- robusta_sink:
+    name: robusta_ui_sink
+    token: "{{ env.ROBUSTA_UI_TOKEN }}"
+- discord_sink:
+    name: personal_discord_sink
+    url: "{{ env.DISCORD_URL }}"
+
+enablePlatformPlaybooks: true
+
+runner:
+  additional_env_vars:
+  - name: SIGNING_KEY
+    valueFrom:
+      secretKeyRef:
+        name: robusta-secret
+        key: signing_key
+  - name: ACCOUNT_ID
+    valueFrom:
+      secretKeyRef:
+        name: robusta-secret
+        key: account_id
+  - name: ROBUSTA_UI_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: robusta-secret
+        key: robusta_ui_token
+  - name: DISCORD_URL
+    valueFrom:
+      secretKeyRef:
+        name: robusta-secret
+        key: discord_url

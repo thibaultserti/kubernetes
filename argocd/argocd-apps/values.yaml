@@ -473,3 +473,47 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
+# ROBUSTA
+
+  - name: robusta
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://robusta-charts.storage.googleapis.com
+        chart: robusta
+        targetRevision: 0.10.20
+        helm:
+          valueFiles:
+          - $values/monitoring/robusta/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: robusta-secret-init
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: monitoring/robusta-secret-init
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

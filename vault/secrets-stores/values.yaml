@@ -52,3 +52,27 @@ secretsStores:
         - kubernetesSecretKey: api_token
           vaultSecretPath: secrets/data/pihole-exporter
           vaultSecretKey: api_token
+  - name: robusta
+    namespace: monitoring
+    roleName: robusta-runner-service-account
+    secrets:
+      robusta-secret:
+        - kubernetesSecretKey: signing_key
+          vaultSecretPath: secrets/data/robusta
+          vaultSecretKey: signing_key
+        - kubernetesSecretKey: account_id
+          vaultSecretPath: secrets/data/robusta
+          vaultSecretKey: account_id
+        - kubernetesSecretKey: discord_url
+          vaultSecretPath: secrets/data/robusta
+          vaultSecretKey: discord_url
+        - kubernetesSecretKey: robusta_ui_token
+          vaultSecretPath: secrets/data/robusta
+          vaultSecretKey: robusta_ui_token
+      robusta-auth-config-secret:
+        - kubernetesSecretKey: prv
+          vaultSecretPath: secrets/data/robusta
+          vaultSecretKey: rsa_private
+        - kubernetesSecretKey: pub
+          vaultSecretPath: secrets/data/robusta
+          vaultSecretKey: rsa_public
