@@ -40,3 +40,6 @@ serviceMonitor:
     - name: hubble
       url: https://hubble.ayanides.cloud
       hostname: hubble.ayanides.cloud
+    - name: minio
+      url: https://minio.ayanides.cloud
+      hostname: minio.ayanides.cloud

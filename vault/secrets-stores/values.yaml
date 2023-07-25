@@ -76,3 +76,14 @@ secretsStores:
         - kubernetesSecretKey: pub
           vaultSecretPath: secrets/data/robusta
           vaultSecretKey: rsa_public
+  - name: minio
+    namespace: minio
+    roleName: minio
+    secrets:
+      minio-secret:
+        - kubernetesSecretKey: root-user
+          vaultSecretPath: secrets/data/minio
+          vaultSecretKey: user
+        - kubernetesSecretKey: root-password
+          vaultSecretPath: secrets/data/minio
+          vaultSecretKey: password

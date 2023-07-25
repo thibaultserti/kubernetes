@@ -34,13 +34,13 @@ helm install ${CHART_NAME} ${CHART_PATH} \
 
 ```yaml
 volumeMounts:
-- mountPath: /mnt/secrets-store
+  - mountPath: /mnt/secrets-store
     name: secrets-store-inline
 volumes:
-- name: secrets-store-inline
-  csi:
-    driver: secrets-store.csi.k8s.io
-    readOnly: true
-    volumeAttributes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
         secretProviderClass: <secret-provider-class-name>
 ```

@@ -1,0 +1,81 @@
+
+mode: standalone
+
+auth:
+  existingSecret: "minio-secret"
+
+disableWebUI: false
+
+extraEnvVars:
+  - name: MINIO_PROMETHEUS_URL
+    value: http://prometheus-stack-kube-prom-prometheus.monitoring:9090
+  - name: MINIO_PROMETHEUS_JOB_ID
+    value: minio
+serviceAccount:
+  create: true
+  name: minio
+
+extraVolumeMounts:
+- mountPath: /mnt/secrets-store
+  name: secrets-store-inline
+
+extraVolumes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+          secretProviderClass: minio
+
+ingress:
+  enabled: true
+  ingressClassName: "traefik"
+  hostname: minio.ayanides.cloud
+  path: /
+  pathType: Prefix
+  servicePort: minio-console
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls: true
+
+apiIngress:
+  enabled: true
+  ingressClassName: ""
+  hostname: minio-api.ayanides.cloud
+  path: /
+  pathType: Prefix
+  servicePort: minio-api
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls: true
+
+
+persistence:
+  enabled: true
+  storageClass: "longhorn"
+  mountPath: /data
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+  annotations: {}
+  existingClaim: ""
+
+metrics:
+  serviceMonitor:
+    enabled: true
+
+  prometheusRule:
+    enabled: true
+    rules:
+      - alert: minio cluster nodes offline
+        annotations:
+          summary: "minio cluster nodes offline"
+          description: "minio cluster nodes offline, pod {{`{{`}} $labels.pod {{`}}`}} service {{`{{`}} $labels.job {{`}}`}} offline"
+        for: 10m
+        expr: minio_cluster_nodes_offline_total > 0
+        labels:
+          severity: critical

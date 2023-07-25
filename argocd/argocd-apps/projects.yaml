@@ -59,13 +59,28 @@ projects:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
-    description: Monitoring
+    description: Monitoring Project
     sourceRepos:
       - "*"
     destinations:
       - namespace: monitoring
         server: https://kubernetes.default.svc
       - namespace: kube-system
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+  - name: minio
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Minio Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: minio
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
