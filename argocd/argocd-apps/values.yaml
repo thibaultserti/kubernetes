@@ -56,7 +56,7 @@ applications:
     sources:
       - repoURL: https://helm.cilium.io
         chart: cilium
-        targetRevision: 1.13.4
+        targetRevision: 1.14.0
         helm:
           valueFiles:
           - $values/cilium/values.yaml
