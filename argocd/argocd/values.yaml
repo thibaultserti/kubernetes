@@ -16,7 +16,7 @@ configs:
     #oidc.config
 
   params:
-    otlp.adress: ""
+    otlp.address: ""
     server.insecure: true
 
   rbac:
