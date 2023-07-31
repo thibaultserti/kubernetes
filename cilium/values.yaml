@@ -1,4 +1,4 @@
-#upgradeCompatibility: 1.13.4
+upgradeCompatibility: 1.13.4
 
 hubble:
   enabled: true
@@ -56,15 +56,15 @@ prometheus:
   metrics: ~
 
 # Preflight checks
-agent: false
+#agent: false
 
 # Preflight checks
 operator:
-  enabled: false
+  enabled: true
   prometheus:
     enabled: true
     serviceMonitor:
       enabled: true
 
 preflight:
-  enabled: true
+  enabled: false
