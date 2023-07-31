@@ -444,7 +444,7 @@ applications:
         targetRevision: 8.2.0
         helm:
           valueFiles:
-          - $values/monitoring/blackbox-exporter/values.yaml
+          - $values/monitoring/exporters/blackbox-exporter/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -463,7 +463,7 @@ applications:
     project: monitoring
     sources:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: monitoring/pihole-exporter
+        path: monitoring/exporters/pihole-exporter
         helm:
           valueFiles:
           - values.yaml
@@ -488,7 +488,7 @@ applications:
         targetRevision: 0.10.20
         helm:
           valueFiles:
-          - $values/monitoring/robusta/values.yaml
+          - $values/monitoring/robusta/robusta/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -507,7 +507,7 @@ applications:
     project: monitoring
     sources:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: monitoring/robusta-secret-init
+        path: monitoring/robusta/robusta-secret-init
         helm:
           valueFiles:
           - values.yaml
@@ -555,10 +555,29 @@ applications:
         targetRevision: 0.34.1
         helm:
           valueFiles:
-          - $values/monitoring/opentelemetry-operator/values.yaml
+          - $values/monitoring/opentelemetry/opentelemetry-operator/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: opentelemetry-collector
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: monitoring/opentelemetry/opentelemetry-collector
+        helm:
+          valueFiles:
+          - values.yaml
     syncPolicy:
       automated:
         selfHeal: true

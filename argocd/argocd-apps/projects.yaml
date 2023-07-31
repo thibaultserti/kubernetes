@@ -60,6 +60,9 @@ projects:
     additionalLabels: {}
     additionalAnnotations: {}
     description: Monitoring Project
+    clusterResourceBlacklist:
+      - group: cilium.io
+        kind: CiliumIdentity
     sourceRepos:
       - "*"
     destinations:
