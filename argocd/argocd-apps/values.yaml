@@ -485,7 +485,7 @@ applications:
     sources:
       - repoURL: https://robusta-charts.storage.googleapis.com
         chart: robusta
-        targetRevision: 0.10.20
+        targetRevision: 0.10.21
         helm:
           valueFiles:
           - $values/monitoring/robusta/robusta/values.yaml
