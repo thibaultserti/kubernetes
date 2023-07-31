@@ -1,0 +1,16 @@
+manager:
+  # A full list of valud identifiers can be found here: https://github.com/open-telemetry/opentelemetry-operator/blob/main/pkg/featuregate/featuregate.go
+  featureGates: ""
+
+  serviceMonitor:
+    enabled: true
+
+  prometheusRule:
+    enabled: true
+    defaultRules:
+      enabled: true
+
+admissionWebhooks:
+  create: true
+  certManager:
+    enabled: true
