@@ -584,3 +584,50 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
+# LOKI
+  - name: loki
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://grafana.github.io/helm-charts
+        chart: loki
+        targetRevision: 5.9.2
+        helm:
+          valueFiles:
+          - $values/monitoring/loki/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: promtail
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://grafana.github.io/helm-charts
+        chart: promtail
+        targetRevision: 6.11.9
+        helm:
+          valueFiles:
+          - $values/monitoring/promtail/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

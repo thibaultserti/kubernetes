@@ -87,3 +87,14 @@ secretsStores:
         - kubernetesSecretKey: root-password
           vaultSecretPath: secrets/data/minio
           vaultSecretKey: password
+  - name: loki
+    namespace: monitoring
+    roleName: loki
+    secrets:
+      loki-bucket-secret:
+        - kubernetesSecretKey: S3_LOKI_ACCESS_KEY_ID
+          vaultSecretPath: secrets/data/loki
+          vaultSecretKey: s3_access_key_id
+        - kubernetesSecretKey: S3_LOKI_SECRET_ACCESS_KEY
+          vaultSecretPath: secrets/data/loki
+          vaultSecretKey: s3_secret_access_key
