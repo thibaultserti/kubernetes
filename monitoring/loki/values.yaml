@@ -21,7 +21,6 @@ loki:
     bucketNames:
       chunks: loki-chunks
       ruler: loki-ruler
-      admin: loki-admin
     type: s3
     s3:
       endpoint: http://minio.minio:9000
