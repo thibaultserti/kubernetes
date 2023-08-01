@@ -8,6 +8,18 @@ spec:
     - name: loki
       port: 3500
       protocol: TCP
+  ingress:
+    type: ingress
+    ingressClassName: "traefik"
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hostname: otlp.ayanides.cloud
+    tls:
+      - secretName: otlp-collector-tls
+        hosts:
+          - otlp.ayanides.cloud
   config: |
     receivers:
       loki:
