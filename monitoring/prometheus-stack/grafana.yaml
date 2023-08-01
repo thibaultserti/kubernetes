@@ -32,6 +32,7 @@ grafana:
 
   plugins:
     - grafana-piechart-panel
+    - grafana-worldmap-panel
 
   admin:
     existingSecret: grafana-secret
