@@ -6,9 +6,9 @@ manager:
     enabled: true
 
   prometheusRule:
-    enabled: true
-    defaultRules:
-      enabled: true
+    enabled: false
+    defaultRules: # WorkqueueDepth keep firing
+      enabled: false
 
 admissionWebhooks:
   create: true
