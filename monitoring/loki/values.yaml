@@ -57,6 +57,21 @@ loki:
       endpoint: http://minio.minio:9000
       insecure: true
 
+ingress:
+  enabled: true
+  ingressClassName: "traefik"
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - loki.ayanides.cloud
+  tls:
+    - secretName: loki-tls
+      hosts:
+        - loki.ayanides.cloud
+
+
 singleBinary:
   replicas: 1
   extraArgs:

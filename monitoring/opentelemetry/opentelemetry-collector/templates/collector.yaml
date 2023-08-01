@@ -5,9 +5,9 @@ metadata:
 spec:
   mode: deployment
   ports:
-    - name: loki
-      port: 3500
-      protocol: TCP
+    # - name: loki
+    #   port: 3500
+    #   protocol: TCP
   ingress:
     type: ingress
     ingressClassName: "traefik"
@@ -22,30 +22,18 @@ spec:
           - otlp.ayanides.cloud
   config: |
     receivers:
-      loki:
+      otlp:
         protocols:
+          grpc:
           http:
-        use_incoming_timestamp: true
-
     processors:
-      attributes:
-        actions:
-          - action: insert
-            key: loki.attribute.labels
-            value: container
-          - action: insert
-            key: loki.format
-            value: raw
 
     exporters:
-      loki:
-        endpoint: http://loki:3100/loki/api/v1/push
-        headers:
-          "X-Scope-OrgID": acme
+      logging:
 
     service:
       pipelines:
-        logs:
-          receivers: [loki]
-          processors: [attributes]
-          exporters: [loki]
+        traces:
+          receivers: [otlp]
+          processors: []
+          exporters: [logging]
