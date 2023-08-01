@@ -1,0 +1,4 @@
+nginxServer: "http://eros.ayanides.cloud:8080/status"
+
+serviceMonitor:
+  enabled: true
