@@ -16,7 +16,7 @@ configs:
     #oidc.config
 
   params:
-    otlp.address: ""
+    otlp.address: "tempo.monitoring:4317"
     server.insecure: true
 
   rbac:
