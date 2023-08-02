@@ -641,7 +641,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: promtail
-        targetRevision: 6.13.0
+        targetRevision: 6.13.1
         helm:
           valueFiles:
           - $values/monitoring/promtail/values.yaml
