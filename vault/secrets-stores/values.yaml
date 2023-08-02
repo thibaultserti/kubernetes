@@ -98,3 +98,14 @@ secretsStores:
         - kubernetesSecretKey: S3_LOKI_SECRET_ACCESS_KEY
           vaultSecretPath: secrets/data/loki
           vaultSecretKey: s3_secret_access_key
+  - name: tempo
+    namespace: monitoring
+    roleName: tempo
+    secrets:
+      tempo-bucket-secret:
+        - kubernetesSecretKey: S3_TEMPO_ACCESS_KEY_ID
+          vaultSecretPath: secrets/data/tempo
+          vaultSecretKey: s3_access_key_id
+        - kubernetesSecretKey: S3_TEMPO_SECRET_ACCESS_KEY
+          vaultSecretPath: secrets/data/tempo
+          vaultSecretKey: s3_secret_access_key

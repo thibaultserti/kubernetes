@@ -1,0 +1,110 @@
+
+
+tempo:
+  reportingEnabled: false
+  metricsGenerator:
+    enabled: true
+    remoteWriteUrl: "http://prometheus-stack-kube-prom-prometheus:9090/api/v1/write"
+
+  storage:
+    trace:
+      backend: s3
+      s3:
+        bucket: tempo
+        endpoint: minio.minio:9000
+        access_key:
+        secret_key:
+        insecure: true
+
+  # this configuration will listen on all ports and protocols that tempo is capable of.
+  # the receives all come from the OpenTelemetry collector.  more configuration information can
+  # be found there: https://github.com/open-telemetry/opentelemetry-collector/tree/master/receiver
+  receivers:
+    jaeger:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:14250
+        thrift_binary:
+          endpoint: 0.0.0.0:6832
+        thrift_compact:
+          endpoint: 0.0.0.0:6831
+        thrift_http:
+          endpoint: 0.0.0.0:14268
+    opencensus:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: "0.0.0.0:4317"
+        http:
+          endpoint: "0.0.0.0:4318"
+
+  extraVolumeMounts:
+    - mountPath: /mnt/secrets-store
+      name: secrets-store-inline
+
+  extraArgs:
+    config.expand-env: true
+  extraEnv:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: tempo-bucket-secret
+          key: S3_TEMPO_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: tempo-bucket-secret
+          key: S3_TEMPO_SECRET_ACCESS_KEY
+
+
+tempoQuery:
+  repository: grafana/tempo-query
+  tag: null
+  pullPolicy: IfNotPresent
+
+  enabled: true
+
+  service:
+    port: 16686
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    path: /
+    pathType: Prefix
+    hosts:
+      - tempo.ayanides.cloud
+    tls:
+     - secretName: tempo-query-tls
+       hosts:
+         - tempo.ayanides.cloud
+
+
+serviceAccount:
+  create: true
+  name: tempo
+
+
+serviceMonitor:
+  enabled: true
+
+
+persistence:
+  enabled: true
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+
+
+extraVolumes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: tempo

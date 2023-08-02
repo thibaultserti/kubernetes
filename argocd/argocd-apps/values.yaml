@@ -654,3 +654,27 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
+# TEMPO
+  - name: tempo
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://grafana.github.io/helm-charts
+        chart: tempo
+        targetRevision: 1.4.0
+        helm:
+          valueFiles:
+          - $values/monitoring/tempo/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
