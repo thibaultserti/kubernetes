@@ -31,6 +31,8 @@ prometheus:
 
 
   prometheusSpec:
+    enableRemoteWriteReceiver: true
+
     # look for CRD on the whole cluster
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
