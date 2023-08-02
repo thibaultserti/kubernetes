@@ -6,14 +6,29 @@
   "enabledManagers": ["regex"],
   "regexManagers": [
     {
-      "description": "Update Helm Charts in Argo CD apps Helm values",
-      "fileMatch": [
-        "argo.*/.*\\.ya?ml$"
-      ],
-      "matchStrings": [
-        "repoURL: ['\"]?(?<registryUrl>.*)['\"]?\\s*chart: ['\"]?(?<depName>.*)['\"]?\\s*targetRevision: ['\"]?(?<currentValue>.*)['\"]?\\s*(?<datasource>.*):"
-      ],
-      "versioningTemplate": "helm"
-    }
-  ]
+        "description": "Update version from any .yaml, .sh and Dockerfile files",
+        "fileMatch": [
+            "\\.ya?ml$",
+            "\\.sh$",
+            "(^|/|\\.)[Dd]ockerfile$"
+        ],
+        "matchStrings": [
+            "#\\s?renovate\\s?: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( registryUrl=(?<registryUrl>.*?))?( versioning=(?<versioning>.*?))?\\s*.+\\s*[:=]\\s*['\"]?(?<currentValue>.*)['\"]?"
+        ],
+        "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+        "description": "Update Helm Charts in Argo CD apps Helm values",
+        "fileMatch": [
+            "argo.*/.*\\.ya?ml$"
+        ],
+        "matchStrings": [
+            "repoURL: ['\"]?(?<registryUrl>.*)['\"]?\\s*chart: ['\"]?(?<depName>.*)['\"]?\\s*targetRevision: ['\"]?(?<currentValue>.*)['\"]?"
+        ],
+        "datasourceTemplate": "{{#if (containsString registryUrl 'docker.io')}}docker{{else}}helm{{/if}}",
+        "registryUrlTemplate": "{{#if (containsString registryUrl 'docker.io')}}https://index.docker.io{{else}}{{{registryUrl}}}{{/if}}",
+        "versioningTemplate": "helm"
+  }
+]
+
 }
