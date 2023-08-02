@@ -43,3 +43,6 @@ serviceMonitor:
     - name: minio
       url: https://minio.ayanides.cloud
       hostname: minio.ayanides.cloud
+    - name: tempo
+      url: https://tempo.ayanides.cloud
+      hostname: tempo.ayanides.cloud

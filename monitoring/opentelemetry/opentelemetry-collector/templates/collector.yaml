@@ -26,14 +26,13 @@ spec:
         protocols:
           grpc:
           http:
-    processors:
-
     exporters:
-      logging:
-
+      otlp:
+        endpoint: tempo:4317
+        tls:
+          insecure: true
     service:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: []
-          exporters: [logging]
+          exporters: [otlp]
