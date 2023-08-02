@@ -70,3 +70,10 @@ metrics:
           annotations:
             summary: "Traefik Down"
             description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
+
+tracing:
+  zipkin:
+    httpEndpoint: http://tempo.monitoring:9411/api/v2/spans
+    sameSpan: false
+    id128Bit: true
+    sampleRate: 1.0
