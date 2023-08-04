@@ -1,0 +1,106 @@
+
+crds:
+  install: true
+
+# Configuration
+config:
+  create: true
+  excludeKyvernoNamespace: true
+
+features:
+  admissionReports:
+    enabled: true
+  policyReports:
+    enabled: true
+  autoUpdateWebhooks:
+    enabled: true
+  backgroundScan:
+    enabled: true
+  configMapCaching:
+    enabled: true
+  deferredLoading:
+    enabled: true
+  dumpPayload:
+    enabled: false
+  forceFailurePolicyIgnore:
+    enabled: false
+  logging:
+    format: text
+    verbosity: 2
+
+cleanupJobs:
+  admissionReports:
+    enabled: true
+
+  clusterAdmissionReports:
+    enabled: true
+
+admissionController:
+  replicas: 3
+  metricsService:
+    create: true
+
+  serviceMonitor:
+    enabled: true
+
+  tracing:
+    enabled: true
+    address: tempo.monitoring
+    port: 4317
+
+  metering:
+    disabled: false
+
+backgroundController:
+  enabled: true
+  replicas: 2
+
+  metricsService:
+    create: true
+
+  serviceMonitor:
+    enabled: true
+
+  tracing:
+    enabled: true
+    address: tempo.monitoring
+    port: 4317
+
+  metering:
+    disabled: false
+
+cleanupController:
+  enabled: true
+  replicas: 2
+
+  metricsService:
+    create: true
+
+  serviceMonitor:
+    enabled: true
+
+  tracing:
+    enabled: true
+    address: tempo.monitoring
+    port: 4317
+
+  metering:
+    disabled: false
+
+reportsController:
+  enabled: true
+  replicas: 2
+
+  metricsService:
+    create: true
+
+  serviceMonitor:
+    enabled: true
+
+  tracing:
+    enabled: true
+    address: tempo.monitoring
+    port: 4317
+
+  metering:
+    disabled: false

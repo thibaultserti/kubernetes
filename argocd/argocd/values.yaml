@@ -12,9 +12,17 @@ configs:
     admin.enabled: true
     exec.enabled: true
     server.rbac.log.enforce.enable: false
-    #dex.config
-    #oidc.config
-
+    # Hide Kyverno Policy in Argo CD UI
+    resource.exclusions: |
+      - apiGroups:
+          - kyverno.io
+        kinds:
+          - AdmissionReport
+          - BackgroundScanReport
+          - ClusterAdmissionReport
+          - ClusterBackgroundScanReport
+        clusters:
+          - '*'
   params:
     otlp.address: "tempo.monitoring:4317"
     server.insecure: true
