@@ -105,15 +105,17 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
-  - name: trivy
+  - name: security
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
-    description: Trivy Project
+    description: Security Project
     sourceRepos:
       - "*"
     destinations:
       - namespace: trivy
+        server: https://kubernetes.default.svc
+      - namespace: polaris
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"

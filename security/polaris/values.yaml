@@ -1,0 +1,92 @@
+config:
+  checks:
+    # reliability
+    deploymentMissingReplicas: warning
+    priorityClassNotSet: warning
+    tagNotSpecified: danger
+#    pullPolicyNotAlways: warning
+    readinessProbeMissing: warning
+    livenessProbeMissing: warning
+#    metadataAndInstanceMismatched: warning
+    pdbDisruptionsIsZero: warning
+    missingPodDisruptionBudget: warning
+    topologySpreadConstraint: warning
+
+    # efficiency
+    cpuRequestsMissing: warning
+#    cpuLimitsMissing: warning
+    memoryRequestsMissing: warning
+    memoryLimitsMissing: warning
+
+    # security
+    automountServiceAccountToken: warning
+    hostIPCSet: danger
+    hostPIDSet: danger
+    linuxHardening: warning
+    missingNetworkPolicy: warning
+    notReadOnlyRootFilesystem: warning
+    privilegeEscalationAllowed: danger
+    runAsRootAllowed: danger
+    runAsPrivileged: danger
+    dangerousCapabilities: danger
+    insecureCapabilities: warning
+    hostNetworkSet: danger
+    hostPortSet: warning
+    tlsSettingsMissing: warning
+    sensitiveContainerEnvVar: danger
+    sensitiveConfigmapContent: danger
+    clusterrolePodExecAttach: danger
+    rolePodExecAttach: danger
+    clusterrolebindingPodExecAttach: danger
+    rolebindingClusterRolePodExecAttach: danger
+    rolebindingRolePodExecAttach: danger
+    clusterrolebindingClusterAdmin: danger
+    rolebindingClusterAdminClusterRole: danger
+    rolebindingClusterAdminRole: danger
+
+  exemptions:
+    - controllerNames:
+      - ingress-nginx-controller
+      rules:
+        - sensitiveConfigmapContent
+        - notReadOnlyRootFilesystem
+    - controllerNames:
+        - polaris
+      rules:
+        - automountServiceAccountToken
+    - controllerNames:
+      - cert-manager
+      rules:
+        - cpuRequestsMissing
+        - cpuLimitsMissing
+        - memoryRequestsMissing
+        - memoryLimitsMissing
+    - controllerNames:
+      - polaris
+      rules:
+        - notReadOnlyRootFilesystem
+
+dashboard:
+  enable: true
+  replicas: 1
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - polaris.ayanides.cloud
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    tls:
+    - secretName: polaris-tls
+      hosts:
+        - polaris.ayanides.cloud
+    defaultBackendEnabled: false
+
+
+webhook:
+  enable: false
+  validate: true
+  mutate: false

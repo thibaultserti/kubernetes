@@ -727,20 +727,43 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-# TRIVY
+# Security
   - name: trivy-operator
     namespace: argocd
     destination:
       namespace: trivy
       server: https://kubernetes.default.svc
-    project: trivy
+    project: security
     sources:
       - repoURL: https://aquasecurity.github.io/helm-charts/
         chart: trivy-operator
         targetRevision: 0.15.1
         helm:
           valueFiles:
-          - $values/trivy-operator/values.yaml
+          - $values/security/trivy-operator/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: polaris
+    namespace: argocd
+    destination:
+      namespace: polaris
+      server: https://kubernetes.default.svc
+    project: security
+    sources:
+      - repoURL: https://charts.fairwinds.com/stable
+        chart: polaris
+        targetRevision: 5.11.2
+        helm:
+          valueFiles:
+          - $values/security/polaris/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values

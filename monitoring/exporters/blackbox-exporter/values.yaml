@@ -46,3 +46,6 @@ serviceMonitor:
     - name: tempo
       url: https://tempo.ayanides.cloud
       hostname: tempo.ayanides.cloud
+    - name: polaris
+      url: https://polaris.ayanides.cloud
+      hostname: polaris.ayanides.cloud
