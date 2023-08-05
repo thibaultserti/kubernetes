@@ -726,3 +726,27 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
+# TRIVY
+  - name: trivy-operator
+    namespace: argocd
+    destination:
+      namespace: trivy
+      server: https://kubernetes.default.svc
+    project: trivy
+    sources:
+      - repoURL: https://aquasecurity.github.io/helm-charts/
+        chart: trivy-operator
+        targetRevision: 0.15.1
+        helm:
+          valueFiles:
+          - $values/trivy-operator/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

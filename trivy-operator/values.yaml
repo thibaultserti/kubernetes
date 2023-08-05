@@ -1,0 +1,21 @@
+operator:
+  vulnerabilityScannerEnabled: true
+  configAuditScannerEnabled: true
+  rbacAssessmentScannerEnabled: true
+  clusterComplianceEnabled: true
+  vulnerabilityScannerScanOnlyCurrentRevisions: true
+  configAuditScannerScanOnlyCurrentRevisions: true
+  metricsFindingsEnabled: true
+  exposedSecretScannerEnabled: true
+  webhookBroadcastURL: ""
+
+
+serviceMonitor:
+  enabled: true
+
+trivyOperator:
+  vulnerabilityReportsPlugin: "Trivy"
+  configAuditReportsPlugin: "Trivy"
+
+trivy:
+  ignoreUnfixed: true
