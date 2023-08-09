@@ -15,6 +15,7 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+
   - name: system
     namespace: argocd
     additionalLabels: {}
@@ -40,6 +41,7 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+
   - name: vault
     namespace: argocd
     additionalLabels: {}
@@ -55,6 +57,7 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+
   - name: monitoring
     namespace: argocd
     additionalLabels: {}
@@ -75,6 +78,7 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+
   - name: minio
     namespace: argocd
     additionalLabels: {}
@@ -90,6 +94,7 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+
   - name: kyverno
     namespace: argocd
     additionalLabels: {}
@@ -105,6 +110,7 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+
   - name: security
     namespace: argocd
     additionalLabels: {}
@@ -116,6 +122,22 @@ projects:
       - namespace: trivy
         server: https://kubernetes.default.svc
       - namespace: polaris
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+
+  - name: example
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Example Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: example
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"

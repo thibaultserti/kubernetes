@@ -1,0 +1,113 @@
+default:
+  envOverrides:
+    - name: OTEL_COLLECTOR_NAME
+      value: "otlp-collector.monitoring"
+
+components:
+
+  accountingService:
+    enabled: true
+
+  adService:
+    enabled: true
+
+  cartService:
+    enabled: true
+
+  checkoutService:
+    enabled: true
+
+  currencyService:
+    enabled: true
+
+  emailService:
+    enabled: true
+
+  featureflagService:
+    enabled: true
+
+  frauddetectionService:
+    enabled: true
+
+  frontend:
+    enabled: true
+    envOverrides:
+      - name: PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+        value: http://otlp.ayanides.cloud/v1/traces
+
+  frontendProxy:
+    enabled: true
+    envOverrides:
+      - name: GRAFANA_SERVICE_HOST
+        value: prometheus-stack-grafana.monitoring
+      - name: JAEGER_SERVICE_HOST
+        value: tempo.monitoring
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      ingressClassName: traefik
+      hosts:
+        - host: opentelemetry-demo.ayanides.cloud
+          paths:
+            - path: /
+              pathType: Prefix
+              port: 8080
+      tls:
+        - secretName: opentelemetry-demo-tls
+          hosts:
+            - opentelemetry-demo.ayanides.cloud
+
+  loadgenerator:
+    enabled: true
+
+  paymentService:
+    enabled: true
+
+  productCatalogService:
+    enabled: true
+
+  quoteService:
+    enabled: true
+
+  recommendationService:
+    enabled: true
+
+  shippingService:
+    enabled: true
+
+  ffsPostgres:
+    enabled: true
+
+  kafka:
+    enabled: true
+
+  redis:
+    enabled: true
+
+# SUBCHARTS
+
+opentelemetry-collector:
+  enabled: false
+
+jaeger:
+  enabled: false
+
+prometheus:
+  enabled: false
+  alertmanager:
+    enabled: false
+  configmapReload:
+    prometheus:
+      enabled: false
+  kube-state-metrics:
+    enabled: false
+  prometheus-node-exporter:
+    enabled: false
+  prometheus-pushgateway:
+    enabled: false
+
+grafana:
+  enabled: false

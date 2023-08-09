@@ -2,12 +2,18 @@ apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
   name: otlp
+  labels:
+    app.kubernetes.io/name: opentelemetry-collector
+
 spec:
   mode: deployment
   ports:
     # - name: loki
     #   port: 3500
     #   protocol: TCP
+      - name: prometheus
+        port: 9464
+        protocol: TCP
   ingress:
     type: ingress
     ingressClassName: "traefik"
@@ -26,13 +32,38 @@ spec:
         protocols:
           grpc:
           http:
+            cors:
+              allowed_origins:
+                - "http://*"
+                - "https://*"
     exporters:
       otlp:
         endpoint: tempo:4317
         tls:
           insecure: true
+      prometheus:
+        endpoint: 0.0.0.0:9464
+        resource_to_telemetry_conversion:
+          enabled: true
+        enable_open_metrics: true
+
+    processors:
+      batch:
+      memory_limiter:
+        check_interval: 1s
+        limit_percentage: 50
+        spike_limit_percentage: 30
+
+    connectors:
+      spanmetrics:
+
     service:
       pipelines:
         traces:
           receivers: [otlp]
-          exporters: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [otlp, spanmetrics]
+        metrics:
+          receivers: [otlp, spanmetrics]
+          processors: [memory_limiter, batch]
+          exporters: [prometheus]
