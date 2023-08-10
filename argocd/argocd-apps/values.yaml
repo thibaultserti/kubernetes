@@ -598,7 +598,7 @@ applications:
     sources:
       - repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
         chart: opentelemetry-operator
-        targetRevision: 0.34.1
+        targetRevision: 0.35.0
         helm:
           valueFiles:
           - $values/monitoring/opentelemetry/opentelemetry-operator/values.yaml
