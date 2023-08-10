@@ -1,0 +1,12 @@
+metrics:
+  enabled: true
+
+
+securityContext:
+  pod:
+    fsGroup: 100
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 100
+  container:
+    allowPrivilegeEscalation: false

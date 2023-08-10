@@ -679,6 +679,30 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# SLOTH
+  - name: sloth
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://slok.github.io/sloth
+        chart: sloth
+        targetRevision: 0.7.0
+        helm:
+          valueFiles:
+          - $values/monitoring/sloth/sloth/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # KYVERNO
   - name: kyverno
     namespace: argocd
