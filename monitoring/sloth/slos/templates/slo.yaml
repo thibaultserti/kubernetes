@@ -1,0 +1,36 @@
+{{- range $slo := .Values.slos }}
+---
+apiVersion: sloth.slok.dev/v1
+kind: PrometheusServiceLevel
+metadata:
+  name: {{ $slo.name }}
+spec:
+  service: {{ $slo.name }}
+  slos:
+    - name: "requests-availability"
+      objective: {{ $slo.objective }}
+      description: "Common SLO based on availability for HTTP request responses."
+      sli:
+        events:
+          errorQuery: count_over_time((probe_http_status_code{target="{{ $slo.name }}"}>=400)[{{`{{ .window }}`}}:])
+          totalQuery: count_over_time(probe_http_status_code{target="{{ $slo.name }}"}[{{`{{ .window }}`}}:])
+      alerting:
+        name: MyServiceHighErrorRate
+        labels:
+          category: "availability"
+        annotations:
+          summary: "High error rate on {{ $slo.name }} requests responses"
+    - name: "requests-latency"
+      objective: {{ $slo.objective }}
+      description: "Common SLO based on latency for HTTP request."
+      sli:
+        events:
+          errorQuery: sum_over_time((count(quantile(0.95, probe_duration_seconds{target="{{ $slo.name }}"}) > 0.5))[{{`{{.window}}`}}:]) OR on() vector(0)
+          totalQuery: sum_over_time((count(quantile(0.95, probe_duration_seconds{target="{{ $slo.name }}"})))[{{`{{.window}}`}}:]) OR on() vector(0)
+      alerting:
+        name: MyServiceHighLatency
+        labels:
+          category: "latency"
+        annotations:
+          summary: "High latency rate {{ $slo.name }} requests responses"
+{{- end }}

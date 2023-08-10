@@ -1,0 +1,27 @@
+slos:
+  - name: pihole
+    objective: 99
+  - name: semaphore
+    objective: 99
+  - name: traefik
+    objective: 99
+  - name: kubernetes-dashboard
+    objective: 99
+  - name: argocd
+    objective: 99
+  - name: vault
+    objective: 99
+  - name: longhorn
+    objective: 99
+  - name: grafana
+    objective: 99
+  - name: prometheus
+    objective: 99
+  - name: alertmanager
+    objective: 99
+  - name: hubble
+    objective: 99
+  - name: minio
+    objective: 99
+  - name: tempo
+    objective: 99

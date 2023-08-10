@@ -703,6 +703,25 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: slos
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: monitoring/sloth/slos
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # KYVERNO
   - name: kyverno
     namespace: argocd
