@@ -25,3 +25,5 @@ slos:
     objective: 99
   - name: tempo
     objective: 99
+  - name: kyverno
+    objective: 99

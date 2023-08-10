@@ -793,7 +793,30 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-# Security
+  - name: policy-reporter
+    namespace: argocd
+    destination:
+      namespace: kyverno
+      server: https://kubernetes.default.svc
+    project: kyverno
+    sources:
+      - repoURL: https://kyverno.github.io/policy-reporter
+        chart: policy-reporter
+        targetRevision: 2.19.4
+        helm:
+          valueFiles:
+          - $values/kyverno/policy-reporter/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+# SECURITY
   - name: trivy-operator
     namespace: argocd
     destination:
@@ -843,7 +866,7 @@ applications:
 
 
 
-# Examples
+# EXAMPLES
   - name: opentelemetry-demo
     namespace: argocd
     destination:
