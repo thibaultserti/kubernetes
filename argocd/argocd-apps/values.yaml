@@ -497,6 +497,29 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: kepler-exporter
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://sustainable-computing-io.github.io/kepler-helm-chart
+        chart: kepler
+        targetRevision: 0.5.0
+        helm:
+          valueFiles:
+          - $values/monitoring/exporters/kepler-exporter/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # ROBUSTA
 
   - name: robusta
