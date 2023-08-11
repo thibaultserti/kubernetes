@@ -1,2 +1,5 @@
-args:
-  - --kubelet-insecure-tls
+# Only mandatory when there kubelet has not serverTLSBootsrap: true
+# and when there is no kubelet-csr-approver process
+
+# args:
+#   - --kubelet-insecure-tls
