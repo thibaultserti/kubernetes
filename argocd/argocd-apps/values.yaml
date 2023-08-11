@@ -295,6 +295,29 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: kubelet-csr-approver
+    namespace: argocd
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://postfinance.github.io/kubelet-csr-approver
+        chart: kubelet-csr-approver
+        targetRevision: 0.0.1-dummy
+        helm:
+          valueFiles:
+          - $values/k8s-sigs/kubelet-csr-approver/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # LONGHORN
   - name: longhorn
     namespace: argocd
@@ -386,26 +409,6 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
-
-  - name: vault-snapshot
-    namespace: argocd
-    destination:
-      namespace: vault
-      server: https://kubernetes.default.svc
-    project: vault
-    sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: vault/vault-snapshot
-        helm:
-          valueFiles:
-          - values.yaml
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
-
 
 # KUBE-PROMETHEUS-STACK
   - name: prometheus-stack
