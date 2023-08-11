@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: longhorn-backup
+  labels:
+    app: longhorn-backup
+spec:
+  selector:
+    matchLabels:
+      app: longhorn-backup
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: longhorn-backup
+    spec:
+      serviceAccountName: longhorn-service-account
+      containers:
+        - name: init
+          image: busybox
+          command: ["/bin/sh", "-ec", "sleep infinity"]
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: /mnt/secrets-store
+              readOnly: true
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: longhorn
