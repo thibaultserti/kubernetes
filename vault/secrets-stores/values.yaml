@@ -109,3 +109,18 @@ secretsStores:
         - kubernetesSecretKey: S3_TEMPO_SECRET_ACCESS_KEY
           vaultSecretPath: secrets/data/tempo
           vaultSecretKey: s3_secret_access_key
+  - name: vault-snapshot
+    namespace: vault
+    roleName: vault-snapshot
+    secrets:
+      vault-snapshot-agent-token:
+        - kubernetesSecretKey: VAULT_APPROLE_ROLE_ID
+          vaultSecretPath: secrets/data/vault-snapshot
+          vaultSecretKey: vault_approle_role_id
+        - kubernetesSecretKey: VAULT_APPROLE_SECRET_ID
+          vaultSecretPath: secrets/data/vault-snapshot
+          vaultSecretKey: vault_approle_secret_id
+      vault-snapshot-gcs:
+        - kubernetesSecretKey: GOOGLE_APPLICATION_CREDENTIALS
+          vaultSecretPath: secrets/data/vault-snapshot
+          vaultSecretKey: google_application_credentials

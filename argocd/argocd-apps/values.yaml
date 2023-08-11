@@ -368,6 +368,26 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: vault-snapshot
+    namespace: argocd
+    destination:
+      namespace: vault
+      server: https://kubernetes.default.svc
+    project: vault
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: vault/vault-snapshot
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+
 # KUBE-PROMETHEUS-STACK
   - name: prometheus-stack
     namespace: argocd

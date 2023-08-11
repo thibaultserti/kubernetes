@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: vault-snapshot-cronjob
+spec:
+  schedule: "@every 12h"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: "vault-snapshot"
+          volumes:
+          - name: share
+            emptyDir: {}
+          - name: secrets-store-inline
+            csi:
+              driver: secrets-store.csi.k8s.io
+              readOnly: true
+              volumeAttributes:
+                secretProviderClass: vault-snapshot
+          containers:
+          - name: snapshot
+            image: hashicorp/vault:1.14
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            args:
+            - -ec
+            - |
+              wget -q https://github.com/jqlang/jq/releases/download/jq-1.6/jq-linux64 -O jq
+              chmod +x jq
+              export VAULT_TOKEN=$(vault write auth/approle/login role_id=$VAULT_APPROLE_ROLE_ID secret_id=$VAULT_APPROLE_SECRET_ID -format=json | ./jq -r .auth.client_token);
+              vault operator raft snapshot save /share/vault-raft.snap;
+            envFrom:
+            - secretRef:
+                name: vault-snapshot-agent-token
+            env:
+            - name: VAULT_ADDR
+              value: http://vault:8200
+            volumeMounts:
+            - mountPath: /share
+              name: share
+            - mountPath: /mnt/secrets-store
+              name: secrets-store-inline
+          - name: upload
+            image: google/cloud-sdk:442.0.0-slim
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            args:
+            - -ec
+            # the script wait untill the snapshot file is available
+            # then upload to s3
+            # for folks using non-aws S3 like IBM Cloud Object Storage service, add a `--endpoint-url` option
+            # run `aws --endpoint-url <https://your_s3_endpoint> s3 cp ...`
+            # change the s3://<path> to your desired location
+            - |
+              until [ -f /share/vault-raft.snap ]; do sleep 5; done;
+              gsutil -m cp /share/vault-raft.snap gcs://vault-infra-snapshot/vault_raft_$(date +"%Y%m%d_%H%M%S").snap;
+            envFrom:
+            - secretRef:
+                name: vault-snapshot-gcs
+            volumeMounts:
+            - mountPath: /share
+              name: share
+            - mountPath: /mnt/secrets-store
+              name: secrets-store-inline
+          restartPolicy: OnFailure
