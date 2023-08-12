@@ -25,7 +25,7 @@ spec:
       description: "Common SLO based on latency for HTTP request."
       sli:
         events:
-          errorQuery: sum_over_time((count(quantile(0.95, probe_duration_seconds{target="{{ $slo.name }}"}) > 0.5))[{{`{{.window}}`}}:]) OR on() vector(0)
+          errorQuery: sum_over_time((count(quantile(0.95, probe_duration_seconds{target="{{ $slo.name }}"}) > 1))[{{`{{.window}}`}}:]) OR on() vector(0)
           totalQuery: sum_over_time((count(quantile(0.95, probe_duration_seconds{target="{{ $slo.name }}"})))[{{`{{.window}}`}}:]) OR on() vector(0)
       alerting:
         name: MyServiceHighLatency
