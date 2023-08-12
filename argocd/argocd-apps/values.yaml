@@ -744,6 +744,30 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# MIMIR
+  - name: mimir
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://grafana.github.io/helm-charts
+        chart: mimir-distributed
+        targetRevision: 5.1.0-weekly.249
+        helm:
+          valueFiles:
+          - $values/monitoring/mimir/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # SLOTH
   - name: sloth
     namespace: argocd

@@ -1,0 +1,124 @@
+global:
+  extraEnvFrom:
+    - secretRef:
+        name: mimir-bucket-secret
+mimir:
+  structuredConfig:
+    alertmanager_storage:
+      s3:
+        access_key_id: ${S3_MIMIR_ACCESS_KEY_ID}
+        bucket_name: mimir-alert
+        endpoint: minio.minio:9000
+        secret_access_key: ${S3_MIMIR_SECRET_ACCESS_KEY}
+        insecure: true
+    blocks_storage:
+      backend: s3
+      bucket_store:
+        sync_dir: /data/tsdb-sync
+      s3:
+        access_key_id: ${S3_MIMIR_ACCESS_KEY_ID}
+        bucket_name: mimir
+        endpoint: minio.minio:9000
+        secret_access_key: ${S3_MIMIR_SECRET_ACCESS_KEY}
+        insecure: true
+      tsdb:
+        dir: /data/tsdb
+    compactor:
+      data_dir: /data
+    frontend:
+      align_queries_with_step: true
+      log_queries_longer_than: 10s
+    ingester:
+      instance_limits:
+        max_ingestion_rate: 0
+      ring:
+        final_sleep: 0s
+        num_tokens: 512
+    ingester_client:
+      grpc_client_config:
+        max_recv_msg_size: 104857600
+        max_send_msg_size: 104857600
+    limits:
+      ingestion_rate: 40000
+      compactor_blocks_retention_period: 2d
+      max_global_series_per_metric: 0
+      max_global_series_per_user: 0
+      max_label_names_per_series: 50
+      compactor_block_upload_enabled: true
+    memberlist:
+      abort_if_cluster_join_fails: false
+      compression_enabled: false
+    ruler:
+      alertmanager_url: http://alertmanager-operated:9093
+      enable_api: true
+      rule_path: /data
+    ruler_storage:
+      s3:
+        access_key_id: ${S3_MIMIR_ACCESS_KEY_ID}
+        bucket_name: mimir-ruler
+        endpoint: minio.minio:9000
+        secret_access_key: ${S3_MIMIR_SECRET_ACCESS_KEY}
+        insecure: true
+    runtime_config:
+      file: /var/{{ include "mimir.name" . }}/runtime.yaml
+    server:
+      grpc_server_max_concurrent_streams: 1000
+      grpc_server_max_recv_msg_size: 104857600
+      grpc_server_max_send_msg_size: 104857600
+
+ingester:
+  zoneAwareReplication:
+    enabled: false
+  extraVolumeMounts:
+    - mountPath: /mnt/secrets-store
+      name: secrets-store-inline
+  extraVolumes:
+    - name: secrets-store-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: mimir
+
+store_gateway:
+  zoneAwareReplication:
+    enabled: false
+
+gateway:
+  enabledNonEnterprise: true
+
+chunks-cache:
+  enabled: true
+
+metadata-cache:
+  enabled: true
+
+results-cache:
+  enabled: true
+
+
+alertmanager:
+  enabled: false
+
+minio:
+  enabled: false
+
+nginx:
+  enabled: false
+
+metaMonitoring:
+  dashboards:
+    enabled: true
+    labels:
+      grafana_dashboard: "1"
+
+  serviceMonitor:
+    enabled: true
+
+  prometheusRule:
+    enabled: true
+    mimirAlerts: false
+    mimirRules: false
+
+  grafanaAgent:
+    enabled: false

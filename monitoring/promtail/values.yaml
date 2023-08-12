@@ -37,7 +37,7 @@ config:
 
 positions:
   filename: /run/promtail/positions.yaml
-enableTracing: false
+enableTracing: true
 
 sidecar:
   configReloader:
