@@ -83,7 +83,8 @@ extraManifests:
             matchers:
               - name: alertname
                 matchType: '=~'
-                value: InfoInhibitor|Watchdog
+                # silence
+                value: InfoInhibitor|Watchdog|etcdHighCommitDurations
           - receiver: alert_manager_low
             matchers:
               - name: severity
