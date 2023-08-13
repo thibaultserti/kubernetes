@@ -39,7 +39,7 @@ serviceMonitor:
 
 env:
   - name: APP_NAME
-    value: app-c
+    value: fastapi-observability-example-c
   - name: OTLP_GRPC_ENDPOINT
     value: http://tempo.monitoring:4317
   - name: TARGET_ONE_HOST
