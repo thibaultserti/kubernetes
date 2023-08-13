@@ -139,6 +139,8 @@ projects:
     destinations:
       - namespace: opentelemetry-demo
         server: https://kubernetes.default.svc
+      - namespace: fastapi-observability-example
+        server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
