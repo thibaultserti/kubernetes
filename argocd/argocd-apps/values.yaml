@@ -744,6 +744,30 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# PHLARE
+  - name: phlare
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL:  https://grafana.github.io/helm-charts
+        chart: phlare
+        targetRevision: 0.5.4
+        helm:
+          valueFiles:
+          - $values/monitoring/phlare/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # THANOS
   - name: thanos
     namespace: argocd
