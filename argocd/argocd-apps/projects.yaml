@@ -137,7 +137,7 @@ projects:
     sourceRepos:
       - "*"
     destinations:
-      - namespace: example
+      - namespace: opentelemetry-demo
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
