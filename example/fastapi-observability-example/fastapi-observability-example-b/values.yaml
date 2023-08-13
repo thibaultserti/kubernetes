@@ -1,0 +1,62 @@
+replicaCount: 1
+
+
+image:
+  repository: ghcr.io/thibaultserti/fastapi-observability-example
+  pullPolicy: IfNotPresent
+  tag: latest
+
+serviceAccount:
+  create: true
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+
+  hosts:
+    - host: fastapi-observability-demo-b.ayanides.cloud
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: fastapi-observability-demo-b-tls
+      hosts:
+        - fastapi-observability-demo-b.ayanides.cloud
+
+autoscaling:
+  enabled: false
+
+serviceMonitor:
+  enabled: true
+
+env:
+  - name: APP_NAME
+    value: app-b
+  - name: OTLP_GRPC_ENDPOINT
+    value: http://tempo.monitoring:4317
+  - name: TARGET_ONE_HOST
+    value: fastapi-observability-example-a
+  - name: TARGET_TWO_HOST
+    value: fastapi-observability-example-c
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+
+resources: {}

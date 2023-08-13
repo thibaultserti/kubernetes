@@ -4,7 +4,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-a
+  name: {{ $fullName }}
   labels:
     {{- include "fastapi-observability-example.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -33,7 +33,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ $fullName }}-a
+                name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
           {{- end }}

@@ -1005,7 +1005,7 @@ applications:
 #       syncOptions:
 #         - CreateNamespace=true
 
-  - name: fastapi-observability-example
+  - name: fastapi-observability-example-a
     namespace: argocd
     destination:
       namespace: fastapi-observability-example
@@ -1013,7 +1013,46 @@ applications:
     project: example
     sources:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: example/fastapi-observability-example
+        path: example/fastapi-observability-example/fastapi-observability-example-a
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: fastapi-observability-example-b
+    namespace: argocd
+    destination:
+      namespace: fastapi-observability-example
+      server: https://kubernetes.default.svc
+    project: example
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: example/fastapi-observability-example/fastapi-observability-example-b
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+
+  - name: fastapi-observability-example-c
+    namespace: argocd
+    destination:
+      namespace: fastapi-observability-example
+      server: https://kubernetes.default.svc
+    project: example
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: example/fastapi-observability-example/fastapi-observability-example-c
         helm:
           valueFiles:
           - values.yaml

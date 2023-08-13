@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "fastapi-observability-example.fullname" . }}-c
+  name: {{ include "fastapi-observability-example.fullname" . }}
   labels:
     {{- include "fastapi-observability-example.labels" . | nindent 4 }}
 spec:
@@ -36,7 +36,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             {{- toYaml .Values.env | nindent 12 }}
-            {{- toYaml .Values.apps.c | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
