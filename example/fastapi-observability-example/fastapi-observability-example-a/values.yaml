@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/thibaultserti/fastapi-observability-example
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: latest
 
 serviceAccount:
@@ -42,6 +42,8 @@ env:
     value: fastapi-observability-example-a
   - name: OTLP_GRPC_ENDPOINT
     value: http://tempo.monitoring:4317
+  - name: PYROSCOPE_ENDPOINT
+    value: http://phlare.monitoring:4100
   - name: TARGET_ONE_HOST
     value: fastapi-observability-example-b
   - name: TARGET_TWO_HOST
