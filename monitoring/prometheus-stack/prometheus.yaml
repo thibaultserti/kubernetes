@@ -57,3 +57,25 @@ prometheus:
           target_label: instance
         static_configs:
         - targets: ['eros.ayanides.cloud:9100']
+
+    thanos:
+      additionalArgs:
+        - name: tracing.config
+          value: |
+            type: OTLP
+            config:
+              client_type: grpc
+              endpoint: "tempo.monitoring:4317"
+              insecure: true
+      objectStorageConfig:
+        key: objstore.yml
+        name: thanos-objstore-secret
+
+  thanosServiceMonitor:
+    enabled: true
+  thanosService:
+    enabled: true
+  thanosIngress:
+    enabled: false
+  thanosServiceExternal:
+    enabled: false

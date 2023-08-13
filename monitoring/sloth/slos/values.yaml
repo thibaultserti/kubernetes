@@ -27,3 +27,5 @@ slos:
     objective: 99
   - name: kyverno
     objective: 99
+  - name: thanos
+    objective: 99
