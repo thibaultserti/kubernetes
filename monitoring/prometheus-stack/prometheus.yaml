@@ -40,8 +40,8 @@ prometheus:
     scrapeConfigSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
 
-    remoteWrite:
-      - url: "http://mimir-gateway.monitoring/api/v1/push"
+#    remoteWrite:
+#      - url: "http://mimir-gateway.monitoring/api/v1/push"
 
     additionalScrapeConfigs:
       - job_name: node-exporter
