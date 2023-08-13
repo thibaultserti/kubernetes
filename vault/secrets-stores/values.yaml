@@ -124,13 +124,10 @@ secretsStores:
     namespace: monitoring
     roleName: thanos-query
     secrets:
-      thanos-bucket-secret:
-        - kubernetesSecretKey: S3_THANOS_ACCESS_KEY_ID
+      thanos-objstore-secret:
+        - kubernetesSecretKey: objstore.yml
           vaultSecretPath: secrets/data/thanos
-          vaultSecretKey: s3_access_key_id
-        - kubernetesSecretKey: S3_THANOS_SECRET_ACCESS_KEY
-          vaultSecretPath: secrets/data/thanos
-          vaultSecretKey: s3_secret_access_key
+          vaultSecretKey: objstoreConfig
   - name: longhorn
     namespace: longhorn-system
     roleName: longhorn-service-account

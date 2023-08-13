@@ -1,10 +1,4 @@
-objstoreConfig: |
-  type: S3
-  config:
-    bucket: thanos
-    endpoint: minio.minio:9000
-    insecure: true
-
+existingObjstoreSecret: thanos-objstore-secret
 
 query:
   enabled: true
@@ -27,18 +21,6 @@ query:
     sidecarsService: prometheus-stack-kube-prom-thanos-discovery
     sidecarsNamespace: monitoring
 
-  extraEnvVars:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_SECRET_ACCESS_KEY
-
   extraVolumes:
     - name: secrets-store-inline
       csi:
@@ -53,75 +35,27 @@ query:
 
 queryFrontend:
   enabled: true
-  extraEnvVars:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_SECRET_ACCESS_KEY
-
 
 bucketweb:
   enabled: true
-  extraEnvVars:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_SECRET_ACCESS_KEY
-
 
 compactor:
   enabled: true
   persistence:
     storageClass: longhorn
     size: 50Gi
-  extraEnvVars:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_SECRET_ACCESS_KEY
-
 
 storegateway:
   enabled: true
   persistence:
     storageClass: longhorn
     size: 50Gi
-  extraEnvVars:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: thanos-bucket-secret
-          key: S3_THANOS_SECRET_ACCESS_KEY
-
 
 ruler:
   enabled: false
 
 receive:
-  enabled: true
+  enabled: false
 
 receiveDistributor:
   enabled: false
