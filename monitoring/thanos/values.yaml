@@ -121,7 +121,7 @@ ruler:
   enabled: false
 
 receive:
-  enabled: false
+  enabled: true
 
 receiveDistributor:
   enabled: false
