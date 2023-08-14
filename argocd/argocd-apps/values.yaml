@@ -744,20 +744,20 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-# PHLARE
-  - name: phlare
+# PYROSCOPE
+  - name: pyroscope
     namespace: argocd
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
     project: monitoring
     sources:
-      - repoURL:  https://grafana.github.io/helm-charts
-        chart: phlare
-        targetRevision: 0.5.4
+      - repoURL: https://pyroscope-io.github.io/helm-chart
+        chart: pyroscope
+        targetRevision: 0.2.92
         helm:
           valueFiles:
-          - $values/monitoring/phlare/values.yaml
+          - $values/monitoring/pyroscope/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
