@@ -1,18 +1,20 @@
 cluster:
   name: belt
 
+
+policyAuditMode: true
+
 hubble:
   enabled: true
 
   metrics:
-    enabled: []
+    enabled:
       # - dns:query;ignoreAAAA
       # - drop
       # - tcp
       # - flow
       # - icmp
       # - http
-      # - icmp
       # - policy:sourceContext=app|workload-name|pod|reserved-identity;destinationContext=app|workload-name|pod|dns|reserved-identity;labelsContext=source_namespace,destination_namespace
       # - flow:sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
       # - kafka:labelsContext=source_namespace,source_workload,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
@@ -22,7 +24,7 @@ hubble:
       enabled: true
 
   tls:
-    enabled: true
+    enabled: false
 
   relay:
     enabled: true
