@@ -12,7 +12,7 @@ spec:
     interval: 1m
     scrapeTimeout: 30s
     honorLabels: true
-    path: /metrics
+    path: /
     scheme: http
   jobLabel: "{{ .Release.Name }}"
   selector:

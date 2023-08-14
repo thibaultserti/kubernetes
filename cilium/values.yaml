@@ -1,31 +1,33 @@
-upgradeCompatibility: 1.13.4
+cluster:
+  name: belt
 
 hubble:
   enabled: true
 
   metrics:
-    enabled:
-      - dns:query;ignoreAAAA
-      - drop
-      - tcp
-      - flow
-      - icmp
-      - http
-      - icmp
-      - "flow:sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity"
-      - "kafka:labelsContext=source_namespace,source_workload,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity"
-      - "httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity"
-    enableOpenMetrics: true
+    enabled: []
+      # - dns:query;ignoreAAAA
+      # - drop
+      # - tcp
+      # - flow
+      # - icmp
+      # - http
+      # - icmp
+      # - policy:sourceContext=app|workload-name|pod|reserved-identity;destinationContext=app|workload-name|pod|dns|reserved-identity;labelsContext=source_namespace,destination_namespace
+      # - flow:sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
+      # - kafka:labelsContext=source_namespace,source_workload,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
+      # - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
+    enableOpenMetrics: false
     serviceMonitor:
       enabled: true
 
   tls:
-    enabled: false
+    enabled: true
 
   relay:
     enabled: true
     prometheus:
-      enabled: true
+      enabled: false
       port: 9966
       serviceMonitor:
         enabled: true
@@ -49,26 +51,15 @@ hubble:
 
 # -- Configure prometheus metrics on the configured port at /metrics
 prometheus:
-  enabled: true
+  enabled: false
   serviceMonitor:
     enabled: true
 
-  # -- Metrics that should be enabled or disabled from the default metric list.
-  # The list is expected to be separated by a space. (+metric_foo to enable
-  # metric_foo , -metric_bar to disable metric_bar).
-  # ref: https://docs.cilium.io/en/stable/observability/metrics/
-  metrics: ~
 
-# Preflight checks
-#agent: false
 
-# Preflight checks
 operator:
   enabled: true
   prometheus:
-    enabled: true
+    enabled: false
     serviceMonitor:
-      enabled: true
-
-preflight:
-  enabled: false
+      enabled: false

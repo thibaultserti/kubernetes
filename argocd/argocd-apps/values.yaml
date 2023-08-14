@@ -79,6 +79,11 @@ applications:
         namespace: kube-system
         jsonPointers:
           - /data
+      - kind: Secret
+        name: hubble-relay-client-certs
+        namespace: kube-system
+        jsonPointers:
+          - /data
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
