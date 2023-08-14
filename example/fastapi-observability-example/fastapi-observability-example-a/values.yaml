@@ -43,7 +43,7 @@ env:
   - name: OTLP_GRPC_ENDPOINT
     value: http://tempo.monitoring:4317
   - name: PYROSCOPE_ENDPOINT
-    value: http://phlare.monitoring:4100
+    value: http://pyroscope.monitoring:4040
   - name: TARGET_ONE_HOST
     value: fastapi-observability-example-b
   - name: TARGET_TWO_HOST
