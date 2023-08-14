@@ -1062,3 +1062,22 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+
+  - name: fastapi-profiling-example
+    namespace: argocd
+    destination:
+      namespace: fastapi-profiling-example
+      server: https://kubernetes.default.svc
+    project: example
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: example/fastapi-profiling-example
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

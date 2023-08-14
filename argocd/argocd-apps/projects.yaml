@@ -141,6 +141,8 @@ projects:
         server: https://kubernetes.default.svc
       - namespace: fastapi-observability-example
         server: https://kubernetes.default.svc
+      - namespace: fastapi-profiling-example
+        server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
