@@ -2,11 +2,8 @@ cluster:
   name: belt
 
 
-policyAuditMode: true
-
 hubble:
   enabled: true
-
   metrics:
     enabled:
       # - dns:query;ignoreAAAA
@@ -64,4 +61,4 @@ operator:
   prometheus:
     enabled: false
     serviceMonitor:
-      enabled: false
+      enabled: true
