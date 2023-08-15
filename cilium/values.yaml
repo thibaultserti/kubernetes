@@ -2,34 +2,29 @@ cluster:
   name: belt
 
 
-policyAuditMode: true
-
 hubble:
   enabled: true
-
   metrics:
     enabled:
-      # - dns:query;ignoreAAAA
-      # - drop
-      # - tcp
-      # - flow
-      # - icmp
-      # - http
-      # - policy:sourceContext=app|workload-name|pod|reserved-identity;destinationContext=app|workload-name|pod|dns|reserved-identity;labelsContext=source_namespace,destination_namespace
-      # - flow:sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
-      # - kafka:labelsContext=source_namespace,source_workload,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
-      # - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
-    enableOpenMetrics: false
+      - dns
+      - drop
+      - tcp
+      - icmp
+      - "policy:sourceContext=app|workload-name|pod|reserved-identity;destinationContext=app|workload-name|pod|dns|reserved-identity;labelsContext=source_namespace,destination_namespace"
+      - "flow:sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity"
+      - "kafka:labelsContext=source_namespace,source_workload,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity"
+      - "httpV2:sourceContext=workload-name|pod-name|reserved-identity;destinationContext=workload-name|pod-name|reserved-identity;labelsContext=source_namespace,destination_namespace,traffic_direction"
+    enableOpenMetrics: true
     serviceMonitor:
       enabled: true
 
   tls:
-    enabled: false
+    enabled: true
 
   relay:
     enabled: true
     prometheus:
-      enabled: false
+      enabled: true
       port: 9966
       serviceMonitor:
         enabled: true
@@ -53,7 +48,7 @@ hubble:
 
 # -- Configure prometheus metrics on the configured port at /metrics
 prometheus:
-  enabled: false
+  enabled: true
   serviceMonitor:
     enabled: true
 
@@ -62,6 +57,6 @@ prometheus:
 operator:
   enabled: true
   prometheus:
-    enabled: false
+    enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true

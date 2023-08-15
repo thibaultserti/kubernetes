@@ -47,6 +47,7 @@ applications:
     syncPolicy: {}
 
   # CILIUM
+  # Issue with https://github.com/cilium/cilium-cli/issues/1396
   - name: cilium
     namespace: argocd
     destination:
