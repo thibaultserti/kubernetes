@@ -31,8 +31,8 @@ grafana:
       enabled: false
 
   plugins:
-    - grafana-piechart-panel
-    - grafana-worldmap-panel
+    - isovalent-hubble-datasource
+
 
   admin:
     existingSecret: grafana-secret
