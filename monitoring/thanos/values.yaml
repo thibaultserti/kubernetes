@@ -44,6 +44,9 @@ compactor:
   persistence:
     storageClass: longhorn
     size: 100Gi
+  retentionResolutionRaw: 7d
+  retentionResolution5m: 30d
+  retentionResolution1h: 90d
 
 storegateway:
   enabled: true
