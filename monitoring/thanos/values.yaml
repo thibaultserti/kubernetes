@@ -43,7 +43,7 @@ compactor:
   enabled: true
   persistence:
     storageClass: longhorn
-    size: 50Gi
+    size: 100Gi
 
 storegateway:
   enabled: true
