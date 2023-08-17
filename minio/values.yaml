@@ -60,7 +60,7 @@ persistence:
   mountPath: /data
   accessModes:
     - ReadWriteOnce
-  size: 20Gi
+  size: 100Gi
   annotations: {}
   existingClaim: ""
 
