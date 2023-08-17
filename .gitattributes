@@ -1,0 +1,5 @@
+.yml linguist-detectable=true
+.yaml linguist-detectable=true
+*.yaml linguist-language=YAML
+*.yml linguist-language=YAML
+Makefile linguist-detectable=false
