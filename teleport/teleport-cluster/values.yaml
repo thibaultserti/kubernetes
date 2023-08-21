@@ -1,6 +1,5 @@
-clusterName: "belt"
+clusterName: "belt.ayanides.cloud"
 
-kubeClusterName: "belt"
 
 authentication:
   # Default authentication type. Possible values are 'local' and 'github' for OSS, plus 'oidc' and 'saml' for Enterprise.
@@ -45,23 +44,17 @@ persistence:
 
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.1.101
+
+highAvailability:
+  replicaCount: 1
+  certManager:
+    enabled: true
+    addCommonName: true
+    issuerKind: ClusterIssuer
+    issuerName: letsencrypt-prod
 
 ingress:
-  enabled: true
-  suppressAutomaticWildcards: false
-  spec:
-    ingressClassName: "traefik"
-    annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-      traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-    hosts:
-      - host: teleport.ayanides.cloud
-        paths:
-          - /
-    pathType: Prefix
-    tls:
-      - secretName: teleport-tls
-        hosts:
-          - teleport.ayanides.cloud
+  enabled: false
