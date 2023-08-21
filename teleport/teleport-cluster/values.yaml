@@ -1,0 +1,67 @@
+clusterName: "belt"
+
+kubeClusterName: "belt"
+
+authentication:
+  # Default authentication type. Possible values are 'local' and 'github' for OSS, plus 'oidc' and 'saml' for Enterprise.
+  type: github
+
+  # Second factor requirements for users of the Teleport cluster.
+  # Controls the `auth_config.authentication.second_factor` field in `teleport.yaml`.
+  # Possible values are 'off', 'on', 'otp', 'optional' and 'webauthn'.
+  #
+  # WARNING:
+  #   If you set `publicAddr` for users to access the cluster under a domain different
+  #   to clusterName you must manually set the webauthn Relying
+  #   Party Identifier (RP ID) - https://www.w3.org/TR/webauthn-2/#relying-party-identifier
+  #   If you don't, RP ID will default to `clusterName` and users will fail
+  #   to register second factors.
+  #
+  #   You can do this by setting the value
+  #   `auth.teleportConfig.auth_service.authentication.webauthn.rp_id`.
+  #
+  #   RP ID must be both a valid domain, and part of the full domain users are connecting to.
+  #   For example, if users are accessing the cluster with the domain
+  #   "teleport.example.com", RP ID can be "teleport.example.com" or "example.com".
+  #
+  #   Changing the RP ID will invalidate all already registered webauthn second factors.
+  secondFactor: "off"
+
+
+operator:
+  enabled: true
+
+podSecurityPolicy:
+  enabled: false
+
+chartMode: standalone
+
+podMonitor:
+  enabled: true
+
+persistence:
+  enabled: true
+  volumeSize: 10Gi
+
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  suppressAutomaticWildcards: false
+  spec:
+    ingressClassName: "traefik"
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: teleport.ayanides.cloud
+        paths:
+          - /
+    pathType: Prefix
+    tls:
+      - secretName: teleport-tls
+        hosts:
+          - teleport.ayanides.cloud

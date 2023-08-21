@@ -129,6 +129,22 @@ projects:
     orphanedResources:
       warn: false
 
+  - name: teleport
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Teleport Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: teleport
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+
   - name: example
     namespace: argocd
     additionalLabels: {}
