@@ -52,3 +52,6 @@ serviceMonitor:
     - name: thanos
       url: https://thanos.ayanides.cloud
       hostname: thanos.ayanides.cloud
+    - name: teleport
+      url: https://belt.ayanides.cloud
+      hostname: belt.ayanides.cloud

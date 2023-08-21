@@ -29,3 +29,5 @@ slos:
     objective: 99
   - name: thanos
     objective: 99
+  - name: teleport
+    objective: 99
