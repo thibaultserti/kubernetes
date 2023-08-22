@@ -16,11 +16,21 @@ falco:
     enabled: true
   grpc:
     enabled: true
-    grpc_output:
-      enabled: true
+  grpc_output:
+    enabled: true
 
   # Publish to falco sidekick
   http_output:
     enabled: true
     insecure: true
     url: "http://falcosidekick:2801/"
+
+auditlog:
+  enabled: true
+
+extra:
+  args:
+    - -D
+    - Write
+    - below
+    - root
