@@ -142,3 +142,11 @@ secretsStores:
         - kubernetesSecretKey: AWS_ENDPOINTS
           vaultSecretPath: secrets/data/longhorn
           vaultSecretKey: aws_endpoints
+  - name: falcosidekick
+    namespace: falco
+    roleName: falcosidekick
+    secrets:
+      falcosidekick-secret:
+        - kubernetesSecretKey: DISCORD_WEBHOOKURL
+          vaultSecretPath: secrets/data/falco
+          vaultSecretKey: discord_url

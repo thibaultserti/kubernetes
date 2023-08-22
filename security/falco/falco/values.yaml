@@ -1,0 +1,18 @@
+driver:
+  enabled: true
+  kind: modern-bpf
+
+falco:
+  rulesFile:
+    - /etc/falco/falco_rules.yaml
+    - /etc/falco/falco_rules.local.yaml
+    - /etc/falco/k8s_audit_rules.yaml
+    - /etc/falco/rules.d
+  load_plugins: [k8saudit, json]
+  jsonOutput: true
+  priority: warning
+
+  # Publish to falco sidekick
+  httpOutput:
+    enabled: true
+    url: "http://falcosidekick:2801/"

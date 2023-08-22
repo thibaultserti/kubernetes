@@ -1,0 +1,44 @@
+config:
+  extraEnv:
+    - name: DISCORD_WEBHOOKURL
+      valueFrom:
+        secretKeyRef:
+          name: falcosidekick-secret
+          key: DISCORD_WEBHOOKURL
+
+  policyreport:
+    enabled: true
+
+
+webui:
+  enabled: true
+  replicaCount: 2
+  # -- User in format <login>:<password>
+  user: "admin:admin"
+
+  ingress:
+    enabled: true
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: falco.ayanides.cloud
+        paths:
+        - path: /
+    tls:
+     - secretName: falco-ui-tls
+       hosts:
+         - falco.ayanides.cloud
+
+extraVolumeMounts:
+  - mountPath: /mnt/secrets-store
+    name: secrets-store-inline
+
+extraVolumes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: falcosidekick
