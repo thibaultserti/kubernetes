@@ -31,3 +31,5 @@ slos:
     objective: 99
   - name: teleport
     objective: 99
+  - name: falco
+    objective: 99

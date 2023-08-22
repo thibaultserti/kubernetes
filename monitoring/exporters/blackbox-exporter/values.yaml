@@ -55,3 +55,6 @@ serviceMonitor:
     - name: teleport
       url: https://belt.ayanides.cloud
       hostname: belt.ayanides.cloud
+    - name: falco
+      url: https://falco.ayanides.cloud
+      hostname: falco.ayanides.cloud
