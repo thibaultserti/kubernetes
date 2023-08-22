@@ -568,6 +568,29 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: falco-exporter
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://falcosecurity.github.io/charts
+        chart: falco-exporter
+        targetRevision: 0.9.6
+        helm:
+          valueFiles:
+          - $values/monitoring/exporters/falco-exporter/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # ROBUSTA
 
   - name: robusta

@@ -3,16 +3,24 @@ driver:
   kind: modern-bpf
 
 falco:
-  rulesFile:
+  rules_file:
     - /etc/falco/falco_rules.yaml
     - /etc/falco/falco_rules.local.yaml
     - /etc/falco/k8s_audit_rules.yaml
     - /etc/falco/rules.d
   load_plugins: [k8saudit, json]
-  jsonOutput: true
+  json_output: true
+  json_include_output_property: true
   priority: warning
+  metrics:
+    enabled: true
+  grpc:
+    enabled: true
+    grpc_output:
+      enabled: true
 
   # Publish to falco sidekick
-  httpOutput:
+  http_output:
     enabled: true
+    insecure: true
     url: "http://falcosidekick:2801/"
