@@ -1,6 +1,10 @@
 driver:
   enabled: true
-  kind: modern-bpf
+
+collectors:
+  enabled: true
+
+tty: true
 
 falco:
   rules_file:
@@ -9,11 +13,20 @@ falco:
     - /etc/falco/k8s_audit_rules.yaml
     - /etc/falco/rules.d
   load_plugins: [k8saudit, json]
+  plugins:
+    - name: k8saudit
+      library_path: libk8saudit.so
+      init_config:
+        ""
+      open_params: "http://:9765/k8s-audit"
+    - name: json
+      library_path: libjson.so
+      init_config: ""
   json_output: true
   json_include_output_property: true
   priority: warning
   metrics:
-    enabled: true
+    enabled: false
   grpc:
     enabled: true
   grpc_output:
@@ -25,12 +38,109 @@ falco:
     insecure: true
     url: "http://falcosidekick:2801/"
 
-auditlog:
-  enabled: true
+falcoctl:
+  config:
+    artifact:
+      install:
+        refs: [falco-rules:1,k8saudit-rules:0.6]
+      follow:
+        refs: [falco-rules:1,k8saudit-rules:0.6]
 
-extra:
-  args:
-    - -D
-    - Write
-    - below
-    - root
+services:
+  - name: k8saudit-webhook
+    type: NodePort
+    ports:
+      - port: 9765
+        nodePort: 30007
+        protocol: TCP
+
+customRules:
+  rules-override.yaml: |-
+    - macro: policyreporter_writing_state
+      condition: (proc.exepath=/app/policyreporter and proc.name=policyreporter and fd.name=/sqlite)
+    - macro: metallb_frr_writing_state
+      condition: (proc.pname=frr-metrics and fd.name startswith /root/.history_frr)
+    - rule: Write below root
+      desc: an attempt to write to any file directly below / or /root
+      condition: >
+        root_dir and evt.dir = < and open_write
+        and proc_name_exists
+        and not fd.name in (known_root_files)
+        and not fd.directory pmatch (known_root_directories)
+        and not exe_running_docker_save
+        and not gugent_writing_guestagent_log
+        and not dse_writing_tmp
+        and not zap_writing_state
+        and not airflow_writing_state
+        and not rpm_writing_root_rpmdb
+        and not maven_writing_groovy
+        and not chef_writing_conf
+        and not kubectl_writing_state
+        and not cassandra_writing_state
+        and not galley_writing_state
+        and not calico_writing_state
+        and not rancher_writing_root
+        and not runc_writing_exec_fifo
+        and not mysqlsh_writing_state
+        and not known_root_conditions
+        and not user_known_write_root_conditions
+        and not user_known_write_below_root_activities
+        and not metallb_frr_writing_state
+        and not policyreporter_writing_state
+      output: File below / or /root opened for writing (file=%fd.name evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
+      priority: ERROR
+      tags: [maturity_sandbox, host, container, filesystem, mitre_persistence, TA0003]
+
+    - macro: kyverno_cleanup
+      condition: (proc.cmdline="kubectl get admissionreports.kyverno.io -A" or proc.cmdline="kubectl get clusteradmissionreports.kyverno.io -A")
+    - rule: The docker client is executed in a container
+      desc: Detect a k8s client tool executed inside a container
+      condition: >
+        spawned_process and container and not user_known_k8s_client_container_parens and proc.name in (k8s_client_binaries)
+        and not kyverno_cleanup
+      output: Docker or kubernetes client executed in container (evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
+      priority: WARNING
+      tags: [maturity_sandbox, container, mitre_execution, T1610]
+
+    - macro: prometheus_reload
+      condition: (fd.name=/etc/alertmanager/config_out/alertmanager.env.yaml.tmp and proc.name=prometheus-conf and container.image.repository=quay.io/prometheus-operator/prometheus-config-reloader)
+    - rule: Write below etc
+      desc: an attempt to write to any file below /etc
+      condition: write_etc_common and not prometheus_reload
+      output: File below /etc opened for writing (file=%fd.name pcmdline=%proc.pcmdline gparent=%proc.aname[2] ggparent=%proc.aname[3] gggparent=%proc.aname[4] evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
+      priority: ERROR
+      tags: [maturity_sandbox, host, container, filesystem, mitre_persistence, T1098]
+
+    - macro: vault_csi_provider_secret
+      condition: (ka.user.name=system:serviceaccount:vault:vault-csi-provider and ka.target.name=vault-csi-provider-hmac-key)
+    - macro: trivy_operator_secret
+      condition: (ka.user.name=system:serviceaccount:trivy:trivy-operator and ka.target.name=trivy-operator-trivy-config)
+    - macro: prometheus_operator_secret
+      condition: (ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-operator and (ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-tls-assets-0 or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-tls-assets-0))
+    - macro: kubernetes_dashboard_secret
+      condition: (ka.user.name=system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard and ka.target.name=kubernetes-dashboard-key-holder)
+    - rule: K8s Secret Get Successfully
+      desc: >
+        Detect any attempt to get a secret. Service account tokens are excluded.
+      condition: >
+        secret and kget
+        and kactivity
+        and response_successful
+        and not trivy_operator_secret
+        and not vault_csi_provider_secret
+        and not kubernetes_dashboard_secret
+      output: K8s Secret Get Successfully (user=%ka.user.name secret=%ka.target.name ns=%ka.target.namespace resource=%ka.target.resource resp=%ka.response.code decision=%ka.auth.decision reason=%ka.auth.reason)
+      priority: ERROR
+      source: k8s_audit
+      tags: [k8s]
+
+
+    - macro: node_sa
+      condition: (ka.user.named startswith system:node:)
+    - rule: Service Account Created in Kube Namespace
+      desc: Detect any attempt to create a serviceaccount in the kube-system or kube-public namespaces
+      condition: kevt and serviceaccount and kcreate and ka.target.namespace in (kube-system, kube-public) and response_successful and not trusted_sa and not node_sa
+      output: Service account created in kube namespace (user=%ka.user.name serviceaccount=%ka.target.name resource=%ka.target.resource ns=%ka.target.namespace)
+      priority: WARNING
+      source: k8s_audit
+      tags: [k8s]
