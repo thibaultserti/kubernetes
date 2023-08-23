@@ -60,6 +60,8 @@ customRules:
       condition: (proc.exepath=/app/policyreporter and proc.name=policyreporter and fd.name=/sqlite)
     - macro: metallb_frr_writing_state
       condition: (proc.pname=frr-metrics and fd.name startswith /root/.history_frr)
+    - macro: ciliumoperator_writing_state
+      condition: (proc.name=cilium-operator and fd.name startswith /1)
     - rule: Write below root
       desc: an attempt to write to any file directly below / or /root
       condition: >
@@ -87,6 +89,7 @@ customRules:
         and not user_known_write_below_root_activities
         and not metallb_frr_writing_state
         and not policyreporter_writing_state
+        and not ciliumoperator_writing_state
       output: File below / or /root opened for writing (file=%fd.name evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
       priority: ERROR
       tags: [maturity_sandbox, host, container, filesystem, mitre_persistence, TA0003]
@@ -116,9 +119,22 @@ customRules:
     - macro: trivy_operator_secret
       condition: (ka.user.name=system:serviceaccount:trivy:trivy-operator and ka.target.name=trivy-operator-trivy-config)
     - macro: prometheus_operator_secret
-      condition: (ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-operator and (ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-tls-assets-0 or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-tls-assets-0))
+      condition: >
+        (ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-operator
+        and (ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-tls-assets-0
+        or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-tls-assets-0
+        or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-generated
+        or ka.target.name=alertmanager-secret
+        or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus
+        or ka.target.name=prometheus-stack-kube-prom-admission
+        or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-web-config
+        ))
     - macro: kubernetes_dashboard_secret
       condition: (ka.user.name=system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard and ka.target.name=kubernetes-dashboard-key-holder)
+    - macro: kube_controller_manager_secret
+      condition: (ka.user.name=system:kube-controller-manager and (ka.target.name=attachdetach-controller or ka.target.name=expand-controller))
+    - macro: longhorn_secret
+      condition: (ka.user.name=system:serviceaccount:longhorn-system:longhorn-service-account and ka.target.name=longhorn-webhook-tls)
     - rule: K8s Secret Get Successfully
       desc: >
         Detect any attempt to get a secret. Service account tokens are excluded.
@@ -126,9 +142,12 @@ customRules:
         secret and kget
         and kactivity
         and response_successful
+        and not prometheus_operator_secret
         and not trivy_operator_secret
         and not vault_csi_provider_secret
         and not kubernetes_dashboard_secret
+        and not kube_controller_manager_secret
+        and not longhorn_secret
       output: K8s Secret Get Successfully (user=%ka.user.name secret=%ka.target.name ns=%ka.target.namespace resource=%ka.target.resource resp=%ka.response.code decision=%ka.auth.decision reason=%ka.auth.reason)
       priority: ERROR
       source: k8s_audit
@@ -136,10 +155,12 @@ customRules:
 
 
     - macro: node_sa
-      condition: (ka.user.named startswith system:node:)
+      condition: (ka.user.name startswith system:node or ka.user.name=system:kube-controller-manager)
+    - macro: longhorn_sa
+      condition: (ka.user.name=system:serviceaccount:longhorn-system:longhorn-service-account)
     - rule: Service Account Created in Kube Namespace
       desc: Detect any attempt to create a serviceaccount in the kube-system or kube-public namespaces
-      condition: kevt and serviceaccount and kcreate and ka.target.namespace in (kube-system, kube-public) and response_successful and not trusted_sa and not node_sa
+      condition: kevt and serviceaccount and kcreate and ka.target.namespace in (kube-system, kube-public) and response_successful and not trusted_sa and not node_sa and not longhorn_sa
       output: Service account created in kube namespace (user=%ka.user.name serviceaccount=%ka.target.name resource=%ka.target.resource ns=%ka.target.namespace)
       priority: WARNING
       source: k8s_audit
