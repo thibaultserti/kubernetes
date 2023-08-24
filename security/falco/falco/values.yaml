@@ -120,15 +120,30 @@ customRules:
       condition: (ka.user.name=system:serviceaccount:trivy:trivy-operator and ka.target.name=trivy-operator-trivy-config)
     - macro: prometheus_operator_secret
       condition: >
-        (ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-operator
-        and (ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-tls-assets-0
-        or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-tls-assets-0
-        or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-generated
-        or ka.target.name=alertmanager-secret
-        or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus
-        or ka.target.name=prometheus-stack-kube-prom-admission
-        or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-web-config
-        ))
+        (
+          (ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-operator
+          and
+            (
+              ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-tls-assets-0
+              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-tls-assets-0
+              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-generated
+              or ka.target.name=alertmanager-secret
+              or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus
+              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager
+              or ka.target.name=prometheus-stack-kube-prom-admission
+              or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-web-config
+              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-web-config
+            )
+          )
+          or
+          (
+          ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-admission
+          and
+            (
+              ka.target.name=prometheus-stack-kube-prom-admission
+            )
+          )
+        )
     - macro: kubernetes_dashboard_secret
       condition: (ka.user.name=system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard and ka.target.name=kubernetes-dashboard-key-holder)
     - macro: kube_controller_manager_secret
@@ -165,3 +180,20 @@ customRules:
       priority: WARNING
       source: k8s_audit
       tags: [k8s]
+
+    - macro: longhorn_mount_in_privileged_containers
+      condition: (container.image.repository=docker.io/longhornio/longhorn-manager)
+    - rule: Mount Launched in Privileged Container
+      desc: Detect file system mount happened inside a privileged container which might lead to container escape.
+      condition: >
+        spawned_process and container
+        and container.privileged=true
+        and proc.name=mount
+        and not mount_info
+        and not known_gke_mount_in_privileged_containers
+        and not known_aks_mount_in_privileged_containers
+        and not user_known_mount_in_privileged_containers
+        and not longhorn_mount_in_privileged_containers
+      output: Mount was executed inside a privileged container (evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
+      priority: WARNING
+      tags: [maturity_incubating, container, cis, filesystem, mitre_privilege_escalation, T1611]
