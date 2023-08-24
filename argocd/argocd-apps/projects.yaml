@@ -125,6 +125,8 @@ projects:
         server: https://kubernetes.default.svc
       - namespace: falco
         server: https://kubernetes.default.svc
+      - namespace: tetragon
+        server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"

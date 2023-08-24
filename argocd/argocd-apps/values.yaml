@@ -1053,6 +1053,29 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  # - name: tetragon
+  #   namespace: argocd
+  #   destination:
+  #     namespace: tetragon
+  #     server: https://kubernetes.default.svc
+  #   project: security
+  #   sources:
+  #     - repoURL: https://helm.cilium.io/
+  #       chart: tetragon
+  #       targetRevision: 0.10.0
+  #       helm:
+  #         valueFiles:
+  #         - $values/security/tetragon/values.yaml
+  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
+  #       targetRevision: HEAD
+  #       ref: values
+  #   syncPolicy:
+  #     automated:
+  #       selfHeal: true
+  #       prune: true
+  #     syncOptions:
+  #       - CreateNamespace=true
+
 # TELEPORT
   - name: teleport
     namespace: argocd
