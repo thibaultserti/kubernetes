@@ -1089,7 +1089,7 @@ applications:
         targetRevision: 13.3.5
         helm:
           valueFiles:
-          - $values/teleport/teleport-cluster/values.yaml
+          - $values/teleport/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
