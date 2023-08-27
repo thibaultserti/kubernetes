@@ -72,5 +72,5 @@ then add `terraform-impersonator` role to your user
 Request identity for terraform:
 
 ```bash
-kubectl --namespace teleport exec deploy/teleport-auth -- tctl auth sign --user=terraform --out=terraform-identity
+kubectl --namespace teleport exec deploy/teleport-auth -- tctl auth sign --user=terraform
 ```

@@ -31,8 +31,9 @@ falco:
     enabled: true
   grpc_output:
     enabled: true
-
-  # Publish to falco sidekick
+  syscall_event_drops:
+    actions:
+      - log
   http_output:
     enabled: true
     insecure: true
