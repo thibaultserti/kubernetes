@@ -63,6 +63,8 @@ customRules:
       condition: (proc.pname=frr-metrics and fd.name startswith /root/.history_frr)
     - macro: ciliumoperator_writing_state
       condition: (proc.name=cilium-operator and fd.name startswith /1)
+    - macro: kubelet_writing_state
+      condition: (proc.name=kubelet)
     - rule: Write below root
       desc: an attempt to write to any file directly below / or /root
       condition: >
@@ -91,6 +93,7 @@ customRules:
         and not metallb_frr_writing_state
         and not policyreporter_writing_state
         and not ciliumoperator_writing_state
+        and not kubelet_writing_state
       output: File below / or /root opened for writing (file=%fd.name evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
       priority: ERROR
       tags: [maturity_sandbox, host, container, filesystem, mitre_persistence, TA0003]
