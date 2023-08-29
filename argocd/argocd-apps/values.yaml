@@ -993,7 +993,7 @@ applications:
     sources:
       - repoURL: https://charts.fairwinds.com/stable
         chart: polaris
-        targetRevision: 5.12.1
+        targetRevision: 5.14.0
         helm:
           valueFiles:
           - $values/security/polaris/values.yaml
