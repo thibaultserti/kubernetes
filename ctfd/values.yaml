@@ -1,0 +1,160 @@
+replicaCount: 1
+
+image:
+  repository: ctfd/ctfd
+  pullPolicy: IfNotPresent
+
+security:
+  fsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+
+serviceAccount:
+  create: true
+  name: ctfd
+  annotations: {}
+  autoMount: false
+
+env:
+  open:
+    WORKERS: 5
+    REVERSE_PROXY: True
+  existingSecret: ctfd-secret
+  existingSecretMappings:
+    SECRET_KEY: SECRET_KEY
+
+extraEnv:
+  - name: MARIADB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-mariadb-secret
+        key: mariadb-password
+  - name: REDIS_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-redis-secret
+        key: redis-password
+
+config:
+  enabled: false
+
+extraVolumeMounts:
+  - mountPath: /mnt/secrets-store
+    name: secrets-store-inline
+extraVolumes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: ctfd
+persistence:
+  uploads:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 10Gi
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: ctfd.ayanides.cloud
+      path: "/"
+  tls:
+   - secretName: ctfd-tls
+     hosts:
+       - ctfd.ayanides.cloud
+
+probes:
+  liveness:
+    initialDelaySeconds: 25
+    periodSeconds: 5
+    timeoutSeconds: 2
+    successThreshold: 1
+    failureThreshold: 5
+  readiness:
+    initialDelaySeconds: 20
+    periodSeconds: 5
+    timeoutSeconds: 2
+    successThreshold: 1
+    failureThreshold: 5
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+nameOverride: ""
+fullnameOverride: ""
+
+metrics:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/mysqld-exporter
+    tag: 0.14.0-debian-11-r27
+    pullPolicy: IfNotPresent
+  resources: {}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9104"
+  serviceMonitor:
+    enabled: true
+
+redis:
+  enabled: true
+  serviceAccount:
+    name: ctfd-redis
+  auth:
+    existingSecret: ctfd-redis-secret
+    existingSecretPasswordKey: redis-password
+  architecture: standalone
+  master:
+    extraVolumeMounts:
+      - mountPath: /mnt/secrets-store
+        name: secrets-store-inline
+    extraVolumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: ctfd-redis
+
+mariadb:
+  enabled: true
+  serviceAccount:
+    name: ctfd-mariadb
+  auth:
+    existingSecret: ctfd-mariadb-secret
+    database: ctfd
+    username: ctfd
+    replicationUser: replicate
+
+  primary:
+    extraVolumeMounts:
+      - mountPath: /mnt/secrets-store
+        name: secrets-store-inline
+    extraVolumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: ctfd-mariadb
+
+  persistence:
+    enabled: true
+    storageClass: "longhorn"
+    accessModes:
+      - ReadWriteOnce
+    size: 15Gi

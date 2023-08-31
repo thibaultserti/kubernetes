@@ -149,6 +149,22 @@ projects:
     orphanedResources:
       warn: false
 
+  - name: ctfd
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: CTFD Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: ctfd
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+
   - name: example
     namespace: argocd
     additionalLabels: {}

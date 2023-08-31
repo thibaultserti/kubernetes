@@ -150,3 +150,33 @@ secretsStores:
         - kubernetesSecretKey: DISCORD_WEBHOOKURL
           vaultSecretPath: secrets/data/falco
           vaultSecretKey: discord_url
+  - name: ctfd
+    namespace: ctfd
+    roleName: ctfd
+    secrets:
+      ctfd-secret:
+        - kubernetesSecretKey: SECRET_KEY
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: secret_key
+  - name: ctfd-mariadb
+    namespace: ctfd
+    roleName: ctfd-mariadb
+    secrets:
+      ctfd-mariadb-secret:
+        - kubernetesSecretKey: mariadb-replication-password
+          vaultSecretPath: secrets/data/ctfd/mariadb
+          vaultSecretKey: mariadb-replication-password
+        - kubernetesSecretKey: mariadb-password
+          vaultSecretPath: secrets/data/ctfd/mariadb
+          vaultSecretKey: mariadb-password
+        - kubernetesSecretKey: mariadb-root-password
+          vaultSecretPath: secrets/data/ctfd/mariadb
+          vaultSecretKey: mariadb-root-password
+  - name: ctfd-redis
+    namespace: ctfd
+    roleName: ctfd-redis
+    secrets:
+      ctfd-redis-secret:
+        - kubernetesSecretKey: redis-password
+          vaultSecretPath: secrets/data/ctfd/redis
+          vaultSecretKey: redis-password

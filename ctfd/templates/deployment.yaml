@@ -1,0 +1,145 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ctfd.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "ctfd.name" . }}
+    helm.sh/chart: {{ include "ctfd.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "ctfd.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "ctfd.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      {{- if not (empty .Values.security) }}
+      securityContext:
+      {{- range $name, $value := .Values.security }}
+        {{- if not (empty $value) }}
+        {{ $name }}: {{ $value }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+      serviceAccountName: {{ include "ctfd.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.autoMount }}
+      initContainers:
+        {{- if .Values.redis.enabled }}
+        - name: redis-wait
+          image: busybox:latest
+          command: ['sh', '-c', 'echo -e "Checking for the availability of Redis Server deployment"; while ! nc -z $redisServer 6379; do sleep 1; printf "-"; done; echo -e "  >> Redis Server has started";']
+          env:
+            - name: redisServer
+              value: {{ printf "%s-redis-master" .Release.Name }}
+        {{- end }}
+        {{- if .Values.mariadb.enabled }}
+        - name: mysql-wait
+          image: busybox:latest
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z $mysqlServer 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']
+          env:
+            - name: mysqlServer
+              value: {{ printf "%s-mariadb" .Release.Name }}
+        {{- end }}
+      containers:
+        - name: "{{ .Chart.Name }}"
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- if .Values.extraEnv }}
+{{ toYaml .Values.extraEnv | indent 10 }}
+          {{- end }}
+          {{- range $name, $value := .Values.env.open }}
+            {{- if not (empty $value) }}
+          - name: {{ $name | quote }}
+            value: {{ $value | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.persistence.uploads.enabled }}
+          - name: UPLOAD_FOLDER
+            value: /var/uploads
+          {{- end }}
+          {{- if .Values.env.existingSecret }}
+            {{- $secret_name := .Values.env.existingSecret }}
+            {{- range $name, $key := .Values.env.existingSecretMappings }}
+              {{- if not ( empty $key) }}
+          - name: {{ $name | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $secret_name | quote }}
+                key: {{ $key | quote }}
+              {{- end }}
+            {{- end }}
+            {{- $secret_name := include "ctfd.fullname" . }}
+              {{- $dburl := include "ctfd.DATABASE_URL" . -}}
+              {{- if not ( empty $dburl ) }}
+          - name: "DATABASE_URL"
+            value: "mysql+pymysql://{{.Values.mariadb.auth.username}}:$(MARIADB_PASSWORD)@{{.Release.Name}}-mariadb.{{.Release.Namespace}}/{{.Values.mariadb.auth.database}}"
+              {{- end }}
+              {{- $redisurl := include "ctfd.REDIS_URL" . -}}
+              {{- if not ( empty $redisurl) }}
+          - name: "REDIS_URL"
+            value: "redis://:$(REDIS_PASSWORD)@{{.Release.Name}}-redis-master.{{.Release.Namespace}}"
+              {{- end }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 8000
+          volumeMounts:
+          {{- if .Values.persistence.uploads.enabled }}
+          - mountPath: /var/uploads
+            name: uploads
+          {{- end }}
+          {{- if .Values.config.enabled }}
+          - name: config-volume
+            mountPath: /opt/CTFd/CTFd/config.ini
+            subPath: config.ini
+          {{- end }}
+          {{- if .Values.extraVolumeMounts }}
+{{ toYaml .Values.extraVolumeMounts | indent 10 }}
+          {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8000
+{{ toYaml .Values.probes.liveness | indent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8000
+{{ toYaml .Values.probes.readiness | indent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+      - name: uploads
+    {{- if .Values.persistence.uploads.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.uploads.existingClaim | default (include "ctfd.fullname" .) }}
+    {{- else }}
+        emptyDir: {}
+    {{- end }}
+    {{- if .Values.config.enabled }}
+      - name: config-volume
+        configMap:
+          name: ctfd-config-ini
+    {{- end }}
+    {{- if .Values.extraVolumes }}
+{{ toYaml .Values.extraVolumes | indent 6 }}
+    {{- end }}
