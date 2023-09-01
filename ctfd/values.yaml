@@ -55,6 +55,41 @@ extraEnv:
         name: ctfd-secret
         key: AWS_S3_ENDPOINT_URL
 
+  - name: MAIL_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: MAIL_USERNAME
+  - name: MAIL_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: MAIL_PASSWORD
+  - name: MAIL_SERVER
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: MAIL_SERVER
+  - name: MAIL_PORT
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: MAIL_PORT
+  - name: MAIL_USEAUTH
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: MAIL_USEAUTH
+  - name: MAIL_TLS
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: MAIL_TLS
+  - name: MAILFROM_ADDR
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: MAILFROM_ADDR
 config:
   enabled: false
 

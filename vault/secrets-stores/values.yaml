@@ -170,6 +170,28 @@ secretsStores:
         - kubernetesSecretKey: AWS_S3_ENDPOINT_URL
           vaultSecretPath: secrets/data/ctfd/ctfd
           vaultSecretKey: s3_endpoint_url
+        - kubernetesSecretKey: MAIL_USERNAME
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: smtp_user
+        - kubernetesSecretKey: MAIL_PASSWORD
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: smtp_password
+        - kubernetesSecretKey: MAIL_SERVER
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: smtp_domain
+        - kubernetesSecretKey: MAIL_PORT
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: smtp_port
+        - kubernetesSecretKey: MAIL_USEAUTH
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: smtp_useauth
+        - kubernetesSecretKey: MAIL_TLS
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: smtp_tls
+        - kubernetesSecretKey: MAILFROM_ADDR
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: smtp_fromaddr
+
   - name: ctfd-mariadb
     namespace: ctfd
     roleName: ctfd-mariadb
