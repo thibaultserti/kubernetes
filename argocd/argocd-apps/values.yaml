@@ -1077,28 +1077,28 @@ applications:
   #       - CreateNamespace=true
 
 # TELEPORT
-  # - name: teleport
-  #   namespace: argocd
-  #   destination:
-  #     namespace: teleport
-  #     server: https://kubernetes.default.svc
-  #   project: teleport
-  #   sources:
-  #     - repoURL: https://charts.releases.teleport.dev
-  #       chart: teleport-cluster
-  #       targetRevision: 13.3.5
-  #       helm:
-  #         valueFiles:
-  #         - $values/teleport/values.yaml
-  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
-  #       targetRevision: HEAD
-  #       ref: values
-  #   syncPolicy:
-  #     automated:
-  #       selfHeal: true
-  #       prune: true
-  #     syncOptions:
-  #       - CreateNamespace=true
+  - name: teleport
+    namespace: argocd
+    destination:
+      namespace: teleport
+      server: https://kubernetes.default.svc
+    project: teleport
+    sources:
+      - repoURL: https://charts.releases.teleport.dev
+        chart: teleport-cluster
+        targetRevision: 13.3.5
+        helm:
+          valueFiles:
+          - $values/teleport/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
 
 
 # # EXAMPLES
