@@ -158,6 +158,18 @@ secretsStores:
         - kubernetesSecretKey: SECRET_KEY
           vaultSecretPath: secrets/data/ctfd/ctfd
           vaultSecretKey: secret_key
+        - kubernetesSecretKey: S3_CTFD_ACCESS_KEY_ID
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: s3_access_key_id
+        - kubernetesSecretKey: S3_CTFD_SECRET_ACCESS_KEY
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: s3_secret_access_key
+        - kubernetesSecretKey: AWS_S3_BUCKET
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: s3_bucket
+        - kubernetesSecretKey: AWS_S3_ENDPOINT_URL
+          vaultSecretPath: secrets/data/ctfd/ctfd
+          vaultSecretKey: s3_endpoint_url
   - name: ctfd-mariadb
     namespace: ctfd
     roleName: ctfd-mariadb

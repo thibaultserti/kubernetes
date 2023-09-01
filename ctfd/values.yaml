@@ -34,6 +34,26 @@ extraEnv:
       secretKeyRef:
         name: ctfd-redis-secret
         key: redis-password
+  - name: AWS_ACCESS_KEY_ID
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: S3_CTFD_ACCESS_KEY_ID
+  - name: AWS_SECRET_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: S3_CTFD_SECRET_ACCESS_KEY
+  - name: AWS_S3_BUCKET
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: AWS_S3_BUCKET
+  - name: AWS_S3_ENDPOINT_URL
+    valueFrom:
+      secretKeyRef:
+        name: ctfd-secret
+        key: AWS_S3_ENDPOINT_URL
 
 config:
   enabled: false
