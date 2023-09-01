@@ -58,3 +58,6 @@ serviceMonitor:
     - name: falco
       url: https://falco.ayanides.cloud
       hostname: falco.ayanides.cloud
+    - name: ctfd
+      url: https://ctfd.ayanides.cloud
+      hostname: ctfd.ayanides.cloud
