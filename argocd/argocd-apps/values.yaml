@@ -807,7 +807,7 @@ applications:
     sources:
       - repoURL: https://charts.bitnami.com/bitnami
         chart: thanos
-        targetRevision: 12.13.1
+        targetRevision: 12.13.3
         helm:
           valueFiles:
           - $values/monitoring/thanos/values.yaml
