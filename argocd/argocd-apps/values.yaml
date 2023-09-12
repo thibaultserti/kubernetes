@@ -798,28 +798,28 @@ applications:
         - CreateNamespace=true
 
 # THANOS
-  - name: thanos
-    namespace: argocd
-    destination:
-      namespace: monitoring
-      server: https://kubernetes.default.svc
-    project: monitoring
-    sources:
-      - repoURL: https://charts.bitnami.com/bitnami
-        chart: thanos
-        targetRevision: 12.13.1
-        helm:
-          valueFiles:
-          - $values/monitoring/thanos/values.yaml
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        targetRevision: HEAD
-        ref: values
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
+  # - name: thanos
+  #   namespace: argocd
+  #   destination:
+  #     namespace: monitoring
+  #     server: https://kubernetes.default.svc
+  #   project: monitoring
+  #   sources:
+  #     - repoURL: https://charts.bitnami.com/bitnami
+  #       chart: thanos
+  #       targetRevision: 12.13.1
+  #       helm:
+  #         valueFiles:
+  #         - $values/monitoring/thanos/values.yaml
+  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
+  #       targetRevision: HEAD
+  #       ref: values
+  #   syncPolicy:
+  #     automated:
+  #       selfHeal: true
+  #       prune: true
+  #     syncOptions:
+  #       - CreateNamespace=true
 
 
 # # MIMIR
