@@ -1,12 +1,12 @@
 replicaCount: 1
 
-podAnnotations:
-  policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>,<Egress/80/TCP/HTTP>,<Ingress/8000/TCP/HTTP>"
+# podAnnotations:
+#   policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>,<Egress/80/TCP/HTTP>,<Ingress/8000/TCP/HTTP>"
 
 image:
   repository: ghcr.io/thibaultserti/fastapi-observability-example
   pullPolicy: Always
-  tag: latest
+  tag: 1.1.3
 
 serviceAccount:
   create: true
