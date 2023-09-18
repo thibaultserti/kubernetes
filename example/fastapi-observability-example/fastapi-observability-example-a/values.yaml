@@ -6,7 +6,7 @@ podAnnotations:
 image:
   repository: ghcr.io/thibaultserti/fastapi-observability-example
   pullPolicy: Always
-  tag: latest
+  tag: 1.1.3
 
 serviceAccount:
   create: true
