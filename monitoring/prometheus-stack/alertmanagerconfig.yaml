@@ -84,7 +84,7 @@ extraManifests:
               - name: alertname
                 matchType: '=~'
                 # silence
-                value: InfoInhibitor|Watchdog|etcdHighCommitDurations|CPUThrottlingHigh
+                value: InfoInhibitor|Watchdog|etcdHighCommitDurations|CPUThrottlingHigh|KubeAPIErrorBudgetBurn
           - receiver: alert_manager_low
             matchers:
               - name: severity
