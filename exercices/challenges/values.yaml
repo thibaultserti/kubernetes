@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/thibaultserti/efficom-challenge-01
   pullPolicy: Always
-  tag: 1.1.1
+  tag: 1.1.2
 
 serviceAccount:
   create: true
