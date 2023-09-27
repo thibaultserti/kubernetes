@@ -41,7 +41,7 @@ serviceMonitor:
 
 env:
   - name: REDIS_HOST
-    value: redis
+    value: redis-master
   - name: REDIS_PORT
     value: "6379"
 
