@@ -165,6 +165,22 @@ projects:
     orphanedResources:
       warn: false
 
+  - name: exercices
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Exercices Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: exercices
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+
   - name: example
     namespace: argocd
     additionalLabels: {}

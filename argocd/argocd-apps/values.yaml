@@ -592,7 +592,6 @@ applications:
         - CreateNamespace=true
 
 # ROBUSTA
-
   - name: robusta
     namespace: argocd
     destination:
@@ -1202,6 +1201,8 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+
+# CTFD
   - name: ctfd
     namespace: argocd
     destination:
@@ -1214,6 +1215,48 @@ applications:
         helm:
           valueFiles:
           - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: challenges
+    namespace: argocd
+    destination:
+      namespace: exercices
+      server: https://kubernetes.default.svc
+    project: exercices
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: exercices/challenges
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: redis
+    namespace: argocd
+    destination:
+      namespace: exercices
+      server: https://kubernetes.default.svc
+    project: exercices
+    sources:
+      - repoURL: https://charts.bitnami.com/bitnami
+        chart: redis
+        targetRevision: 18.1.0
+        helm:
+          valueFiles:
+          - $values/exercices/redis/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
     syncPolicy:
       automated:
         selfHeal: true

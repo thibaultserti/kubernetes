@@ -1,0 +1,14 @@
+auth:
+  enabled: false
+  sentinel: false
+
+replica:
+  replicaCount: 1
+
+metrics:
+  enabled: true
+
+  serviceMonitor:
+    enabled: true
+  prometheusRule:
+    enabled: true
