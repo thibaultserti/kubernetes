@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "fastapi-observability-example.name" -}}
+{{- define "challenges.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "fastapi-observability-example.fullname" -}}
+{{- define "challenges.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "fastapi-observability-example.chart" -}}
+{{- define "challenges.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "fastapi-observability-example.labels" -}}
-helm.sh/chart: {{ include "fastapi-observability-example.chart" . }}
-{{ include "fastapi-observability-example.selectorLabels" . }}
+{{- define "challenges.labels" -}}
+helm.sh/chart: {{ include "challenges.chart" . }}
+{{ include "challenges.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "fastapi-observability-example.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "fastapi-observability-example.name" . }}
+{{- define "challenges.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "challenges.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "fastapi-observability-example.serviceAccountName" -}}
+{{- define "challenges.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "fastapi-observability-example.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "challenges.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

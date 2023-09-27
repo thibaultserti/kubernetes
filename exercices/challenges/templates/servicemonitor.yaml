@@ -3,9 +3,9 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "fastapi-observability-example.fullname" . }}
+  name: {{ include "challenges.fullname" . }}
   labels:
-    {{- include "fastapi-observability-example.labels" . | nindent 4 }}
+    {{- include "challenges.labels" . | nindent 4 }}
 spec:
   endpoints:
   - port: {{ .Values.service.portName }}
@@ -17,7 +17,7 @@ spec:
   jobLabel: "{{ .Release.Name }}"
   selector:
     matchLabels:
-      {{- include "fastapi-observability-example.selectorLabels" . | nindent 6 }}
+      {{- include "challenges.selectorLabels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
       - "{{ .Release.Namespace }}"

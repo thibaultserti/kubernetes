@@ -1,12 +1,12 @@
 {{- if .Values.ingress.enabled -}}
 {{- $svcPort := .Values.service.port -}}
-{{- $fullName := include "fastapi-observability-example.fullname" . -}}
+{{- $fullName := include "challenges.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "fastapi-observability-example.labels" . | nindent 4 }}
+    {{- include "challenges.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
