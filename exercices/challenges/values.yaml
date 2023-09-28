@@ -36,8 +36,6 @@ ingress:
 autoscaling:
   enabled: false
 
-serviceMonitor:
-  enabled: true
 
 env:
   - name: REDIS_HOST
