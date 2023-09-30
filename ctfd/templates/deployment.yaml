@@ -46,6 +46,19 @@ spec:
             - name: mysqlServer
               value: {{ printf "%s-mariadb" .Release.Name }}
         {{- end }}
+        {{- if .Values.plugins }}
+        - image: alpine/git
+          name: git
+          command:
+            - "/bin/sh"
+            - "-c"
+            {{- range .Values.plugins }}
+            - git clone {{ . }} /plugins;
+            {{- end }}
+          volumeMounts:
+            - name: git-clone-volume
+              mountPath: /plugins
+        {{- end }}
       containers:
         - name: "{{ .Chart.Name }}"
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
@@ -100,6 +113,10 @@ spec:
             mountPath: /opt/CTFd/CTFd/config.ini
             subPath: config.ini
           {{- end }}
+          {{- if .Values.plugins }}
+          - name: git-clone-volume
+            mountPath: /opt/CTFd/plugins
+          {{- end }}
           {{- if .Values.extraVolumeMounts }}
 {{ toYaml .Values.extraVolumeMounts | indent 10 }}
           {{- end }}
@@ -139,6 +156,10 @@ spec:
       - name: config-volume
         configMap:
           name: ctfd-config-ini
+    {{- end }}
+    {{- if .Values.plugins }}
+      - name: git-clone-volume
+        emptyDir: {}
     {{- end }}
     {{- if .Values.extraVolumes }}
 {{ toYaml .Values.extraVolumes | indent 6 }}
