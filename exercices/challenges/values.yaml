@@ -24,14 +24,14 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 
   hosts:
-    - host: challenges.ayanides.cloud
+    - host: challenge.ayanides.cloud
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: challenges-tls
       hosts:
-        - challenges.ayanides.cloud
+        - challenge.ayanides.cloud
 
 autoscaling:
   enabled: false
