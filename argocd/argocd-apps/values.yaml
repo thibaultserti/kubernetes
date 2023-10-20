@@ -143,7 +143,7 @@ applications:
     sources:
       - repoURL: https://metallb.github.io/metallb
         chart: metallb
-        targetRevision: 0.13.10
+        targetRevision: 0.13.12
         helm:
           valueFiles:
           - $values/metallb/metallb/values.yaml
