@@ -554,7 +554,7 @@ applications:
     sources:
       - repoURL: https://sustainable-computing-io.github.io/kepler-helm-chart
         chart: kepler
-        targetRevision: 0.5.0
+        targetRevision: 0.5.3
         helm:
           valueFiles:
           - $values/monitoring/exporters/kepler-exporter/values.yaml
