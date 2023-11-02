@@ -377,7 +377,7 @@ applications:
     sources:
       - repoURL: https://helm.releases.hashicorp.com
         chart: vault
-        targetRevision: 0.25.0
+        targetRevision: 0.26.1
         helm:
           valueFiles:
           - $values/vault/vault/values.yaml
