@@ -4,6 +4,7 @@ operator:
   rbacAssessmentScannerEnabled: true
   clusterComplianceEnabled: true
   vulnerabilityScannerScanOnlyCurrentRevisions: true
+  metricsVulnIdEnabled: true
   configAuditScannerScanOnlyCurrentRevisions: true
   metricsFindingsEnabled: true
   exposedSecretScannerEnabled: true
