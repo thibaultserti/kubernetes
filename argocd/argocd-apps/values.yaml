@@ -310,7 +310,7 @@ applications:
     sources:
       - repoURL: https://postfinance.github.io/kubelet-csr-approver
         chart: kubelet-csr-approver
-        targetRevision: 1.0.4
+        targetRevision: 1.0.5
         helm:
           valueFiles:
           - $values/k8s-sigs/kubelet-csr-approver/values.yaml
