@@ -24,7 +24,8 @@ providers:
 
 ports:
   web:
-    redirectTo: websecure
+    redirectTo:
+      port: websecure
     forwardedHeaders:
       trustedIPs:
         - 192.168.0.0/16
