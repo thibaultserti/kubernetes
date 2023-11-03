@@ -61,6 +61,7 @@ prometheus:
         - targets: ['eros.ayanides.cloud:9100']
 
     thanos:
+      #cblockSize: 1m # only for test
       additionalArgs:
         - name: tracing.config
           value: |
@@ -70,8 +71,9 @@ prometheus:
               endpoint: "tempo.monitoring:4317"
               insecure: true
       objectStorageConfig:
-        key: objstore.yml
-        name: thanos-objstore-secret
+        existingSecret:
+          key: objstore.yml
+          name: thanos-objstore-secret
 
   thanosServiceMonitor:
     enabled: true
