@@ -51,8 +51,8 @@ compactor:
 storegateway:
   enabled: true
   persistence:
-    storageClass: longhorn
-    size: 50Gi
+    storageClass: default
+    size: 10Gi
 
 ruler:
   enabled: false
