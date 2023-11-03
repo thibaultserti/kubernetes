@@ -27,8 +27,8 @@ slos:
     objective: 95
   - name: kyverno
     objective: 95
-  # - name: thanos
-  #   objective: 95
+  - name: thanos
+    objective: 95
   - name: teleport
     objective: 95
   - name: falco

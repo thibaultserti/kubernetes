@@ -49,9 +49,9 @@ serviceMonitor:
     - name: kyverno
       url: https://kyverno.ayanides.cloud
       hostname: kyverno.ayanides.cloud
-    # - name: thanos
-    #   url: https://thanos.ayanides.cloud
-    #  hostname: thanos.ayanides.cloud
+    - name: thanos
+      url: https://thanos.ayanides.cloud
+      hostname: thanos.ayanides.cloud
     - name: teleport
       url: https://teleport.ayanides.cloud
       hostname: teleport.ayanides.cloud
