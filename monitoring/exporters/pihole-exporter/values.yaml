@@ -20,6 +20,7 @@ autoscaling:
 
 serviceMonitor:
   enabled: true
+  interval: 1m
 
 env:
   - name: PIHOLE_PROTOCOL

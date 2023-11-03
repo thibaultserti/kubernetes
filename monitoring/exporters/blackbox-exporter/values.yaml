@@ -2,7 +2,9 @@ serviceMonitor:
   enabled: true
   selfMonitor:
     enabled: true
-
+    interval: 1m
+  defaults:
+    interval: 1m
   targets:
     - name: google
       url: https://google.com
