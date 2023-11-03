@@ -11,4 +11,5 @@ ingress:
   tlsSecret: longhorn-tls
 
 persistence:
-  defaultClassReplicaCount: 1
+  defaultClassReplicaCount: 3
+  defaultClass: false

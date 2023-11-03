@@ -367,6 +367,25 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: storage-classes
+    namespace: argocd
+    destination:
+      namespace: longhorn-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: longhorn/storage-classes
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # VAULT
   - name: vault
     namespace: argocd

@@ -1,0 +1,23 @@
+name: default
+persistence:
+  defaultClass: true
+  allowVolumeExpansion: false
+  defaultFsType: ext4
+  defaultMkfsParams: ""
+  defaultClassReplicaCount: 1
+  defaultDataLocality: disabled # best-effort otherwise
+  reclaimPolicy: Delete
+  migratable: false
+  recurringJobSelector:
+    enable: false
+    jobList: []
+  backingImage:
+    enable: false
+    name: ~
+    dataSourceType: ~
+    dataSourceParameters: ~
+    expectedChecksum: ~
+  defaultNodeSelector:
+    enable: false # disable by default
+    selector: ""
+  removeSnapshotsDuringFilesystemTrim: ignored # "enabled" or "disabled" otherwise
