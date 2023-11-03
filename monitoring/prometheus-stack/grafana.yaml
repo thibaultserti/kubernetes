@@ -51,6 +51,7 @@ grafana:
   persistence:
     enabled: true
     size: 5Gi
+    storageClassName: "default"
 
   sidecar:
   # Managed by Terraform

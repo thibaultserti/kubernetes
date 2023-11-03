@@ -56,7 +56,7 @@ apiIngress:
 
 persistence:
   enabled: true
-  storageClass: "longhorn"
+  storageClass: "default"
   mountPath: /data
   accessModes:
     - ReadWriteOnce

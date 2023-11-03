@@ -15,6 +15,10 @@ webui:
   replicaCount: 2
   # -- User in format <login>:<password>
   user: "admin:admin"
+  redis:
+    storageEnabled: true
+    storageSize: "1Gi"
+    storageClass: "default"
 
   ingress:
     enabled: true

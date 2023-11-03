@@ -43,7 +43,7 @@ podMonitor:
 persistence:
   enabled: true
   volumeSize: 10Gi
-
+  storageClassName: default
 
 service:
   type: LoadBalancer

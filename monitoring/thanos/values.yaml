@@ -42,7 +42,7 @@ bucketweb:
 compactor:
   enabled: true
   persistence:
-    storageClass: longhorn
+    storageClass: default
     size: 100Gi
   retentionResolutionRaw: 7d
   retentionResolution5m: 30d
