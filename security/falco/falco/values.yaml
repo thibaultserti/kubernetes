@@ -8,9 +8,9 @@ tty: true
 
 falco:
   rules_file:
-    - /etc/falco/falco_rules.yaml
+    - /etc/falco/falco_rules.yaml #https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
     - /etc/falco/falco_rules.local.yaml
-    - /etc/falco/k8s_audit_rules.yaml
+    - /etc/falco/k8s_audit_rules.yaml # https://github.com/falcosecurity/plugins/blob/master/plugins/k8saudit/rules/k8s_audit_rules.yaml
     - /etc/falco/rules.d
   load_plugins: [k8saudit, json]
   plugins:
@@ -43,9 +43,9 @@ falcoctl:
   config:
     artifact:
       install:
-        refs: [falco-rules:1,k8saudit-rules:0.6]
+        refs: [falco-rules:2,k8saudit-rules:0.6]
       follow:
-        refs: [falco-rules:1,k8saudit-rules:0.6]
+        refs: [falco-rules:2,k8saudit-rules:0.6]
 
 services:
   - name: k8saudit-webhook
@@ -57,156 +57,48 @@ services:
 
 customRules:
   rules-override.yaml: |-
-    - macro: policyreporter_writing_state
-      condition: (proc.exepath=/app/policyreporter and proc.name=policyreporter and fd.name=/sqlite)
-    - macro: metallb_frr_writing_state
-      condition: (proc.pname=frr-metrics and fd.name startswith /root/.history_frr)
-    - macro: ciliumoperator_writing_state
-      condition: (proc.name=cilium-operator and fd.name startswith /1)
-    - macro: kubelet_writing_state
-      condition: (proc.name=kubelet)
-    - rule: Write below root
-      desc: an attempt to write to any file directly below / or /root
-      condition: >
-        root_dir and evt.dir = < and open_write
-        and proc_name_exists
-        and not fd.name in (known_root_files)
-        and not fd.directory pmatch (known_root_directories)
-        and not exe_running_docker_save
-        and not gugent_writing_guestagent_log
-        and not dse_writing_tmp
-        and not zap_writing_state
-        and not airflow_writing_state
-        and not rpm_writing_root_rpmdb
-        and not maven_writing_groovy
-        and not chef_writing_conf
-        and not kubectl_writing_state
-        and not cassandra_writing_state
-        and not galley_writing_state
-        and not calico_writing_state
-        and not rancher_writing_root
-        and not runc_writing_exec_fifo
-        and not mysqlsh_writing_state
-        and not known_root_conditions
-        and not user_known_write_root_conditions
-        and not user_known_write_below_root_activities
-        and not metallb_frr_writing_state
-        and not policyreporter_writing_state
-        and not ciliumoperator_writing_state
-        and not kubelet_writing_state
-      output: File below / or /root opened for writing (file=%fd.name evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
-      priority: ERROR
-      tags: [maturity_sandbox, host, container, filesystem, mitre_persistence, TA0003]
+    - list: user_known_sa_list
+      items: [
+        cilium-operator,
+        cilium,
+        coredns,
+        kube-proxy,
+        secrets-store-csi-driver,
+        kubelet-csr-approver,
+        kube-proxy,
+        kube-state-metrics,
+        metrics-server,
+        hubble-ui,
+        hubble-relay
+      ]
 
-    - macro: kyverno_cleanup
-      condition: (proc.cmdline="kubectl get admissionreports.kyverno.io -A" or proc.cmdline="kubectl get clusteradmissionreports.kyverno.io -A")
-    - rule: The docker client is executed in a container
-      desc: Detect a k8s client tool executed inside a container
-      condition: >
-        spawned_process and container and not user_known_k8s_client_container_parens and proc.name in (k8s_client_binaries)
-        and not kyverno_cleanup
-      output: Docker or kubernetes client executed in container (evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
-      priority: WARNING
-      tags: [maturity_sandbox, container, mitre_execution, T1610]
+    - list: user_allowed_kube_namespace_image_list
+      items: [
+        registry.k8s.io/kube-state-metrics/kube-state-metrics,
+        registry.k8s.io/sig-storage/csi-node-driver-registrar,
+        registry.k8s.io/metrics-server/metrics-server,
+        ghcr.io/postfinance/kubelet-csr-approver,
+        registry.k8s.io/coredns/coredns,
+        quay.io/cilium/cilium,
+        quay.io/cilium/operator-generic,
+        quay.io/cilium/hubble-relay,
+        quay.io/cilium/hubble-ui
+      ]
 
-    - macro: prometheus_reload
-      condition: (fd.name=/etc/alertmanager/config_out/alertmanager.env.yaml.tmp and proc.name=prometheus-conf and container.image.repository=quay.io/prometheus-operator/prometheus-config-reloader)
-    - macro: mutipathd_write_etc
-      condition: (proc.cmdline="multipathd -d -s" and fd.name=/etc/multipath/wwids)
-    - rule: Write below etc
-      desc: an attempt to write to any file below /etc
-      condition: write_etc_common and not prometheus_reload and not mutipathd_write_etc
-      output: File below /etc opened for writing (file=%fd.name pcmdline=%proc.pcmdline gparent=%proc.aname[2] ggparent=%proc.aname[3] gggparent=%proc.aname[4] evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
-      priority: ERROR
-      tags: [maturity_sandbox, host, container, filesystem, mitre_persistence, T1098]
+    - list: falco_privileged_images
+      items: [
+        docker.io/falcosecurity/falco-no-driver,
+        docker.io/falcosecurity/falcoctl,
+        quay.io/cilium/cilium,
+        registry.k8s.io/kube-proxy
+        registry.k8s.io/sig-storage/csi-node-driver-registrar,
+        longhornio/longhorn-engine,
+        longhornio/csi-node-driver-registrar,
+        longhornio/longhorn-manager,
+        longhornio/longhorn-instance-manager,
+        quay.io/sustainable_computing_io/kepler
+      ]
 
-    - macro: vault_csi_provider_secret
-      condition: (ka.user.name=system:serviceaccount:vault:vault-csi-provider and ka.target.name=vault-csi-provider-hmac-key)
-    - macro: trivy_operator_secret
-      condition: (ka.user.name=system:serviceaccount:trivy:trivy-operator and ka.target.name=trivy-operator-trivy-config)
-    - macro: prometheus_operator_secret
-      condition: >
-        (
-          (ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-operator
-          and
-            (
-              ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-tls-assets-0
-              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-tls-assets-0
-              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-generated
-              or ka.target.name=alertmanager-secret
-              or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus
-              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager
-              or ka.target.name=prometheus-stack-kube-prom-admission
-              or ka.target.name=prometheus-prometheus-stack-kube-prom-prometheus-web-config
-              or ka.target.name=alertmanager-prometheus-stack-kube-prom-alertmanager-web-config
-            )
-          )
-          or
-          (
-          ka.user.name=system:serviceaccount:monitoring:prometheus-stack-kube-prom-admission
-          and
-            (
-              ka.target.name=prometheus-stack-kube-prom-admission
-            )
-          )
-        )
-
-    - macro: argocd_secret
-      condition: (ka.user.name=system:serviceaccount:argocd:argocd-application-controller)
-    - macro: kubernetes_dashboard_secret
-      condition: (ka.user.name=system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard and ka.target.name=kubernetes-dashboard-key-holder)
-    - macro: kube_controller_manager_secret
-      condition: (ka.user.name=system:kube-controller-manager and (ka.target.name=attachdetach-controller or ka.target.name=expand-controller))
-    - macro: longhorn_secret
-      condition: (ka.user.name=system:serviceaccount:longhorn-system:longhorn-service-account and ka.target.name=longhorn-webhook-tls)
-    - rule: K8s Secret Get Successfully
-      desc: >
-        Detect any attempt to get a secret. Service account tokens are excluded.
-      condition: >
-        secret and kget
-        and kactivity
-        and response_successful
-        and not prometheus_operator_secret
-        and not trivy_operator_secret
-        and not vault_csi_provider_secret
-        and not kubernetes_dashboard_secret
-        and not kube_controller_manager_secret
-        and not longhorn_secret
-        and not argocd_secret
-      output: K8s Secret Get Successfully (user=%ka.user.name secret=%ka.target.name ns=%ka.target.namespace resource=%ka.target.resource resp=%ka.response.code decision=%ka.auth.decision reason=%ka.auth.reason)
-      priority: ERROR
-      source: k8s_audit
-      tags: [k8s]
-
-
-    - macro: node_sa
-      condition: (ka.user.name startswith system:node or ka.user.name=system:kube-controller-manager)
-    - macro: longhorn_sa
-      condition: (ka.user.name=system:serviceaccount:longhorn-system:longhorn-service-account)
-    - rule: Service Account Created in Kube Namespace
-      desc: Detect any attempt to create a serviceaccount in the kube-system or kube-public namespaces
-      condition: kevt and serviceaccount and kcreate and ka.target.namespace in (kube-system, kube-public) and response_successful and not trusted_sa and not node_sa and not longhorn_sa
-      output: Service account created in kube namespace (user=%ka.user.name serviceaccount=%ka.target.name resource=%ka.target.resource ns=%ka.target.namespace)
-      priority: WARNING
-      source: k8s_audit
-      tags: [k8s]
-
-    - macro: longhorn_mount_in_privileged_containers
-      condition: (container.image.repository=docker.io/longhornio/longhorn-manager)
-    - macro: csi_mount_in_privileged_containers
-      condition: (proc.pname=secrets-store-c and k8s.ns.name=kube-system)
-    - rule: Mount Launched in Privileged Container
-      desc: Detect file system mount happened inside a privileged container which might lead to container escape.
-      condition: >
-        spawned_process and container
-        and container.privileged=true
-        and proc.name=mount
-        and not mount_info
-        and not known_gke_mount_in_privileged_containers
-        and not known_aks_mount_in_privileged_containers
-        and not user_known_mount_in_privileged_containers
-        and not longhorn_mount_in_privileged_containers
-        and not csi_mount_in_privileged_containers
-      output: Mount was executed inside a privileged container (evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
-      priority: WARNING
-      tags: [maturity_incubating, container, cis, filesystem, mitre_privilege_escalation, T1611]
+    # ignore get secrets
+    - macro: consider_activity_events
+      condition: (not (secret and kget))
