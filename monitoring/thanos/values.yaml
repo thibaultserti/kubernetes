@@ -38,6 +38,18 @@ queryFrontend:
 
 bucketweb:
   enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hostname: thanos-bucketweb.ayanides.cloud
+    path: "/"
+    pathType: Prefix
+    tls: true
+
 
 compactor:
   enabled: true
@@ -48,11 +60,38 @@ compactor:
   retentionResolution5m: 30d
   retentionResolution1h: 90d
 
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hostname: thanos-compactor.ayanides.cloud
+    path: "/"
+    pathType: Prefix
+    tls: true
+
+
+
 storegateway:
   enabled: true
   persistence:
     storageClass: default
     size: 10Gi
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hostname: thanos-storegateway.ayanides.cloud
+    path: "/"
+    pathType: Prefix
+    tls: true
+
 
 ruler:
   enabled: false

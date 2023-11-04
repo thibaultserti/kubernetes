@@ -29,6 +29,12 @@ slos:
     objective: 95
   - name: thanos
     objective: 95
+  - name: thanos-bucketweb
+    objective: 95
+  - name: thanos-compactor
+    objective: 95
+  - name: thanos-storegateway
+    objective: 95
   - name: teleport
     objective: 95
   - name: falco
