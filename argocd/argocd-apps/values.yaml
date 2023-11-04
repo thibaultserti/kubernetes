@@ -770,24 +770,24 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: opentelemetry-collector
-    namespace: argocd
-    destination:
-      namespace: monitoring
-      server: https://kubernetes.default.svc
-    project: monitoring
-    sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: monitoring/opentelemetry/opentelemetry-collector
-        helm:
-          valueFiles:
-          - values.yaml
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
+  # - name: opentelemetry-collector
+  #   namespace: argocd
+  #   destination:
+  #     namespace: monitoring
+  #     server: https://kubernetes.default.svc
+  #   project: monitoring
+  #   sources:
+  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
+  #       path: monitoring/opentelemetry/opentelemetry-collector
+  #       helm:
+  #         valueFiles:
+  #         - values.yaml
+  #   syncPolicy:
+  #     automated:
+  #       selfHeal: true
+  #       prune: true
+  #     syncOptions:
+  #       - CreateNamespace=true
 
 # LOKI
   - name: loki
