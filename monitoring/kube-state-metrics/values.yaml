@@ -1,0 +1,4 @@
+namespaceOverride: "kube-system"
+prometheus:
+  monitor:
+    enabled: true

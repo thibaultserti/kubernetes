@@ -1,3 +1,18 @@
+
+
+#KUBE-STATE-METRICS
+kubeStateMetrics:
+  enabled: false
+
+# GRAFANA
+grafana:
+  enabled: false
+
+# NODE-EXPORTER
+nodeExporter:
+  enabled: false
+
+
 # CONTROLPLANE
 kubeControllerManager:
   enabled: true

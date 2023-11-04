@@ -1,9 +1,0 @@
-#KUBE-STATE-METRICS
-kubeStateMetrics:
-  enabled: true
-
-kube-state-metrics:
-  namespaceOverride: "kube-system"
-  prometheus:
-    monitor:
-      enabled: true

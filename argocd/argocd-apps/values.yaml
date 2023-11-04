@@ -460,6 +460,29 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# KSM
+  - name: kube-state-metrics
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://prometheus-community.github.io/helm-charts
+        chart: kube-state-metrics
+        targetRevision: 5.14.0
+        helm:
+          valueFiles:
+          - $values/monitoring/kube-state-metrics/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
 
 # KUBE-PROMETHEUS-STACK
   - name: prometheus-stack
@@ -477,9 +500,6 @@ applications:
           valueFiles:
           - $values/monitoring/prometheus-stack/alertmanager.yaml
           - $values/monitoring/prometheus-stack/alertmanagerconfig.yaml
-          - $values/monitoring/prometheus-stack/grafana.yaml
-          - $values/monitoring/prometheus-stack/ksm.yaml
-          - $values/monitoring/prometheus-stack/node-exporter.yaml
           - $values/monitoring/prometheus-stack/prometheus.yaml
           - $values/monitoring/prometheus-stack/promrules.yaml
           - $values/monitoring/prometheus-stack/values.yaml
@@ -525,6 +545,29 @@ applications:
         selfHeal: true
 
 # EXPORTERS
+  - name: node-exporter
+    namespace: argocd
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://prometheus-community.github.io/helm-charts
+        chart: prometheus-node-exporter
+        targetRevision: 4.23.2
+        helm:
+          valueFiles:
+          - $values/monitoring/exporters/node-exporter/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
   - name: blackbox-exporter
     namespace: argocd
     destination:
