@@ -446,7 +446,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: grafana
-        targetRevision: 6.60.6
+        targetRevision: 6.61.2
         helm:
           valueFiles:
           - $values/monitoring/grafana/values.yaml
