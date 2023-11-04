@@ -69,7 +69,8 @@ customRules:
         kube-state-metrics,
         metrics-server,
         hubble-ui,
-        hubble-relay
+        hubble-relay,
+        attachdetach-controller
       ]
 
     - list: user_allowed_kube_namespace_image_list
