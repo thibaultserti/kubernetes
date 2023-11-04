@@ -2,8 +2,12 @@
 
 #KUBE-STATE-METRICS
 kubeStateMetrics:
-  enabled: false
-
+  enabled:  false
+kube-state-metrics:
+  namespaceOverride: "kube-system"
+  prometheus:
+    monitor:
+      enabled: true
 # GRAFANA
 grafana:
   enabled: false
