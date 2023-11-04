@@ -61,7 +61,7 @@ prometheus:
         - targets: ['eros.ayanides.cloud:9100']
 
     thanos:
-      #cblockSize: 1m # only for test
+      #blockSize: 1m # only for test
       additionalArgs:
         - name: tracing.config
           value: |

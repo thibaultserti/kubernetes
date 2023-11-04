@@ -195,12 +195,12 @@ notifications:
       - description: Application has degraded
         send:
         - app-health-degraded
-        when: app.status.health.status == 'Degraded'
+        when: app.status.health.status == 'Degraded' and time.Now().Sub(time.Parse(app.status.operationState.startedAt)).Minutes() >= 5
     trigger.on-sync-failed: |
       - description: Application syncing has failed
         send:
         - app-sync-failed
-        when: app.status.operationState.phase in ['Error', 'Failed']
+        when: app.status.operationState.phase in ['Error', 'Failed'] and time.Now().Sub(time.Parse(app.status.operationState.startedAt)).Minutes() >= 5
     trigger.on-sync-running: |
       - description: Application is being synced
         send:
@@ -210,7 +210,7 @@ notifications:
       - description: Application status is 'Unknown'
         send:
         - app-sync-status-unknown
-        when: app.status.sync.status == 'Unknown'
+        when: app.status.sync.status == 'Unknown' and time.Now().Sub(time.Parse(app.status.operationState.startedAt)).Minutes() >= 5
     trigger.on-sync-succeeded: |
       - description: Application syncing has succeeded
         send:

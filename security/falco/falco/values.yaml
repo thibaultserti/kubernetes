@@ -150,6 +150,9 @@ customRules:
             )
           )
         )
+
+    - macro: argocd_secret
+      condition: (ka.user.name=system:serviceaccount:argocd:argocd-application-controller)
     - macro: kubernetes_dashboard_secret
       condition: (ka.user.name=system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard and ka.target.name=kubernetes-dashboard-key-holder)
     - macro: kube_controller_manager_secret
@@ -169,6 +172,7 @@ customRules:
         and not kubernetes_dashboard_secret
         and not kube_controller_manager_secret
         and not longhorn_secret
+        and not argocd_secret
       output: K8s Secret Get Successfully (user=%ka.user.name secret=%ka.target.name ns=%ka.target.namespace resource=%ka.target.resource resp=%ka.response.code decision=%ka.auth.decision reason=%ka.auth.reason)
       priority: ERROR
       source: k8s_audit
