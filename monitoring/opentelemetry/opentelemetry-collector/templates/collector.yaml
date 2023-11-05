@@ -76,9 +76,9 @@ spec:
 
       loki:
         endpoint: http://loki.monitoring:3100/loki/api/v1/push
-        # default_labels_enabled:
-        #   # disable exporter field
-        #   exporter: false
+        default_labels_enabled:
+          # disable exporter field
+          exporter: false
 
     processors:
       batch:
