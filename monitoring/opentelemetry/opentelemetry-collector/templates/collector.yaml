@@ -17,11 +17,8 @@ spec:
   #   enabled: true
   mode: daemonset
   ports:
-    - name: loki-http
+    - name: loki
       port: 3500
-      protocol: TCP
-    - name: loki-grpc
-      port: 3600
       protocol: TCP
     - name: prometheus
       port: 9464
@@ -54,11 +51,10 @@ spec:
         protocols:
           http:
             endpoint: 0.0.0.0:3500
-          grpc:
-            endpoint: 0.0.0.0:3600
         use_incoming_timestamp: true
 
     exporters:
+
       otlp:
         endpoint: tempo.monitoring:4317
         tls:
@@ -72,9 +68,9 @@ spec:
 
       loki:
         endpoint: http://loki.monitoring:3100/loki/api/v1/push
-        default_labels_enabled:
-          # disable exporter field
-          exporter: false
+        # default_labels_enabled:
+        #   # disable exporter field
+        #   exporter: false
 
     processors:
       batch:
@@ -123,35 +119,31 @@ spec:
         log_statements:
           - context: log
             statements:
+              - merge_maps(cache, ParseJSON(body), "upsert") where IsMatch(body, "^\\{")
+
               # Traefik
-              - set(attributes["remote_addr"], body["remote_addr"])
-              - set(attributes["http_host"], body["http_host"])
-              - set(attributes["request_uri"], body["request_uri"])
-              - set(attributes["request_method"], body["request_method"])
-              - set(attributes["status"], body["status"])
+              - set(attributes["remote_addr"], cache["remote_addr"])
+              - set(attributes["http_host"], cache["http_host"])
+              - set(attributes["request_uri"], cache["request_uri"])
+              - set(attributes["request_method"], cache["request_method"])
+              - set(attributes["status"], cache["status"])
               # Nginx
-              - set(attributes["ClientHost"], body["ClientHost"])
-              - set(attributes["RequestHost"], body["RequestHost"])
-              - set(attributes["RequestPath"], body["RequestPath"])
-              - set(attributes["RequestMethod"], body["RequestMethod"])
-              - set(attributes["OriginStatus"], body["OriginStatus"])
+              - set(attributes["ClientHost"], cache["ClientHost"])
+              - set(attributes["RequestHost"], cache["RequestHost"])
+              - set(attributes["RequestPath"], cache["RequestPath"])
+              - set(attributes["RequestMethod"], cache["RequestMethod"])
+              - set(attributes["OriginStatus"], cache["OriginStatus"])
 
       attributes:
         actions:
-        # Nginx
-        - action: insert
+        - action: upsert
           key: loki.attribute.labels
-          value: node_name, namespace, instance, job, pod, container, app, filename, stream
-        # Traefik
-        - action: insert
-          key: loki.attribute.labels
-          value: ClientHost, RequestHost, RequestPath, RequestMethod, OriginStatus
+          value: >
+            node_name, namespace, instance, job, pod, container, app, filename, stream,
+            remote_addr, http_host, request_uri, request_method, status,
+            ClientHost, RequestHost, RequestPath, RequestMethod, OriginStatus
 
     service:
-      telemetry:
-        logs:
-          level: "debug"
-
       pipelines:
         traces:
           receivers: [otlp]
@@ -163,5 +155,5 @@ spec:
         #   exporters: [prometheus]
         logs:
           receivers: [loki]
-          processors: [transform, attributes, memory_limiter, batch]
+          processors: [attributes, transform, memory_limiter, batch]
           exporters: [loki]
