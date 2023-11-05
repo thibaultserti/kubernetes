@@ -87,6 +87,11 @@ singleBinary:
           name: loki-bucket-secret
           key: S3_LOKI_SECRET_ACCESS_KEY
 
+    - name: JAEGER_AGENT_HOST
+      value: otel-collector.monitoring
+    - name: JAEGER_AGENT_PORT
+      value: "6831"
+
   persistence:
     storageClass: "default"
     size: 10Gi
@@ -101,7 +106,6 @@ singleBinary:
         readOnly: true
         volumeAttributes:
           secretProviderClass: loki
-
 
 test:
   enabled: false

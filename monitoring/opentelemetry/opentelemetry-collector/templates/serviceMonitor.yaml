@@ -2,14 +2,14 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: otel-collector
-  namespace: {{ .Release.Namespace }}
+  namespace: monitoring
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/component: otel-collector
       app.kubernetes.io/name: otel-collector
+      app.kubernetes.io/instance: monitoring.otel
   endpoints:
-    - port: prometheus
+    - port: monitoring
   namespaceSelector:
     matchNames:
-      - {{ .Release.Namespace }}
+      - monitoring

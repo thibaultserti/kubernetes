@@ -36,8 +36,15 @@ config:
     - url: http://otel-collector.monitoring:3500/loki/api/v1/push
 positions:
   filename: /run/promtail/positions.yaml
-enableTracing: true
 
 sidecar:
   configReloader:
     enabled: true
+
+enableTracing: true
+
+extraEnv:
+  - name: JAEGER_AGENT_HOST
+    value: otel-collector.monitoring
+  - name: JAEGER_AGENT_PORT
+    value: "6831"

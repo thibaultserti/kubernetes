@@ -58,6 +58,11 @@ tempo:
           name: tempo-bucket-secret
           key: S3_TEMPO_SECRET_ACCESS_KEY
 
+    - name: JAEGER_AGENT_HOST
+      value: otel-collector.monitoring
+    - name: JAEGER_AGENT_PORT
+      value: "6831"
+
 
 tempoQuery:
   repository: grafana/tempo-query
