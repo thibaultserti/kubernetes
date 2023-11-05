@@ -70,7 +70,8 @@ customRules:
         metrics-server,
         hubble-ui,
         hubble-relay,
-        attachdetach-controller
+        attachdetach-controller,
+        expand-controller
       ]
 
     - list: user_allowed_kube_namespace_image_list
