@@ -4,10 +4,23 @@ globalArguments:
 additionalArguments:
   - --serversTransport.insecureSkipVerify=true
 
+image:
+  tag: v3.0
+
 logs:
   access:
     enabled: true
     format: json
+    fields:
+      defaultMode: keep
+      headers:
+        defaultMode: redact
+        names:
+          User-Agent: keep
+          X-Forwarded-For: keep
+          X-Forwarded-Server: keep
+          X-Real-Ip: keep
+
 
 service:
   annotations:
@@ -73,8 +86,6 @@ metrics:
             description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
 
 tracing:
-  zipkin:
-    httpEndpoint: http://tempo.monitoring:9411/api/v2/spans
-    sameSpan: true
-    id128Bit: true
-    sampleRate: 1.0
+  openTelemetry:
+    address: otel-collector.monitoring:4318
+    insecure: true

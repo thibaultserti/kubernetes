@@ -24,7 +24,7 @@ configs:
         clusters:
           - '*'
   params:
-    otlp.address: "tempo.monitoring:4317"
+    otlp.address: "otel-collector.monitoring:4317"
     server.insecure: true
 
   rbac:

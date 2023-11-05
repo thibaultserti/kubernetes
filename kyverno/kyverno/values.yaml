@@ -45,7 +45,7 @@ admissionController:
 
   tracing:
     enabled: true
-    address: tempo.monitoring
+    address: otel-collector.monitoring
     port: 4317
 
   metering:
@@ -63,7 +63,7 @@ backgroundController:
 
   tracing:
     enabled: true
-    address: tempo.monitoring
+    address: otel-collector.monitoring
     port: 4317
 
   metering:
@@ -81,7 +81,7 @@ cleanupController:
 
   tracing:
     enabled: true
-    address: tempo.monitoring
+    address: otel-collector.monitoring
     port: 4317
 
   metering:
@@ -99,7 +99,7 @@ reportsController:
 
   tracing:
     enabled: true
-    address: tempo.monitoring
+    address: otel-collector.monitoring
     port: 4317
 
   metering:

@@ -11,8 +11,11 @@ spec:
   #   enabled: true
   mode: daemonset
   ports:
-    - name: loki
+    - name: loki-http
       port: 3500
+      protocol: TCP
+    - name: loki-grpc
+      port: 3600
       protocol: TCP
     - name: prometheus
       port: 9464
@@ -34,7 +37,9 @@ spec:
       otlp:
         protocols:
           grpc:
+            endpoint: 0.0.0.0:4317
           http:
+            endpoint: 0.0.0.0:4318
             cors:
               allowed_origins:
                 - "http://*"
@@ -49,7 +54,7 @@ spec:
 
     exporters:
       otlp:
-        endpoint: tempo:4317
+        endpoint: tempo.monitoring:4317
         tls:
           insecure: true
 
@@ -60,7 +65,7 @@ spec:
       #   enable_open_metrics: true
 
       loki:
-        endpoint: "http://loki:3100/loki/api/v1/push"
+        endpoint: "http://loki.monitoring:3100/loki/api/v1/push"
 
 
     processors:

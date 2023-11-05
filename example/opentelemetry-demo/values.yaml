@@ -1,7 +1,7 @@
 default:
   envOverrides:
     - name: OTEL_COLLECTOR_NAME
-      value: "otlp-collector.monitoring"
+      value: "otel-collector.monitoring"
 
 components:
 
@@ -39,9 +39,9 @@ components:
     enabled: true
     envOverrides:
       - name: GRAFANA_SERVICE_HOST
-        value: prometheus-stack-grafana.monitoring
+        value: grafana.monitoring
       - name: JAEGER_SERVICE_HOST
-        value: tempo.monitoring
+        value: tempo-.monitoring
     ingress:
       enabled: true
       annotations:

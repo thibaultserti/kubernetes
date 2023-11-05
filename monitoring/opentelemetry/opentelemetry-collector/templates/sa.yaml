@@ -3,3 +3,5 @@ kind: ServiceAccount
 metadata:
   name: otel-collector
   namespace: monitoring
+  labels:
+     app.kubernetes.io/name: otel-collector

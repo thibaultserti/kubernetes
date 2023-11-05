@@ -33,8 +33,7 @@ config:
   logLevel: info
   logFormat: logfmt
   clients:
-    - url: http://loki:3100/loki/api/v1/push
-
+    - url: http://otel-collector.monitoring:3500/loki/api/v1/push
 positions:
   filename: /run/promtail/positions.yaml
 enableTracing: true
