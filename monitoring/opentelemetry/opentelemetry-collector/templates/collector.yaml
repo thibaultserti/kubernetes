@@ -6,6 +6,12 @@ metadata:
     app.kubernetes.io/name: otel-collector
 
 spec:
+  env:
+    - name: K8S_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+
   serviceAccount: otel-collector
   # targetAllocator:
   #   enabled: true
@@ -65,8 +71,10 @@ spec:
       #   enable_open_metrics: true
 
       loki:
-        endpoint: "http://loki.monitoring:3100/loki/api/v1/push"
-
+        endpoint: http://loki.monitoring:3100/loki/api/v1/push
+        default_labels_enabled:
+          # disable exporter field
+          exporter: false
 
     processors:
       batch:
@@ -74,6 +82,8 @@ spec:
         check_interval: 1s
         limit_percentage: 50
         spike_limit_percentage: 30
+
+
       k8sattributes:
         filter:
           node_from_env_var: K8S_NODE_NAME
@@ -108,6 +118,13 @@ spec:
               key_regex: (.*)
               from: pod
 
+      attributes:
+        actions:
+        - action: insert
+          key: loki.attribute.labels
+          value: node_name, namespace, instance, job, pod, container, app, filename, stream
+
+
     service:
       pipelines:
         traces:
@@ -120,5 +137,5 @@ spec:
         #   exporters: [prometheus]
         logs:
           receivers: [loki]
-          processors: [k8sattributes, memory_limiter, batch]
+          processors: [attributes, memory_limiter, batch]
           exporters: [loki]
