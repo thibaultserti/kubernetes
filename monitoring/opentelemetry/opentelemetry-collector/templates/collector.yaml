@@ -118,14 +118,40 @@ spec:
               key_regex: (.*)
               from: pod
 
+      transform:
+        error_mode: ignore
+        log_statements:
+          - context: log
+            statements:
+              # Traefik
+              - set(attributes["remote_addr"], body["remote_addr"])
+              - set(attributes["http_host"], body["http_host"])
+              - set(attributes["request_uri"], body["request_uri"])
+              - set(attributes["request_method"], body["request_method"])
+              - set(attributes["status"], body["status"])
+              # Nginx
+              - set(attributes["ClientHost"], body["ClientHost"])
+              - set(attributes["RequestHost"], body["RequestHost"])
+              - set(attributes["RequestPath"], body["RequestPath"])
+              - set(attributes["RequestMethod"], body["RequestMethod"])
+              - set(attributes["OriginStatus"], body["OriginStatus"])
+
       attributes:
         actions:
+        # Nginx
         - action: insert
           key: loki.attribute.labels
           value: node_name, namespace, instance, job, pod, container, app, filename, stream
-
+        # Traefik
+        - action: insert
+          key: loki.attribute.labels
+          value: ClientHost, RequestHost, RequestPath, RequestMethod, OriginStatus
 
     service:
+      telemetry:
+        logs:
+          level: "debug"
+
       pipelines:
         traces:
           receivers: [otlp]
@@ -137,5 +163,5 @@ spec:
         #   exporters: [prometheus]
         logs:
           receivers: [loki]
-          processors: [attributes, memory_limiter, batch]
+          processors: [transform, attributes, memory_limiter, batch]
           exporters: [loki]
