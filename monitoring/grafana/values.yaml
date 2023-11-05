@@ -30,7 +30,8 @@ grafana.ini:
 
 plugins:
   - isovalent-hubble-datasource
-
+  - grafana-worldmap-panel
+  - grafana-piechart-panel
 
 admin:
   existingSecret: grafana-secret
