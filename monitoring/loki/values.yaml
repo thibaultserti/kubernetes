@@ -20,6 +20,7 @@ loki:
   storage:
     bucketNames:
       chunks: loki-chunks
+      ruler: loki-ruler
     type: s3
     s3:
       endpoint: http://minio.minio:9000
@@ -75,6 +76,7 @@ singleBinary:
   replicas: 1
   extraArgs:
     - '-config.expand-env=true'
+    - '-tracing.enabled=true'
   extraEnv:
     - name: AWS_ACCESS_KEY_ID
       valueFrom:
@@ -91,6 +93,10 @@ singleBinary:
       value: otel-collector.monitoring
     - name: JAEGER_AGENT_PORT
       value: "6831"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
 
   persistence:
     storageClass: "default"

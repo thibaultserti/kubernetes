@@ -40,6 +40,7 @@ tempo:
         http:
           endpoint: "0.0.0.0:4318"
 
+
   extraVolumeMounts:
     - mountPath: /mnt/secrets-store
       name: secrets-store-inline
@@ -58,10 +59,10 @@ tempo:
           name: tempo-bucket-secret
           key: S3_TEMPO_SECRET_ACCESS_KEY
 
-    - name: JAEGER_AGENT_HOST
+    - name: OTEL_EXPORTER_JAEGER_AGENT_HOST
       value: otel-collector.monitoring
-    - name: JAEGER_AGENT_PORT
-      value: "6831"
+    - name: OTEL_EXPORTER_JAEGER_AGENT_PORT
+      value: "4318"
 
 
 tempoQuery:
@@ -115,3 +116,39 @@ extraVolumes:
       readOnly: true
       volumeAttributes:
         secretProviderClass: tempo
+
+
+# @default -- Dynamically generated tempo configmap
+config: |
+    use_otel_tracer: true
+    multitenancy_enabled:
+    usage_report:
+      reporting_enabled: {{ .Values.tempo.reportingEnabled }}
+    compactor:
+      compaction:
+        block_retention: {{ .Values.tempo.retention }}
+    distributor:
+      receivers:
+        {{- toYaml .Values.tempo.receivers | nindent 8 }}
+    ingester:
+      {{- toYaml .Values.tempo.ingester | nindent 6 }}
+    server:
+      {{- toYaml .Values.tempo.server | nindent 6 }}
+    storage:
+      {{- toYaml .Values.tempo.storage | nindent 6 }}
+    querier:
+      {{- toYaml .Values.tempo.querier | nindent 6 }}
+    query_frontend:
+      {{- toYaml .Values.tempo.queryFrontend | nindent 6 }}
+    overrides:
+      {{- toYaml .Values.tempo.global_overrides | nindent 6 }}
+      {{- if .Values.tempo.metricsGenerator.enabled }}
+          metrics_generator_processors:
+          - 'service-graphs'
+          - 'span-metrics'
+    metrics_generator:
+          storage:
+            path: "/tmp/tempo"
+            remote_write:
+              - url: {{ .Values.tempo.metricsGenerator.remoteWriteUrl }}
+      {{- end }}

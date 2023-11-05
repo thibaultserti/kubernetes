@@ -23,9 +23,6 @@ spec:
     - name: prometheus
       port: 9464
       protocol: TCP
-    - name: jaeger-compact
-      port: 6831
-      protocol: UDP
 
   ingress:
     type: ingress
@@ -154,7 +151,7 @@ spec:
     service:
       pipelines:
         traces:
-          receivers: [otlp]
+          receivers: [otlp, jaeger]
           processors: [k8sattributes, memory_limiter, batch]
           exporters: [otlp]
         # metrics:
