@@ -144,7 +144,7 @@ spec:
         - action: upsert
           key: loki.attribute.labels
           value: >
-            node_name, namespace, instance, job, pod, container, app, filename, stream,
+            node_name, namespace, instance, job, pod, container, app, component, filename, stream
             remote_addr, http_host, request_uri, request_method, status,
             ClientHost, RequestHost, RequestPath, RequestMethod, OriginStatus
 
