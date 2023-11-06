@@ -62,18 +62,19 @@ prometheus:
 
     thanos:
       #blockSize: 1m # only for test
-      additionalArgs:
-        - name: tracing.config
-          value: |
-            type: OTLP
-            config:
-              client_type: grpc
-              endpoint: "tempo.monitoring:4317"
-              insecure: true
+      tracingConfig:
+        key: tracing.yml
+        name: thanos-tracing-secret
       objectStorageConfig:
         existingSecret:
           key: objstore.yml
           name: thanos-objstore-secret
+
+    tracingConfig:
+      client_type: http
+      endpoint: otel-collector.monitoring:4318
+      insecure: true
+
 
   thanosServiceMonitor:
     enabled: true

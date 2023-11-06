@@ -128,6 +128,10 @@ secretsStores:
         - kubernetesSecretKey: objstore.yml
           vaultSecretPath: secrets/data/thanos
           vaultSecretKey: objstoreConfig
+      thanos-tracing-secret:
+        - kubernetesSecretKey: tracing.yml
+          vaultSecretPath: secrets/data/thanos
+          vaultSecretKey: tracingConfig
   - name: longhorn
     namespace: longhorn-system
     roleName: longhorn-service-account
