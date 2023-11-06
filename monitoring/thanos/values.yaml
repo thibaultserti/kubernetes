@@ -25,6 +25,7 @@ query:
     - |
       --tracing.config=type: OTLP
       config:
+        service_name: "thanos-query"
         client_type: http
         endpoint: "otel-collector.monitoring:4318"
         insecure: true
@@ -47,6 +48,7 @@ queryFrontend:
     - |
       --tracing.config=type: OTLP
       config:
+        service_name: "thanos-query-frontend"
         client_type: http
         endpoint: "otel-collector.monitoring:4318"
         insecure: true
@@ -68,6 +70,7 @@ bucketweb:
     - |
       --tracing.config=type: OTLP
       config:
+        service_name: "thanos-bucketweb"
         client_type: http
         endpoint: "otel-collector.monitoring:4318"
         insecure: true
@@ -97,6 +100,7 @@ compactor:
     - |
       --tracing.config=type: OTLP
       config:
+        service_name: "thanos-compactor"
         client_type: http
         endpoint: "otel-collector.monitoring:4318"
         insecure: true
@@ -124,6 +128,7 @@ storegateway:
     - |
       --tracing.config=type: OTLP
       config:
+        service_name: "thanos-storegateway"
         client_type: http
         endpoint: "otel-collector.monitoring:4318"
         insecure: true
