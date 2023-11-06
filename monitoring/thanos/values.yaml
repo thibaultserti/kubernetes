@@ -21,6 +21,14 @@ query:
     sidecarsService: prometheus-stack-kube-prom-thanos-discovery
     sidecarsNamespace: monitoring
 
+  extraFlags:
+    - |
+      --tracing.config=type: OTLP
+      config:
+        client_type: http
+        endpoint: "otel-collector.monitoring:4318"
+        insecure: true
+
   extraVolumes:
     - name: secrets-store-inline
       csi:
@@ -35,6 +43,13 @@ query:
 
 queryFrontend:
   enabled: true
+  extraFlags:
+    - |
+      --tracing.config=type: OTLP
+      config:
+        client_type: http
+        endpoint: "otel-collector.monitoring:4318"
+        insecure: true
 
 bucketweb:
   enabled: true
@@ -49,7 +64,13 @@ bucketweb:
     path: "/"
     pathType: Prefix
     tls: true
-
+  extraFlags:
+    - |
+      --tracing.config=type: OTLP
+      config:
+        client_type: http
+        endpoint: "otel-collector.monitoring:4318"
+        insecure: true
 
 compactor:
   enabled: true
@@ -72,6 +93,13 @@ compactor:
     pathType: Prefix
     tls: true
 
+  extraFlags:
+    - |
+      --tracing.config=type: OTLP
+      config:
+        client_type: http
+        endpoint: "otel-collector.monitoring:4318"
+        insecure: true
 
 
 storegateway:
@@ -92,6 +120,13 @@ storegateway:
     pathType: Prefix
     tls: true
 
+  extraFlags:
+    - |
+      --tracing.config=type: OTLP
+      config:
+        client_type: http
+        endpoint: "otel-collector.monitoring:4318"
+        insecure: true
 
 ruler:
   enabled: false
