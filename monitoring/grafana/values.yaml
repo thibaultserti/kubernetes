@@ -28,6 +28,9 @@ grafana.ini:
   smtp:
     enabled: false
 
+  tracing.opentelemetry.otlp:
+    address: otel-collector.monitoring:4318
+
 plugins:
   - isovalent-hubble-datasource
   - grafana-worldmap-panel
