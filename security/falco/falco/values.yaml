@@ -71,7 +71,8 @@ customRules:
         hubble-ui,
         hubble-relay,
         attachdetach-controller,
-        expand-controller
+        expand-controller,
+        clusterrole-aggregation-controller
       ]
 
     - list: user_allowed_kube_namespace_image_list
