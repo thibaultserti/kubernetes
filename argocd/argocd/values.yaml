@@ -181,9 +181,9 @@ notifications:
         - on-deployed
         - on-health-degraded
         - on-sync-failed
-        - on-sync-running
-        - on-sync-succeeded
-        - on-sync-status-unknown
+        # - on-sync-running
+        # - on-sync-succeeded
+        # - on-sync-status-unknown
   triggers:
     trigger.on-deployed: |
       - description: Application is synced and healthy. Triggered once per commit.

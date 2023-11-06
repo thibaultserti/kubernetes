@@ -71,8 +71,8 @@ prometheus:
           name: thanos-objstore-secret
 
     tracingConfig:
-      client_type: http
-      endpoint: otel-collector.monitoring:4318
+      clientType: grpc
+      endpoint: otel-collector.monitoring:4317
       insecure: true
 
 

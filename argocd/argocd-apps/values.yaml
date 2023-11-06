@@ -2,6 +2,8 @@ applications:
   # ARGOCD
   - name: argocd
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: argocd
     destination:
       namespace: argocd
       server: https://kubernetes.default.svc
@@ -29,6 +31,8 @@ applications:
 
   - name: argocd-apps
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: argocd
     destination:
       namespace: argocd
       server: https://kubernetes.default.svc
@@ -50,6 +54,8 @@ applications:
   # Issue with https://github.com/cilium/cilium-cli/issues/1396
   - name: cilium
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
     destination:
       namespace: kube-system
       server: https://kubernetes.default.svc
@@ -93,6 +99,8 @@ applications:
 # CERT-MANAGER
   - name: cert-manager
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: cert-manager
     destination:
       namespace: cert-manager
       server: https://kubernetes.default.svc
@@ -116,6 +124,8 @@ applications:
 
   - name: cluster-issuer
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: cert-manager
     destination:
       namespace: cert-manager
       server: https://kubernetes.default.svc
@@ -136,6 +146,8 @@ applications:
 # METALLB
   - name: metallb
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: metallb
     destination:
       namespace: metallb
       server: https://kubernetes.default.svc
@@ -171,6 +183,8 @@ applications:
 
   - name: metallb-ipaddress-pool
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: metallb
     destination:
       namespace: metallb
       server: https://kubernetes.default.svc
@@ -191,6 +205,8 @@ applications:
 # TRAEFIK
   - name: traefik
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: traefik
     destination:
       namespace: traefik
       server: https://kubernetes.default.svc
@@ -214,6 +230,8 @@ applications:
 
   - name: traefik-dashboard
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: traefik
     destination:
       namespace: traefik
       server: https://kubernetes.default.svc
@@ -234,6 +252,8 @@ applications:
 # K8S SIGS
   - name: metrics-server
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
     destination:
       namespace: kube-system
       server: https://kubernetes.default.svc
@@ -257,6 +277,8 @@ applications:
 
   - name: kubernetes-dashboard
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kubernetes-dashboard
     destination:
       namespace: kubernetes-dashboard
       server: https://kubernetes.default.svc
@@ -280,6 +302,8 @@ applications:
 
   - name: secrets-store-csi-driver
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
     destination:
       namespace: kube-system
       server: https://kubernetes.default.svc
@@ -303,6 +327,8 @@ applications:
 
   - name: kubelet-csr-approver
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
     destination:
       namespace: kube-system
       server: https://kubernetes.default.svc
@@ -327,6 +353,8 @@ applications:
 # LONGHORN
   - name: longhorn
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: longhorn-system
     destination:
       namespace: longhorn-system
       server: https://kubernetes.default.svc
@@ -350,6 +378,8 @@ applications:
 
   - name: longhorn-backup
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: longhorn-system
     destination:
       namespace: longhorn-system
       server: https://kubernetes.default.svc
@@ -369,6 +399,8 @@ applications:
 
   - name: storage-classes
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: longhorn-system
     destination:
       namespace: longhorn-system
       server: https://kubernetes.default.svc
@@ -389,6 +421,8 @@ applications:
 # VAULT
   - name: vault
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: vault
     destination:
       namespace: vault
       server: https://kubernetes.default.svc
@@ -418,6 +452,8 @@ applications:
 
   - name: secrets-stores
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: vault
     destination:
       namespace: vault
       server: https://kubernetes.default.svc
@@ -439,6 +475,8 @@ applications:
 # GRAFANA
   - name: grafana
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -463,6 +501,8 @@ applications:
 # KSM
   - name: kube-state-metrics
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -487,6 +527,8 @@ applications:
 # KUBE-PROMETHEUS-STACK
   - name: prometheus-stack
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -527,6 +569,8 @@ applications:
 
   - name: prometheus-stack-crds
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -547,6 +591,8 @@ applications:
 # EXPORTERS
   - name: node-exporter
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -570,6 +616,8 @@ applications:
 
   - name: blackbox-exporter
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -593,6 +641,8 @@ applications:
 
   - name: nginx-exporter
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -616,6 +666,8 @@ applications:
 
   - name: pihole-exporter
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -635,6 +687,8 @@ applications:
 
   - name: kepler-exporter
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -658,6 +712,8 @@ applications:
 
   - name: falco-exporter
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -682,6 +738,8 @@ applications:
 # ROBUSTA
   - name: robusta
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -705,6 +763,8 @@ applications:
 
   - name: robusta-secret-init
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -725,6 +785,8 @@ applications:
 # MINIO
   - name: minio
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: minio
     destination:
       namespace: minio
       server: https://kubernetes.default.svc
@@ -749,6 +811,8 @@ applications:
 # OPEN TELEMETRY
   - name: opentelemetry-operator
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -772,6 +836,8 @@ applications:
 
   - name: opentelemetry-collector
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -792,6 +858,8 @@ applications:
 # LOKI
   - name: loki
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -815,6 +883,8 @@ applications:
 
   - name: promtail
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -839,6 +909,8 @@ applications:
 # TEMPO
   - name: tempo
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -863,6 +935,8 @@ applications:
 # PYROSCOPE
   - name: pyroscope
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -887,6 +961,8 @@ applications:
 # THANOS
   - name: thanos
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -912,6 +988,8 @@ applications:
 # # MIMIR
 #   - name: mimir
 #     namespace: argocd
+#    additionalAnnotations:
+#      notifications.argoproj.io/subscribe.grafana: monitoring
 #     destination:
 #       namespace: monitoring
 #       server: https://kubernetes.default.svc
@@ -936,6 +1014,8 @@ applications:
 # SLOTH
   - name: sloth
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -959,6 +1039,8 @@ applications:
 
   - name: slos
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
     destination:
       namespace: monitoring
       server: https://kubernetes.default.svc
@@ -979,6 +1061,8 @@ applications:
 # KYVERNO
   - name: kyverno
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kyverno
     destination:
       namespace: kyverno
       server: https://kubernetes.default.svc
@@ -1003,6 +1087,8 @@ applications:
 
   - name: kyverno-policies
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kyverno
     destination:
       namespace: kyverno
       server: https://kubernetes.default.svc
@@ -1026,6 +1112,8 @@ applications:
 
   - name: policy-reporter
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kyverno
     destination:
       namespace: kyverno
       server: https://kubernetes.default.svc
@@ -1050,6 +1138,8 @@ applications:
 # SECURITY
   - name: trivy-operator
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: trivy
     destination:
       namespace: trivy
       server: https://kubernetes.default.svc
@@ -1073,6 +1163,8 @@ applications:
 
   - name: polaris
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: polaris
     destination:
       namespace: polaris
       server: https://kubernetes.default.svc
@@ -1096,6 +1188,8 @@ applications:
 
   - name: falco
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: falco
     destination:
       namespace: falco
       server: https://kubernetes.default.svc
@@ -1119,6 +1213,8 @@ applications:
 
   - name: falcosidekick
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: falco
     destination:
       namespace: falco
       server: https://kubernetes.default.svc
@@ -1142,6 +1238,8 @@ applications:
 
   # - name: tetragon
   #   namespace: argocd
+  #   additionalAnnotations:
+  #     notifications.argoproj.io/subscribe.grafana: tetragon
   #   destination:
   #     namespace: tetragon
   #     server: https://kubernetes.default.svc
@@ -1166,6 +1264,8 @@ applications:
 # TELEPORT
   - name: teleport
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: teleport
     destination:
       namespace: teleport
       server: https://kubernetes.default.svc
@@ -1191,6 +1291,8 @@ applications:
 # # EXAMPLES
 #   - name: opentelemetry-demo
 #     namespace: argocd
+#     additionalAnnotations:
+#       notifications.argoproj.io/subscribe.grafana: opentelemtry-demo
 #     destination:
 #       namespace: opentelemetry-demo
 #       server: https://kubernetes.default.svc
@@ -1214,6 +1316,8 @@ applications:
 
   - name: fastapi-observability-example-a
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: fastapi-observability-example
     destination:
       namespace: fastapi-observability-example
       server: https://kubernetes.default.svc
@@ -1233,6 +1337,8 @@ applications:
 
   - name: fastapi-observability-example-b
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: fastapi-observability-example
     destination:
       namespace: fastapi-observability-example
       server: https://kubernetes.default.svc
@@ -1253,6 +1359,8 @@ applications:
 
   - name: fastapi-observability-example-c
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: fastapi-observability-example
     destination:
       namespace: fastapi-observability-example
       server: https://kubernetes.default.svc
@@ -1272,6 +1380,8 @@ applications:
 
   - name: fastapi-profiling-example
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: fastapi-profiling-example
     destination:
       namespace: fastapi-profiling-example
       server: https://kubernetes.default.svc
@@ -1293,6 +1403,8 @@ applications:
 # CTFD
   - name: ctfd
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: ctfd
     destination:
       namespace: ctfd
       server: https://kubernetes.default.svc
@@ -1312,6 +1424,8 @@ applications:
 
   - name: challenges
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: exercices
     destination:
       namespace: exercices
       server: https://kubernetes.default.svc
@@ -1331,6 +1445,8 @@ applications:
 
   - name: redis
     namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: exercices
     destination:
       namespace: exercices
       server: https://kubernetes.default.svc

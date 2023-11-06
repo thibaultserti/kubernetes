@@ -29,7 +29,9 @@ grafana.ini:
     enabled: false
 
   tracing.opentelemetry.otlp:
-    address: otel-collector.monitoring:4318
+    address:  otel-collector.monitoring:4317
+  database:
+    instrument_queries: true
 
 plugins:
   - isovalent-hubble-datasource
