@@ -20,6 +20,10 @@ logs:
           X-Forwarded-For: keep
           X-Forwarded-Server: keep
           X-Real-Ip: keep
+          X-B3-Parentspanid: keep
+          X-B3-Spanid: keep
+          X-B3-Traceid: keep
+          X-B3-Sampled: keep
 
 
 service:
