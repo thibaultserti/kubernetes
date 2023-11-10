@@ -970,7 +970,7 @@ applications:
     sources:
       - repoURL: https://charts.bitnami.com/bitnami
         chart: thanos
-        targetRevision: 12.13.13
+        targetRevision: 12.15.0
         helm:
           valueFiles:
           - $values/monitoring/thanos/values.yaml
