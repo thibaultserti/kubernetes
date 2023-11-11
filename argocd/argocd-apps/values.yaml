@@ -842,12 +842,9 @@ applications:
       namespace: monitoring
       server: https://kubernetes.default.svc
     project: monitoring
-    sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: monitoring/opentelemetry/opentelemetry-collector
-        helm:
-          valueFiles:
-          - values.yaml
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: monitoring/opentelemetry/opentelemetry-collector
     syncPolicy:
       automated:
         selfHeal: true
