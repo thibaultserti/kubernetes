@@ -27,6 +27,7 @@ spec:
   ingress:
     type: ingress
     ingressClassName: "traefik"
+    ruleType: subdomain
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
