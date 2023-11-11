@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: fastapi-manual-instrumented
+    app.kubernetes.io/name: fastapi-manual-instrumented
+  name: fastapi-manual-instrumented
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: fastapi-manual-instrumented
+      app.kubernetes.io/name: fastapi-manual-instrumented
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: fastapi-manual-instrumented
+        app.kubernetes.io/name: fastapi-manual-instrumented
+    spec:
+      containers:
+      - env:
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://otel-collector.monitoring:4318
+        - name: OTEL_SERVICE_NAME
+          value: fastapi-manual-instrumented
+        - name: ENABLE_TRACING
+          value: "true"
+        - name: ENABLE_METRICS
+          value: "true"
+        - name: "REDIS_HOST"
+          value: "redis-master.redis"
+        image: ghcr.io/thibaultserti/fastapi-observability-example:latest
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: fastapi-manual-instrumented
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+      securityContext:
+        fsGroup: 2000
+      serviceAccountName: fastapi-manual-instrumented

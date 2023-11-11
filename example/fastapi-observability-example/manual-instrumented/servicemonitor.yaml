@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: fastapi-manual-instrumented
+    app.kubernetes.io/name: fastapi-manual-instrumented
+  name: fastapi-manual-instrumented
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 1m
+    path: /metrics
+    scheme: http
+    scrapeTimeout: 30s
+  jobLabel: fastapi-manual-instrumented
+  namespaceSelector:
+    matchNames:
+    - example
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: fastapi-manual-instrumented
+      app.kubernetes.io/name: fastapi-manual-instrumented

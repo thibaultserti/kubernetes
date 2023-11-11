@@ -95,6 +95,22 @@ projects:
     orphanedResources:
       warn: false
 
+  - name: redis
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Minio Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: redis
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+
   - name: kyverno
     namespace: argocd
     additionalLabels: {}
@@ -191,9 +207,7 @@ projects:
     destinations:
       - namespace: opentelemetry-demo
         server: https://kubernetes.default.svc
-      - namespace: fastapi-observability-example
-        server: https://kubernetes.default.svc
-      - namespace: fastapi-profiling-example
+      - namespace: example
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"

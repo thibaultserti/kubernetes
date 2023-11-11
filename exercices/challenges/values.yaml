@@ -39,7 +39,7 @@ autoscaling:
 
 env:
   - name: REDIS_HOST
-    value: redis-master
+    value: redis-master.redis
   - name: REDIS_PORT
     value: "6379"
 

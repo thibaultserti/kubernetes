@@ -1311,20 +1311,17 @@ applications:
 #       syncOptions:
 #         - CreateNamespace=true
 
-  - name: fastapi-observability-example-a
+  - name: fastapi-manual-instrumented
     namespace: argocd
     additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: fastapi-observability-example
+      notifications.argoproj.io/subscribe.grafana: fastapi-manual-instrumented
     destination:
-      namespace: fastapi-observability-example
+      namespace: example
       server: https://kubernetes.default.svc
     project: example
     sources:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: example/fastapi-observability-example/fastapi-observability-example-a
-        helm:
-          valueFiles:
-          - values.yaml
+        path: example/fastapi-observability-example/manual-instrumented
     syncPolicy:
       automated:
         selfHeal: true
@@ -1332,69 +1329,6 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: fastapi-observability-example-b
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: fastapi-observability-example
-    destination:
-      namespace: fastapi-observability-example
-      server: https://kubernetes.default.svc
-    project: example
-    sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: example/fastapi-observability-example/fastapi-observability-example-b
-        helm:
-          valueFiles:
-          - values.yaml
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
-
-
-  - name: fastapi-observability-example-c
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: fastapi-observability-example
-    destination:
-      namespace: fastapi-observability-example
-      server: https://kubernetes.default.svc
-    project: example
-    sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: example/fastapi-observability-example/fastapi-observability-example-c
-        helm:
-          valueFiles:
-          - values.yaml
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
-
-  - name: fastapi-profiling-example
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: fastapi-profiling-example
-    destination:
-      namespace: fastapi-profiling-example
-      server: https://kubernetes.default.svc
-    project: example
-    sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: example/fastapi-profiling-example
-        helm:
-          valueFiles:
-          - values.yaml
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
 
 
 # CTFD
@@ -1440,21 +1374,22 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# REDIS
   - name: redis
     namespace: argocd
     additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: exercices
+      notifications.argoproj.io/subscribe.grafana: redis
     destination:
-      namespace: exercices
+      namespace: redis
       server: https://kubernetes.default.svc
-    project: exercices
+    project: redis
     sources:
       - repoURL: https://charts.bitnami.com/bitnami
         chart: redis
         targetRevision: 18.2.0
         helm:
           valueFiles:
-          - $values/exercices/redis/values.yaml
+          - $values/redis/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
