@@ -939,12 +939,11 @@ applications:
       server: https://kubernetes.default.svc
     project: monitoring
     sources:
-      - repoURL: https://pyroscope-io.github.io/helm-chart
-        chart: pyroscope
-        targetRevision: 0.2.92
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: monitoring/pyroscope
         helm:
           valueFiles:
-          - $values/monitoring/pyroscope/values.yaml
+          - values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values

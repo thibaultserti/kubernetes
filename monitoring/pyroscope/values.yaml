@@ -1,3 +1,6 @@
+fullName: pyroscope
+servicePort: 4040
+
 ingress:
   enabled: true
   className: "traefik"
