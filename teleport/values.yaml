@@ -27,6 +27,12 @@ authentication:
   secondFactor: "off"
 
 
+teleportConfig:
+  tracing_service:
+    enabled: yes
+    exporter_url: grpc://otel-collector.monitoring:4317
+    sampling_rate_per_million: 1000000
+
 proxyListenerMode: multiplex
 
 operator:
