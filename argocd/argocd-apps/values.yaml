@@ -48,7 +48,10 @@ applications:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
-    syncPolicy: {}
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
 
   # CILIUM
   # Issue with https://github.com/cilium/cilium-cli/issues/1396
