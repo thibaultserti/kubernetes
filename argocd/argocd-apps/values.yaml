@@ -362,7 +362,7 @@ applications:
     sources:
       - repoURL: https://charts.longhorn.io
         chart: longhorn
-        targetRevision: 1.5.2
+        targetRevision: 1.5.3
         helm:
           valueFiles:
           - $values/longhorn/longhorn/values.yaml
