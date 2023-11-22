@@ -892,7 +892,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: loki
-        targetRevision: 5.36.3
+        targetRevision: 5.38.0
         helm:
           valueFiles:
           - $values/monitoring/loki/values.yaml
