@@ -1,7 +1,7 @@
 name: default
 persistence:
   defaultClass: true
-  allowVolumeExpansion: false
+  allowVolumeExpansion: true
   defaultFsType: ext4
   defaultMkfsParams: ""
   defaultClassReplicaCount: 1
