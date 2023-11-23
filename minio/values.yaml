@@ -60,7 +60,7 @@ persistence:
   mountPath: /bitnami/minio/data
   accessModes:
     - ReadWriteOnce
-  size: 100Gi
+  size: 200Gi
   annotations: {}
   existingClaim: ""
 
