@@ -149,6 +149,22 @@ projects:
     orphanedResources:
       warn: false
 
+  - name: goldilocks
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: goldilocks Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: goldilocks
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
+
   - name: teleport
     namespace: argocd
     additionalLabels: {}

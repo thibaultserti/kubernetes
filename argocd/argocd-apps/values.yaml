@@ -25,6 +25,9 @@ applications:
         jsonPointers:
           - /data
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       syncOptions:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
@@ -49,6 +52,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -95,6 +101,9 @@ applications:
         jsonPointers:
           - /data
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       syncOptions:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
@@ -119,6 +128,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -140,6 +152,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -177,6 +192,9 @@ applications:
         jsonPointers:
           - /spec/conversion/webhook/clientConfig/caBundle
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -199,6 +217,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -225,6 +246,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -246,6 +270,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -272,6 +299,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -297,6 +327,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -322,6 +355,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -347,6 +383,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -373,6 +412,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -394,6 +436,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -415,6 +460,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -446,6 +494,9 @@ applications:
         jqPathExpressions:
         - .webhooks[]?.clientConfig.caBundle
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -468,6 +519,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -495,6 +549,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -521,6 +578,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -563,6 +623,9 @@ applications:
           - '.webhooks[]?.clientConfig.caBundle'
           - '.webhooks[]?.failurePolicy'
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -584,6 +647,9 @@ applications:
       directory:
         recurse: true
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       syncOptions:
         - CreateNamespace=true
         - Replace=true
@@ -611,6 +677,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -636,6 +705,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -661,6 +733,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -682,6 +757,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -707,6 +785,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -732,6 +813,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -757,6 +841,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -783,6 +870,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -804,6 +894,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -830,6 +923,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -856,6 +952,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -874,6 +973,9 @@ applications:
       repoURL: git@github.com:thibaultserti/kubernetes.git
       path: monitoring/opentelemetry/opentelemetry-collector
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -900,6 +1002,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -925,6 +1030,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -951,6 +1059,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -976,6 +1087,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1002,6 +1116,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1029,6 +1146,9 @@ applications:
 #         targetRevision: HEAD
 #         ref: values
 #     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
 #       automated:
 #         selfHeal: true
 #         prune: true
@@ -1055,6 +1175,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1076,6 +1199,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1102,6 +1228,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1128,6 +1257,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1153,6 +1285,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1179,6 +1314,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1204,6 +1342,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1229,6 +1370,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1254,6 +1398,38 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+# GOLDILOCKS
+  - name: goldilocks
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: goldilocks
+    destination:
+      namespace: goldilocks
+      server: https://kubernetes.default.svc
+    project: goldilocks
+    sources:
+      - repoURL: https://charts.fairwinds.com/stable
+        chart: goldilocks
+        targetRevision: 8.0.0
+        helm:
+          valueFiles:
+          - $values/goldilocks/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1305,6 +1481,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1332,6 +1511,9 @@ applications:
 #         targetRevision: HEAD
 #         ref: values
 #     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
 #       automated:
 #         selfHeal: true
 #         prune: true
@@ -1350,6 +1532,9 @@ applications:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         path: example/fastapi-observability-example/manual-instrumented
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1374,6 +1559,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1395,6 +1583,9 @@ applications:
           valueFiles:
           - values.yaml
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true
@@ -1421,6 +1612,9 @@ applications:
         targetRevision: HEAD
         ref: values
     syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
       automated:
         selfHeal: true
         prune: true

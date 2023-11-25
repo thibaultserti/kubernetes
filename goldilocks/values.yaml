@@ -1,0 +1,25 @@
+vpa:
+  enabled: true
+  updater:
+    enabled: false
+  recommender:
+    extraArgs:
+      prometheus-address: http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090
+      storage: prometheus
+dashboard:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: goldilocks.ayanides.cloud
+        paths:
+          - path: /
+            type: ImplementationSpecific
+    tls:
+     - secretName: goldilocks-tls
+       hosts:
+         - goldilocks.ayanides.cloud
