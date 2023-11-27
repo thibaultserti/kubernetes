@@ -915,7 +915,7 @@ applications:
     sources:
       - repoURL: registry-1.docker.io
         chart: bitnamicharts/minio
-        targetRevision: 12.10.1
+        targetRevision: 12.10.3
         helm:
           valueFiles:
           - $values/minio/values.yaml
