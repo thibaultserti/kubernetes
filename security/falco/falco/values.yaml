@@ -8,7 +8,7 @@ tty: true
 
 falco:
   rules_file:
-    - /etc/falco/falco_rules.yaml #https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
+    - /etc/falco/falco_rules.yaml # https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
     - /etc/falco/falco_rules.local.yaml
     - /etc/falco/k8s_audit_rules.yaml # https://github.com/falcosecurity/plugins/blob/master/plugins/k8saudit/rules/k8s_audit_rules.yaml
     - /etc/falco/rules.d
@@ -64,6 +64,8 @@ customRules:
         coredns,
         kube-proxy,
         secrets-store-csi-driver,
+        secrets-store-csi-driver-upgrade-crds,
+        secrets-store-csi-driver-keep-crds,
         kubelet-csr-approver,
         kube-proxy,
         kube-state-metrics,
@@ -79,13 +81,15 @@ customRules:
       items: [
         registry.k8s.io/kube-state-metrics/kube-state-metrics,
         registry.k8s.io/sig-storage/csi-node-driver-registrar,
+        registry.k8s.io/csi-secrets-store/driver-crds,
         registry.k8s.io/metrics-server/metrics-server,
         ghcr.io/postfinance/kubelet-csr-approver,
         registry.k8s.io/coredns/coredns,
         quay.io/cilium/cilium,
         quay.io/cilium/operator-generic,
         quay.io/cilium/hubble-relay,
-        quay.io/cilium/hubble-ui
+        quay.io/cilium/hubble-ui,
+        quay.io/cilium/hubble-ui-backend
       ]
 
     - list: falco_privileged_images
@@ -95,13 +99,41 @@ customRules:
         quay.io/cilium/cilium,
         registry.k8s.io/kube-proxy
         registry.k8s.io/sig-storage/csi-node-driver-registrar,
+        registry.k8s.io/csi-secrets-store/driver,
+        registry.k8s.io/csi-secrets-store/livenessprobe,
         longhornio/longhorn-engine,
         longhornio/csi-node-driver-registrar,
         longhornio/longhorn-manager,
         longhornio/longhorn-instance-manager,
-        quay.io/sustainable_computing_io/kepler
+        quay.io/sustainable_computing_io/kepler,
+
       ]
 
     # ignore get secrets
     - macro: consider_activity_events
       condition: (not (secret and kget))
+
+
+    - list: falco_hostnetwork_images
+      items: [
+        gcr.io/google-containers/prometheus-to-sd,
+        gcr.io/projectcalico-org/typha,
+        gcr.io/projectcalico-org/node,
+        gke.gcr.io/gke-metadata-server,
+        gke.gcr.io/kube-proxy,
+        gke.gcr.io/netd-amd64,
+        k8s.gcr.io/ip-masq-agent-amd64,
+        k8s.gcr.io/prometheus-to-sd,
+        registry.k8s.io/ip-masq-agent-amd64,
+        registry.k8s.io/prometheus-to-sd,
+        quay.io/cilium/operator-generic,
+      ]
+
+    - list: falco_sensitive_mount_images
+      items: [
+        otel/opentelemetry-collector-contrib
+      ]
+
+    # a placeholder for whitelist log files that could be cleared. Recommend the macro as (fd.name startswith "/var/log/app1*")
+    - macro: allowed_clear_log_files
+      condition: (fd.name startswith "/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/*")
