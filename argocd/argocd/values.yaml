@@ -149,10 +149,10 @@ repoServer:
   resources:
     requests:
       cpu: 63m
-      memory: 381Mi
+      memory: 1024Mi
     limits:
       cpu: 63m
-      memory: 381Mi
+      memory: 1024Mi
 
   metrics:
     enabled: true
