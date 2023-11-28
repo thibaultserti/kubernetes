@@ -146,12 +146,12 @@ server:
 # REPOSERVER
 
 repoServer:
-  resources:
-    requests:
-      cpu: 63m
-      memory: 1024Mi
-    limits:
-      cpu: 63m
+  # resources:
+  #   requests:
+  #     cpu: 63m
+  #     memory: 1024Mi
+  #   limits:
+  #     cpu: 63m
 
 
   metrics:
