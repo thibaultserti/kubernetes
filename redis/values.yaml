@@ -2,12 +2,31 @@ auth:
   enabled: false
   sentinel: false
 
+master:
+  resources:
+    requests:
+      cpu: 35m
+      memory: 53M
+    limits:
+      memory: 53M
+
 replica:
   replicaCount: 1
+  resources:
+    requests:
+      cpu: 35m
+      memory: 53M
+    limits:
+      memory: 53M
 
 metrics:
   enabled: true
-
+  resources:
+    requests:
+      cpu: 11m
+      memory: 53M
+    limits:
+      memory: 53M
   serviceMonitor:
     enabled: true
   prometheusRule:

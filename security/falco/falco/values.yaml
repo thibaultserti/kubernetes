@@ -6,6 +6,13 @@ collectors:
 
 tty: true
 
+resources:
+  requests:
+    cpu: 296m
+    memory: 1103M
+  limits:
+    memory: 1103M
+
 falco:
   rules_file:
     - /etc/falco/falco_rules.yaml # https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
@@ -46,6 +53,13 @@ falcoctl:
         refs: [falco-rules:2,k8saudit-rules:0.6]
       follow:
         refs: [falco-rules:2,k8saudit-rules:0.6]
+        resources:
+          requests:
+            cpu: 11m
+            memory: 53M
+          limits:
+            cpu: 11m
+            memory: 53M
 
 services:
   - name: k8saudit-webhook

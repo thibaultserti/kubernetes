@@ -59,7 +59,12 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
-        resources: {}
+        resources:
+          requests:
+            cpu: 15m
+            memory: 105M
+          limits:
+            memory: 105M
         securityContext:
           capabilities:
             drop:

@@ -20,3 +20,10 @@ trivyOperator:
 
 trivy:
   ignoreUnfixed: true
+
+resources:
+  requests:
+    cpu: 23m
+    memory: 866M
+  limits:
+    memory: 866M

@@ -9,6 +9,12 @@ injector:
 
 
 server:
+  resources:
+    requests:
+      cpu: 49m
+      memory: 226M
+    limits:
+      memory: 226M
   dataStorage:
     enabled: true
     storageClass: "longhorn"
@@ -83,7 +89,12 @@ ui:
 # secrets-store-csi-driver-provider-vault
 csi:
   enabled: true
-
+  resources:
+    requests:
+      cpu: 11m
+      memory: 53M
+    limits:
+      memory: 53M
 
 serverTelemetry:
   serviceMonitor:

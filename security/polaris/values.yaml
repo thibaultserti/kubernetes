@@ -70,6 +70,13 @@ dashboard:
   enable: true
   replicas: 1
 
+  resources:
+    requests:
+      cpu: 15m
+      memory: 105M
+    limits:
+      memory: 105M
+
   ingress:
     enabled: true
     ingressClassName: traefik

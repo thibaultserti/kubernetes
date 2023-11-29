@@ -6,6 +6,13 @@ auth:
 
 disableWebUI: false
 
+resources:
+  requests:
+    cpu: 182m
+    memory: 3667M
+  limits:
+    memory: 3667M
+
 extraEnvVars:
   - name: MINIO_PROMETHEUS_URL
     value: http://prometheus-stack-kube-prom-prometheus.monitoring:9090

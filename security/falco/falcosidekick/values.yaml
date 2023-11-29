@@ -9,16 +9,34 @@ config:
   policyreport:
     enabled: true
 
+resources:
+  requests:
+    cpu: 15m
+    memory: 105M
+  limits:
+    memory: 105M
 
 webui:
   enabled: true
   replicaCount: 2
   # -- User in format <login>:<password>
   user: "admin:admin"
+  resources:
+    requests:
+      cpu: 15m
+      memory: 105M
+    limits:
+      memory: 105M
   redis:
     storageEnabled: true
     storageSize: "1Gi"
     storageClass: "default"
+    resources:
+      requests:
+        cpu: 15m
+        memory: 164M
+  limits:
+        memory: 164M
 
   ingress:
     enabled: true

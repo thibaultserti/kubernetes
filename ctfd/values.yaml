@@ -15,6 +15,13 @@ serviceAccount:
   annotations: {}
   autoMount: false
 
+resources:
+  requests:
+    cpu: 15m
+    memory: 672M
+  limits:
+    memory: 672M
+
 # plugins:
 #   - https://github.com/tamuctf/CTFd-multi-question-plugin.git
 
@@ -172,6 +179,12 @@ metrics:
 
 redis:
   enabled: true
+  resources:
+    requests:
+      cpu: 35m
+      memory: 105M
+    limits:
+      memory: 105M
   serviceAccount:
     name: ctfd-redis
   auth:
@@ -190,8 +203,16 @@ redis:
           volumeAttributes:
             secretProviderClass: ctfd-redis
 
+
+
 mariadb:
   enabled: true
+  resources:
+    requests:
+      cpu: 15m
+      memory: 127M
+    limits:
+      memory: 127M
   serviceAccount:
     name: ctfd-mariadb
   auth:
