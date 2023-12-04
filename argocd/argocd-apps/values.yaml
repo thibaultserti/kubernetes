@@ -1334,7 +1334,7 @@ applications:
     sources:
       - repoURL: https://charts.fairwinds.com/stable
         chart: polaris
-        targetRevision: 5.16.0
+        targetRevision: 5.17.0
         helm:
           valueFiles:
           - $values/security/polaris/values.yaml
