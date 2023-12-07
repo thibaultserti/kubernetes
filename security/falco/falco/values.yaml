@@ -141,6 +141,8 @@ customRules:
         registry.k8s.io/ip-masq-agent-amd64,
         registry.k8s.io/prometheus-to-sd,
         quay.io/cilium/operator-generic,
+        quay.io/metallb/speaker,
+        quay.io/frrouting/frr,
       ]
 
     - list: falco_sensitive_mount_images
@@ -149,5 +151,7 @@ customRules:
       ]
 
     # a placeholder for whitelist log files that could be cleared. Recommend the macro as (fd.name startswith "/var/log/app1*")
+    # to remove when falco rule 2.1.0 is released
     - macro: allowed_clear_log_files
-      condition: (fd.name startswith "/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/*")
+      condition: (proc.name=containerd and (fd.name startswith "/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/" or
+                                        fd.name startswith "/var/lib/containerd/tmpmounts/"))
