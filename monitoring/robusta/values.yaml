@@ -50,3 +50,15 @@ runner:
       secretKeyRef:
         name: robusta-secret
         key: discord_url
+
+extraVolumes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: robusta
+extraVolumeMounts:
+  - name: secrets-store-inline
+    mountPath: /mnt/secrets-store
+    readOnly: true

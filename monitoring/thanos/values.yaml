@@ -6,8 +6,6 @@ query:
     requests:
       cpu: 15m
       memory: 105M
-    limits:
-      memory: 105M
   ingress:
     enabled: true
     ingressClassName: traefik
@@ -99,8 +97,6 @@ compactor:
     requests:
       cpu: 23m
       memory: 2408M
-    limits:
-      memory: 2408M
   persistence:
     storageClass: default
     size: 100Gi
@@ -135,9 +131,7 @@ storegateway:
   resources:
     requests:
       cpu: 15m
-      memory: 105M
-    limits:
-      memory: 105M
+      memory: 250M
   persistence:
     storageClass: default
     size: 10Gi
