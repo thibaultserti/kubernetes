@@ -1078,8 +1078,9 @@ applications:
       server: https://kubernetes.default.svc
     project: monitoring
     sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: monitoring/pyroscope
+      - repoURL: https://grafana.github.io/helm-charts
+        chart: pyroscope
+        targetRevision: 1.3.0
         helm:
           valueFiles:
           - values.yaml

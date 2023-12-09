@@ -23,6 +23,12 @@ alertmanager:
           - alertmanager.ayanides.cloud
 
   alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 11m
+        memory: 53M
+      limits:
+        memory: 53M
     alertmanagerConfiguration:
       name: kube-prometheus-stack-alertmanagerconfig
     volumeMounts:

@@ -1,3 +1,10 @@
 serviceMonitor:
   enabled: true
   interval: 1m
+
+resources:
+  requests:
+    cpu: 35m
+    memory: 145M
+  limits:
+    memory: 145M

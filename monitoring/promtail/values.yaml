@@ -41,6 +41,12 @@ config:
 sidecar:
   configReloader:
     enabled: true
+    resources:
+      requests:
+        cpu: 11m
+        memory: 53M
+      limits:
+        memory: 53M
 
 
 extraEnv:
@@ -48,3 +54,10 @@ extraEnv:
     value: otel-collector.monitoring
   - name: JAEGER_AGENT_PORT
     value: "6831"
+
+resources:
+  requests:
+    cpu: 49m
+    memory: 226M
+  limits:
+    memory: 226M

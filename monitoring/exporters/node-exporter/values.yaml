@@ -6,3 +6,10 @@ prometheus:
       sourceLabels: [__meta_kubernetes_pod_node_name]
       targetLabel: nodename
     interval: 30s
+
+resources:
+  requests:
+    cpu: 15m
+    memory: 105M
+  limits:
+    memory: 105M

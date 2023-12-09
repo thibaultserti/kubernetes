@@ -2,8 +2,21 @@
 # PROMETHEUS-OPERATOR
 prometheusOperator:
   enabled: true
+  resources:
+    requests:
+      cpu: 15m
+      memory: 105M
+    limits:
+      memory: 105M
   serviceMonitor:
     selfMonitor: true
+  prometheusConfigReloader:
+    resources:
+      requests:
+        cpu: 11m
+        memory: 37M
+      limits:
+        memory: 37M
 
 # PROMETHEUS
 prometheus:
@@ -31,6 +44,13 @@ prometheus:
 
 
   prometheusSpec:
+    resources:
+      requests:
+        cpu: 671m
+        memory: 5528M
+      limits:
+        memory: 5528M
+
     enableRemoteWriteReceiver: true
 
     scrapeInterval: "1m"
@@ -61,6 +81,12 @@ prometheus:
         - targets: ['eros.ayanides.cloud:9100']
 
     thanos:
+      resources:
+        requests:
+          cpu: 11m
+          memory: 226M
+        limits:
+          memory: 226M
       #blockSize: 1m # only for test
       tracingConfig:
         key: tracing.yml

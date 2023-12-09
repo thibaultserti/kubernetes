@@ -2,6 +2,13 @@ serviceMonitor:
   enabled: true
   interval: 1m
 
+resources:
+  requests:
+    cpu: 15m
+    memory: 105M
+  limits:
+    memory: 105M
+
 grafanaDashboard:
   enabled: false
 scc:

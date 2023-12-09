@@ -3,3 +3,10 @@ nginxServer: "http://eros.ayanides.cloud:8080/status"
 serviceMonitor:
   enabled: true
   interval: 1m
+
+resources:
+  requests:
+    cpu: 15m
+    memory: 105M
+  limits:
+    memory: 105M

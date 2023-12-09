@@ -1,6 +1,12 @@
-
-
 tempo:
+
+  resources:
+    requests:
+      cpu: 35m
+      memory: 1739M
+    limits:
+      memory: 1739M
+
   reportingEnabled: false
   metricsGenerator:
     enabled: true
@@ -69,6 +75,13 @@ tempoQuery:
   repository: grafana/tempo-query
   tag: null
   pullPolicy: IfNotPresent
+
+  resources:
+    requests:
+      cpu: 11m
+      memory: 53M
+    limits:
+      memory: 53M
 
   enabled: true
 

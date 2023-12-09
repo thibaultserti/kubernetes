@@ -6,4 +6,22 @@ enableSecretRotation: true
 linux:
   registrar:
     resources:
-      limits: {}
+      requests:
+        cpu: 11m
+        memory: 35M
+      limits:
+        memory: 35M
+  livenessProbe:
+    resources:
+      requests:
+        cpu: 11m
+        memory: 35M
+      limits:
+        memory: 35M
+  driver:
+    resources:
+      requests:
+        cpu: 11m
+        memory: 37M
+      limits:
+        memory: 37M

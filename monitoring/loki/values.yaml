@@ -73,6 +73,12 @@ ingress:
 
 
 singleBinary:
+  resources:
+    requests:
+      cpu: 23m
+      memory: 249M
+    limits:
+      memory: 249M
   replicas: 1
   extraArgs:
     - '-config.expand-env=true'
@@ -115,6 +121,14 @@ singleBinary:
 
 test:
   enabled: false
+
+gateway:
+  resources:
+    requests:
+      cpu: 15m
+      memory: 105M
+    limits:
+      memory: 105M
 
 monitoring:
   dashboards:

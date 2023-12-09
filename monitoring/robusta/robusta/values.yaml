@@ -28,6 +28,7 @@ runner:
       memory: 765M
     limits:
       memory: 765M
+
   additional_env_vars:
   - name: SIGNING_KEY
     valueFrom:

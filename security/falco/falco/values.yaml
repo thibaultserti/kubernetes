@@ -113,6 +113,7 @@ customRules:
         quay.io/cilium/cilium,
         registry.k8s.io/kube-proxy
         registry.k8s.io/sig-storage/csi-node-driver-registrar,
+        registry.k8s.io/sig-storage/livenessprobe
         registry.k8s.io/csi-secrets-store/driver,
         registry.k8s.io/csi-secrets-store/livenessprobe,
         longhornio/longhorn-engine,
@@ -120,6 +121,7 @@ customRules:
         longhornio/longhorn-manager,
         longhornio/longhorn-instance-manager,
         quay.io/sustainable_computing_io/kepler,
+        registry.k8s.io/sig-storage/csi-node-driver-registrar
 
       ]
 
@@ -147,7 +149,9 @@ customRules:
 
     - list: falco_sensitive_mount_images
       items: [
-        otel/opentelemetry-collector-contrib
+        otel/opentelemetry-collector-contrib,
+        quay.io/sustainable_computing_io/kepler,
+        quay.io/prometheus/node-exporter
       ]
 
     # a placeholder for whitelist log files that could be cleared. Recommend the macro as (fd.name startswith "/var/log/app1*")
