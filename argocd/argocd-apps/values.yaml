@@ -392,6 +392,27 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+  - name: etcd-defrag
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: k8s-sigs/etcd-defrag
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
 # LONGHORN
   - name: longhorn
     namespace: argocd
