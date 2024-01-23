@@ -13,3 +13,6 @@ ingress:
 persistence:
   defaultClassReplicaCount: 3
   defaultClass: false
+
+defaultSettings:
+  storageMinimalAvailablePercentage: 10
