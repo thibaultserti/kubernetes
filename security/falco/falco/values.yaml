@@ -90,6 +90,7 @@ customRules:
         expand-controller,
         clusterrole-aggregation-controller,
         default,
+        bootstrap-signer
       ]
 
     - list: user_allowed_kube_namespace_image_list
@@ -104,7 +105,8 @@ customRules:
         quay.io/cilium/operator-generic,
         quay.io/cilium/hubble-relay,
         quay.io/cilium/hubble-ui,
-        quay.io/cilium/hubble-ui-backend
+        quay.io/cilium/hubble-ui-backend,
+        ghcr.io/ahrtr/etcd-defrag
       ]
 
     - list: falco_privileged_images
@@ -150,11 +152,17 @@ customRules:
         registry.k8s.io/kube-apiserver,
       ]
 
+    - list: falco_hostpid_images
+      items: [
+        longhornio/longhorn-manager
+      ]
+
     - list: falco_sensitive_mount_images
       items: [
         otel/opentelemetry-collector-contrib,
         quay.io/sustainable_computing_io/kepler,
-        quay.io/prometheus/node-exporter
+        quay.io/prometheus/node-exporter,
+        longhornio/longhorn-instance-manager
       ]
 
     # a placeholder for whitelist log files that could be cleared. Recommend the macro as (fd.name startswith "/var/log/app1*")
