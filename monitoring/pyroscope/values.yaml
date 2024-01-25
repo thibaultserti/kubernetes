@@ -6,14 +6,14 @@ ingress:
     traefik.ingress.kubernetes.io/router.tls: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: pyroscope.ayanides.cloud
-      paths:
-      - path: /
-        pathType: Prefix
+    - pyroscope.ayanides.cloud
   tls:
    - secretName: pyroscope-tls
      hosts:
        - pyroscope.ayanides.cloud
+
+serviceMonitor:
+  enabled: true
 
 pyroscope:
   resources:
