@@ -88,8 +88,8 @@ spec:
       batch:
       memory_limiter:
         check_interval: 1s
-        limit_percentage: 50
-        spike_limit_percentage: 30
+        # limit_percentage: 50
+        # spike_limit_percentage: 30
 
 
       k8sattributes:
@@ -159,13 +159,13 @@ spec:
       pipelines:
         traces:
           receivers: [otlp, jaeger]
-          processors: [k8sattributes, memory_limiter, batch]
+          processors: [k8sattributes, batch]
           exporters: [otlp]
         # metrics:
         #   receivers: [otlp]
-        #   processors: [k8sattributes, memory_limiter, batch]
+        #   processors: [k8sattributes, batch]
         #   exporters: [prometheus]
         logs:
           receivers: [loki]
-          processors: [attributes, transform, memory_limiter, batch]
+          processors: [attributes, transform, batch]
           exporters: [loki]
