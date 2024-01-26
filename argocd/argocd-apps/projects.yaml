@@ -197,15 +197,15 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: exercices
+  - name: my-apps
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
-    description: Exercices Project
+    description: My-apps Project
     sourceRepos:
       - "*"
     destinations:
-      - namespace: exercices
+      - namespace: my-apps
         server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"

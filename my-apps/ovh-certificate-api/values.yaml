@@ -1,0 +1,88 @@
+app:
+  replicaCount: 1
+
+  podAnnotations:
+    instrumentation.opentelemetry.io/inject-python: "monitoring/instrumentation-python"
+  #   policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>,<Egress/80/TCP/HTTP>,<Ingress/8000/TCP/HTTP>"
+
+  image:
+    repository: ghcr.io/thibaultserti/ovh-certificate-api
+    pullPolicy: Always
+    tag: 1.0.0
+
+  serviceAccount:
+    create: true
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  ingress:
+    enabled: true
+    className: "traefik"
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+    hosts:
+      - host: ovh-certificate-api.ayanides.cloud
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: ovh-certificate-api-tls
+        hosts:
+          - ovh-certificate-api.ayanides.cloud
+
+  autoscaling:
+    enabled: false
+
+
+  env:
+    - name: OVH_APPLICATION_KEY
+      valueFrom:
+        secretKeyRef:
+          name: ovh-certificate-api-secret
+          key: ovh_application_key
+    - name: OVH_APPLICATION_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: ovh-certificate-api-secret
+          key: ovh_application_secret
+    - name: OVH_CONSUMER_KEY
+      valueFrom:
+        secretKeyRef:
+          name: ovh-certificate-api-secret
+          key: ovh_consumer_key
+    - name: DOMAIN_NAME
+      valueFrom:
+        secretKeyRef:
+          name: ovh-certificate-api-secret
+          key: domain_name
+
+  podSecurityContext:
+    fsGroup: 2000
+
+  securityContext:
+    capabilities: {}
+    readOnlyRootFilesystem: false
+    runAsNonRoot: false
+
+
+  resources:
+    requests:
+      cpu: 15m
+      memory: 105M
+    limits:
+      memory: 105M
+
+
+  extraSecretMounts:
+    - name: secrets-store-inline
+      mountPath: /mnt/secrets-store
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: ovh-certificate-api

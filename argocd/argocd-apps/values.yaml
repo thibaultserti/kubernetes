@@ -1566,30 +1566,6 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: challenges
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: exercices
-    destination:
-      namespace: exercices
-      server: https://kubernetes.default.svc
-    project: exercices
-    sources:
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        path: exercices/challenges
-        helm:
-          valueFiles:
-          - values.yaml
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          goldilocks.fairwinds.com/enabled: "true"
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
-
 # REDIS
   - name: redis
     namespace: argocd
@@ -1609,6 +1585,58 @@ applications:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+
+
+# MY-APPS
+
+  - name: challenges
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: my-apps
+    destination:
+      namespace: my-apps
+      server: https://kubernetes.default.svc
+    project: my-apps
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: my-apps/challenges
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: ovh-certificate-api
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: my-apps
+    destination:
+      namespace: my-apps
+      server: https://kubernetes.default.svc
+    project: my-apps
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: my-apps/ovh-certificate-api
+        helm:
+          valueFiles:
+          - values.yaml
     syncPolicy:
       managedNamespaceMetadata:
         labels:

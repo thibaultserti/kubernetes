@@ -218,3 +218,21 @@ secretsStores:
         - kubernetesSecretKey: redis-password
           vaultSecretPath: secrets/data/ctfd/redis
           vaultSecretKey: redis-password
+
+  - name: ovh-certificate-api
+    namespace: my-apps
+    roleName: ovh-certificate-api-app
+    secrets:
+      ovh-certificate-api-secret:
+        - kubernetesSecretKey: domain_name
+          vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
+          vaultSecretKey: domain_name
+        - kubernetesSecretKey: ovh_application_key
+          vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
+          vaultSecretKey: ovh_application_key
+        - kubernetesSecretKey: ovh_application_secret
+          vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
+          vaultSecretKey: ovh_application_secret
+        - kubernetesSecretKey: ovh_consumer_key
+          vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
+          vaultSecretKey: ovh_consumer_key
