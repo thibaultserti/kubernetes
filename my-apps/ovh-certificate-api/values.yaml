@@ -8,7 +8,7 @@ app:
   image:
     repository: ghcr.io/thibaultserti/ovh-certificate-api
     pullPolicy: Always
-    tag: 1.0.3
+    tag: 1.1.0
 
   serviceAccount:
     create: true
@@ -86,3 +86,12 @@ app:
         readOnly: true
         volumeAttributes:
           secretProviderClass: ovh-certificate-api
+
+  extraVolumeMounts:
+    - name: accounts
+      mountPath: /etc/letsencrypt/accounts/acme-v02.api.letsencrypt.org/directory/154e2bb6d054490d09ce64c3672aed7f
+
+  extraVolumes:
+    - name: accounts
+      secret:
+        secretName: "ovh-certificate-api-acme-accounts"
