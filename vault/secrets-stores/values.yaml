@@ -236,3 +236,13 @@ secretsStores:
         - kubernetesSecretKey: ovh_consumer_key
           vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
           vaultSecretKey: ovh_consumer_key
+      ovh-certificate-api-acme-accounts:
+        - kubernetesSecretKey: meta.json
+          vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
+          vaultSecretKey: meta.json
+        - kubernetesSecretKey: private_key.json
+          vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
+          vaultSecretKey: private_key.json
+        - kubernetesSecretKey: regr.json
+          vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
+          vaultSecretKey: regr.json

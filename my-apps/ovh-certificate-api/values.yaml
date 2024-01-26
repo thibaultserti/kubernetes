@@ -86,3 +86,12 @@ app:
         readOnly: true
         volumeAttributes:
           secretProviderClass: ovh-certificate-api
+
+  extraVolumeMounts:
+    - name: accounts
+      mountPath: /etc/letsencrypt/accounts/acme-v02.api.letsencrypt.org/directory/154e2bb6d054490d09ce64c3672aed7f
+
+  extraVolumes:
+    - name: accounts
+      secret:
+        secretName: "ovh-certificate-api-acme-accounts"

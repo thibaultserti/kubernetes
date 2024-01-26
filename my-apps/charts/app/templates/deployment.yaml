@@ -56,6 +56,9 @@ spec:
               mountPath: {{ .mountPath }}
               readOnly: {{ .readOnly }}
             {{- end }}
+            {{- if .Values.extraVolumeMounts }}
+{{ toYaml .Values.extraVolumeMounts | indent 12 }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -75,4 +78,7 @@ spec:
           csi:
             {{- toYaml .csi | nindent 12 }}
         {{- end }}
+        {{- end }}
+        {{- if .Values.extraVolumes }}
+{{ toYaml .Values.extraVolumes | indent 8 }}
         {{- end }}
