@@ -8,7 +8,7 @@ app:
   image:
     repository: ghcr.io/thibaultserti/ovh-certificate-api
     pullPolicy: Always
-    tag: 1.0.0
+    tag: 1.0.2
 
   serviceAccount:
     create: true
