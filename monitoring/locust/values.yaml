@@ -8,3 +8,19 @@ ingress:
     - host: locust.ayanides.cloud
       pathType: ImplementationSpecific
       path: /
+master:
+  resources: {}
+    # limits:
+    #   cpu: 2000m
+    #   memory: 1024Mi
+    # requests:
+    #   cpu: 1000m
+    #   memory: 1024Mi
+worker:
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 256Mi
+    # requests:
+    #   cpu: 500m
+    #   memory: 256Mi
