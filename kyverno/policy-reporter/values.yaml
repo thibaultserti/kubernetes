@@ -36,16 +36,11 @@ ui:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - host: kyverno.ayanides.cloud
         paths:
           - path: /
             pathType: Prefix
-    tls:
-    - secretName: kyverno-tls
-      hosts:
-        - kyverno.ayanides.cloud
 
   logSize: 200
   displayMode: dark

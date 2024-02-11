@@ -32,3 +32,17 @@ spec:
             apiTokenSecretRef:
               name: cloudflare-api-token-secret
               key: api-token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: default-cert
+  namespace: {{ .Values.traefik_namespace }}
+spec:
+  secretName: wildcard-cert
+  dnsNames:
+    - "ayanides.cloud"
+    - "*.ayanides.cloud"
+  issuerRef:
+    name: {{ .Values.default_issuer_name_prod }}
+    kind: ClusterIssuer

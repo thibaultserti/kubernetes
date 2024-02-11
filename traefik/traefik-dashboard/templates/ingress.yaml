@@ -9,7 +9,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.middlewareNames }}
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: traefik
   rules:
@@ -23,7 +22,3 @@ spec:
                 name: {{ .Values.serviceName }}
                 port:
                   number: 80
-  tls:
-  - hosts:
-      - {{ .Values.fqdn }}
-    secretName: {{ .Values.serviceName }}-tls

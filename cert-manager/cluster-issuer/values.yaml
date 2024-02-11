@@ -1,6 +1,6 @@
 ---
 
-acme_registration_email: thibault@ayanides.cloud
+acme_registration_email: admin@ayanides.cloud
 
 
 default_issuer_name_staging: letsencrypt-staging
@@ -10,3 +10,5 @@ secret_reference_staging: letsencrypt-staging
 default_issuer_name_prod: letsencrypt-prod
 server_prod: https://acme-v02.api.letsencrypt.org/directory
 secret_reference_prod: letsencrypt-prod
+
+traefik_namespace: traefik

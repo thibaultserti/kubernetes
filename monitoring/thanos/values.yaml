@@ -12,11 +12,9 @@ query:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hostname: thanos.ayanides.cloud
     path: "/"
     pathType: Prefix
-    tls: true
 
   replicaLabel:
     - prometheus_replica
@@ -77,11 +75,9 @@ bucketweb:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hostname: thanos-bucketweb.ayanides.cloud
     path: "/"
     pathType: Prefix
-    tls: true
   extraFlags:
     - |
       --tracing.config=type: OTLP
@@ -110,11 +106,9 @@ compactor:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hostname: thanos-compactor.ayanides.cloud
     path: "/"
     pathType: Prefix
-    tls: true
 
   extraFlags:
     - |
@@ -142,11 +136,9 @@ storegateway:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hostname: thanos-storegateway.ayanides.cloud
     path: "/"
     pathType: Prefix
-    tls: true
 
   extraFlags:
     - |

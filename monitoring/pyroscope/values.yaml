@@ -4,13 +4,9 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - pyroscope.ayanides.cloud
-  tls:
-   - secretName: pyroscope-tls
-     hosts:
-       - pyroscope.ayanides.cloud
+
 
 serviceMonitor:
   enabled: true

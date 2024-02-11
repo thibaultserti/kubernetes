@@ -131,14 +131,10 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - host: ctfd.ayanides.cloud
       path: "/"
-  tls:
-   - secretName: ctfd-tls
-     hosts:
-       - ctfd.ayanides.cloud
+
 
 probes:
   liveness:

@@ -4,16 +4,11 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - host: status.ayanides.cloud
       paths:
         - path: /
           pathType: ImplementationSpecific
-  tls:
-    - secretName: status-tls
-      hosts:
-        - status.ayanides.cloud
 
 resources:
   limits:

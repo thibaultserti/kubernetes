@@ -5,7 +5,7 @@ additionalArguments:
   - --serversTransport.insecureSkipVerify=true
 
 image:
-  tag: v3.0
+  tag: v3.0.0-beta5
 
 logs:
   access:
@@ -55,6 +55,27 @@ ports:
         - 192.168.0.0/16
         - 10.0.0.0/8
         - 172.16.0.0/12
+env:
+  - name: CF_DNS_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-api-token-secret
+        key: api-token
+
+tlsStore:
+  default:
+    defaultCertificate:
+      secretName: wildcard-cert
+
+certResolvers:
+  letsencrypt:
+    email: admin@ayanides.cloud
+    dnsChallenge:
+      provider: cloudflare
+      delayBeforeCheck: 30
+      resolvers:
+        - "1.1.1.1:53"
+        - "8.8.8.8:53"
 
 metrics:
   prometheus:

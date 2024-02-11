@@ -47,7 +47,6 @@ components:
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
       ingressClassName: traefik
       hosts:
         - host: opentelemetry-demo.ayanides.cloud
@@ -55,10 +54,7 @@ components:
             - path: /
               pathType: Prefix
               port: 8080
-      tls:
-        - secretName: opentelemetry-demo-tls
-          hosts:
-            - opentelemetry-demo.ayanides.cloud
+
 
   loadgenerator:
     enabled: true

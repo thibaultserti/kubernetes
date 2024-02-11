@@ -43,15 +43,10 @@ webui:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - host: falco.ayanides.cloud
         paths:
         - path: /
-    tls:
-     - secretName: falco-ui-tls
-       hosts:
-         - falco.ayanides.cloud
 
 extraVolumeMounts:
   - mountPath: /mnt/secrets-store

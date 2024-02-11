@@ -37,12 +37,8 @@ spec:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hostname: otel.ayanides.cloud
-    tls:
-      - secretName: otel-collector-tls
-        hosts:
-          - otel.ayanides.cloud
+
   config: |
     receivers:
       otlp:

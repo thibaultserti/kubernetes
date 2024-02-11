@@ -85,11 +85,6 @@ dashboard:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-    tls:
-    - secretName: polaris-tls
-      hosts:
-        - polaris.ayanides.cloud
     defaultBackendEnabled: false
 
 

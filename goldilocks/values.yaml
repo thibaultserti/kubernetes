@@ -40,13 +40,8 @@ dashboard:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - host: goldilocks.ayanides.cloud
         paths:
           - path: /
             type: ImplementationSpecific
-    tls:
-     - secretName: goldilocks-tls
-       hosts:
-         - goldilocks.ayanides.cloud

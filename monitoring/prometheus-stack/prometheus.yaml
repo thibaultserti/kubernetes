@@ -31,17 +31,11 @@ prometheus:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
 
     hosts:
       - prometheus.ayanides.cloud
     path: "/"
     pathType: Prefix
-    tls:
-      - secretName: prometheus-tls
-        hosts:
-          - prometheus.ayanides.cloud
-
 
   prometheusSpec:
     resources:
