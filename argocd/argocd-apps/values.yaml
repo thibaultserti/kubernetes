@@ -1417,7 +1417,7 @@ applications:
     sources:
       - repoURL: https://charts.fairwinds.com/stable
         chart: goldilocks
-        targetRevision: 8.0.0
+        targetRevision: 8.0.1
         helm:
           valueFiles:
           - $values/goldilocks/values.yaml
