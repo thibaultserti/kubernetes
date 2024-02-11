@@ -13,4 +13,4 @@ spec:
       mutate:
         patchStrategicMerge:
           spec:
-            revisionHistoryLimit: "2"
+            revisionHistoryLimit: 2
