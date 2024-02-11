@@ -6,7 +6,9 @@ ingress:
     traefik.ingress.kubernetes.io/router.tls: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - locust.ayanides.cloud
+    - host: locust.ayanides.cloud
+      pathType: ImplementationSpecific
+      path: /
   tls:
     - secretName: locust-tls
       hosts:

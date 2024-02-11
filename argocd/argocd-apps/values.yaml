@@ -1163,7 +1163,7 @@ applications:
     project: monitoring
     sources:
       - repoURL: https://charts.deliveryhero.io/
-        chart: losust
+        chart: locust
         targetRevision: 0.31.5
         helm:
           valueFiles:
