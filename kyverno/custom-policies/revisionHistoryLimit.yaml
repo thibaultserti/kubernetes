@@ -10,6 +10,8 @@ spec:
         - resources:
             kinds:
             - Deployment
+            - StatefulSet
+            - DaemonSet
       mutate:
         patchStrategicMerge:
           spec:

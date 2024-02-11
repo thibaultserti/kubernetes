@@ -23,6 +23,22 @@ configs:
           - ClusterBackgroundScanReport
         clusters:
           - '*'
+    resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
+      jqPathExpressions:
+      - '.webhooks[]?.clientConfig.caBundle'
+    resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration: |
+      jqPathExpressions:
+      - '.webhooks[]?.clientConfig.caBundle'
+    resource.customizations.ignoreDifferences.apps_Deployment: |
+      jqPathExpressions:
+        - '.spec.revisionHistoryLimit'
+    resource.customizations.ignoreDifferences.apps_StatefulSet: |
+      jqPathExpressions:
+        - '.spec.revisionHistoryLimit'
+    resource.customizations.ignoreDifferences.apps_DaemonSet: |
+      jqPathExpressions:
+        - '.spec.revisionHistoryLimit'
+
   params:
     otlp.address: "otel-collector.monitoring:4317"
     server.insecure: true
