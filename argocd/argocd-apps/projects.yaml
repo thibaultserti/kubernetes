@@ -241,6 +241,8 @@ projects:
     destinations:
       - namespace: yopass
         server: https://kubernetes.default.svc
+      - namespace: stirling-pdf
+        server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
