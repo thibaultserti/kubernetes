@@ -41,3 +41,9 @@ slos:
     objective: 95
   - name: ctfd
     objective: 95
+  - name: ovh-certificate-api
+    objective: 95
+  - name: yopass
+    objective: 95
+  - name: stirling-pdf
+    objective: 95

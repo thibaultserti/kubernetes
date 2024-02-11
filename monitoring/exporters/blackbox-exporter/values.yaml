@@ -79,3 +79,12 @@ serviceMonitor:
     - name: ctfd
       url: https://ctfd.ayanides.cloud
       hostname: ctfd.ayanides.cloud
+    - name: ovh-certificate-api
+      url: https://ovh-certificate-api.ayanides.cloud
+      hostname: ovh-certificate-api.ayanides.cloud
+    - name: yopass
+      url: https://yopass.ayanides.cloud
+      hostname: yopass.ayanides.cloud
+    - name: stirling-pdf
+      url: https://stirling-pdf.ayanides.cloud
+      hostname: stirling-pdf.ayanides.cloud
