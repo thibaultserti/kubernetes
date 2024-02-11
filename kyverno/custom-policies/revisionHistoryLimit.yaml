@@ -1,0 +1,16 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: set-image-pull-policy
+spec:
+  rules:
+    - name: setRevisionHistoryLimit
+      match:
+        any:
+        - resources:
+            kinds:
+            - Deployment
+      mutate:
+        patchStrategicMerge:
+          spec:
+            revisionHistoryLimit: "2"
