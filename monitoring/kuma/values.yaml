@@ -31,5 +31,5 @@ volume:
 
 
 serviceMonitor:
-  enabled: true
+  enabled: false
   interval: 1m
