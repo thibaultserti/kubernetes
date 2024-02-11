@@ -1382,7 +1382,7 @@ applications:
     sources:
       - repoURL: https://falcosecurity.github.io/charts
         chart: falco
-        targetRevision: 3.8.7
+        targetRevision: 4.1.1
         helm:
           valueFiles:
           - $values/security/falco/falco/values.yaml
