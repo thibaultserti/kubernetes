@@ -86,8 +86,8 @@ spec:
 
     processors:
       batch:
-      memory_limiter:
-        check_interval: 1s
+      # memory_limiter:
+      #   check_interval: 1s
         # limit_percentage: 50
         # spike_limit_percentage: 30
 
