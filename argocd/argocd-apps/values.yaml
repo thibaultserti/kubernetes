@@ -1152,6 +1152,36 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# LOCUST
+  - name: locust
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://charts.deliveryhero.io/
+        chart: losust
+        targetRevision: 0.31.5
+        helm:
+          valueFiles:
+          - $values/monitoring/locust/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+
 # # MIMIR
 #   - name: mimir
 #     namespace: argocd

@@ -1,0 +1,13 @@
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - locust.ayanides.cloud
+  tls:
+    - secretName: locust-tls
+      hosts:
+        - locust.ayanides.cloud
