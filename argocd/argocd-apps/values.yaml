@@ -1123,6 +1123,34 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# STATUS PAGE
+  - name: kuma
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://dirsigler.github.io/uptime-kuma-helm
+        chart: uptime-kuma
+        targetRevision: 2.18.0
+        helm:
+          valueFiles:
+          - $values/monitoring/kuma/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
 
 # # MIMIR
 #   - name: mimir
