@@ -1,0 +1,38 @@
+ingress:
+  enabled: true
+  className: traefik
+  hosts:
+    - host: yopass.ayanides.cloud
+      paths:
+        - path: /
+          pathType: Prefix
+
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+  - secretName: yopass-tls
+    hosts:
+      - yopass.ayanides.cloud
+
+metrics:
+  enabled: true
+
+database:
+  type: redis
+  dsn: redis-master.redis:6379
+
+
+resources:
+  limits: {}
+  requests:
+    cpu: 100m
+    memory: 64Mi
+
+redis:
+  enabled: false
+
+
+memcached:
+  enabled: false

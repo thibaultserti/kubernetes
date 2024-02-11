@@ -1595,6 +1595,35 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
+# YOPASS
+
+  - name: yopass
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: yopass
+    destination:
+      namespace: yopass
+      server: https://kubernetes.default.svc
+    project: services
+    sources:
+      - repoURL: https://cloudhippie.github.io/charts
+        chart: yopass
+        targetRevision: 1.14.0
+        helm:
+          valueFiles:
+          - $values/services/yopass/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
 
 
 # MY-APPS
