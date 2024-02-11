@@ -21,7 +21,7 @@ metrics:
 
 database:
   type: redis
-  dsn: redis-master.redis:6379
+  dsn: redis://redis-master.redis:6379/0
 
 
 resources:
