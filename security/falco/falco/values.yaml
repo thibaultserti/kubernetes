@@ -122,10 +122,9 @@ customRules:
         longhornio/longhorn-engine,
         longhornio/csi-node-driver-registrar,
         longhornio/longhorn-manager,
+        longhornio/livenessprobe
         longhornio/longhorn-instance-manager,
         quay.io/sustainable_computing_io/kepler,
-        registry.k8s.io/sig-storage/csi-node-driver-registrar
-
       ]
 
     # ignore get secrets
@@ -150,6 +149,8 @@ customRules:
         quay.io/frrouting/frr,
         ghcr.io/ahrtr/etcd-defrag,
         registry.k8s.io/kube-apiserver,
+        quay.io/prometheus/node-exporter,
+        quay.io/sustainable_computing_io/kepler,
       ]
 
     - list: falco_hostpid_images
