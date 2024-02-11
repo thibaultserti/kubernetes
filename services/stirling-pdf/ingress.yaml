@@ -10,7 +10,7 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - striling-pdf.ayanides.cloud
+    - stirling-pdf.ayanides.cloud
     secretName: pdf-tls-secret
   rules:
   - host: stirling-pdf.ayanides.cloud
