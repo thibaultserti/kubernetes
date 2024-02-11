@@ -230,3 +230,19 @@ projects:
         kind: "*"
     orphanedResources:
       warn: false
+
+  - name: services
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Services Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: yopass
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    orphanedResources:
+      warn: false
