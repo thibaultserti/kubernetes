@@ -746,7 +746,7 @@ applications:
     sources:
       - repoURL: https://prometheus-community.github.io/helm-charts
         chart: prometheus-nginx-exporter
-        targetRevision: 0.2.0
+        targetRevision: 0.2.1
         helm:
           valueFiles:
           - $values/monitoring/exporters/nginx-exporter/values.yaml
