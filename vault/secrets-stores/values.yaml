@@ -43,9 +43,9 @@ secretsStores:
           vaultSecretKey: url_low
   - name: victoria-metrics-alertmanager
     namespace: monitoring
-    roleName: victoria-metrics-alertmanager
+    roleName: vmalertmanager-vm-stack-victoria-metrics-k8s-stack
     secrets:
-      alertmanager-secret:
+      vm-alertmanager-secret:
         - kubernetesSecretKey: url_critical
           vaultSecretPath: secrets/data/alertmanager
           vaultSecretKey: url_critical
