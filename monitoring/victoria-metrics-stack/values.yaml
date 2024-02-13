@@ -81,7 +81,7 @@ alertmanager:
           driver: secrets-store.csi.k8s.io
           readOnly: true
           volumeAttributes:
-            secretProviderClass: alertmanager
+            secretProviderClass: victoria-metrics-alertmanager
 
   config:
     templates:
