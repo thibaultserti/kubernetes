@@ -165,3 +165,6 @@ customRules:
         quay.io/prometheus/node-exporter,
         longhornio/longhorn-instance-manager
       ]
+
+    - rule: Ingress Object without TLS Certificate Created
+      enabled: false
