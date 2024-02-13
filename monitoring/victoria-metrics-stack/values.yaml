@@ -87,86 +87,62 @@ alertmanager:
     templates:
       - "/etc/vm/configs/**/*.tmpl"
     route:
-      groupBy: ["cluster", "alertname", "service"]
-      groupInterval: 2m
-      groupWait: 1m
-      repeatInterval: 1h
+      group_by: ["cluster", "alertname", "service"]
+      group_interval: 2m
+      group_wait: 1m
+      repeat_interval: 1h
       # A default receiver
       receiver: alert_manager_critical
 
       routes:
         - receiver: blackhole
           matchers:
-            - name: alertname
-              matchType: '=~'
-              # silence
-              value: InfoInhibitor|Watchdog|etcdHighCommitDurations|CPUThrottlingHigh|KubeAPIErrorBudgetBurn #|KubeMemoryOvercommit
+            - alertname=~InfoInhibitor|Watchdog|etcdHighCommitDurations|CPUThrottlingHigh|KubeAPIErrorBudgetBurn #|KubeMemoryOvercommit
         - receiver: alert_manager_low
           matchers:
-            - name: severity
-              matchType: '='
-              value: low
+            - severity=low
         - receiver: alert_manager_warning
           matchers:
-            - name: severity
-              matchType: '=~'
-              value: warning|info
+            - severity=~warning|info
         - receiver: alert_manager_critical
           matchers:
-            - name: severity
-              matchType: '=~'
-              value: critical|incident
+            - severity=~critical|incident
 
-      inhibitRules:
-        - sourceMatch:
-            - name: severity
-              matchType: '=~'
-              value: critical|incident
-          targetMatch:
-            - name: severity
-              matchType: '=~'
-              value: warning|info|low
-          equal:
-            - 'namespace'
-            - 'alertname'
-        - sourceMatch:
-            - name: severity
-              matchType: '='
-              value: warning
-          targetMatch:
-            - name: severity
-              matchType: '=~'
-              value: info|low
-          equal:
-            - 'namespace'
-            - 'alertname'
-        - sourceMatch:
-            - name: severity
-              matchType: '='
-              value: low
-          targetMatch:
-            - name: severity
-              matchType: '='
-              value: info
-          equal:
-            - 'namespace'
-            - 'alertname'
-        - sourceMatch:
-            - name: alertname
-              matchType: '='
-              value: InfoInhibitor
-          targetMatch:
-            - name: severity
-              matchType: '='
-              value: info
-          equal:
-            - 'namespace'
+    inhibit_rules:
+      - source_matchers:
+          - severity=~critical|incident
+        target_matchers:
+          - severity=~warning|info|low
+        equal:
+          - namespace
+          - alertname
+      - source_matchers:
+          - severity=warning
+        target_matchers:
+          - severity=~info|low
+        equal:
+          - namespace
+          - alertname
+      - source_matchers:
+          - severity=low
+        target_matchers:
+          - severity=info
+        equal:
+          - namespace
+          - alertname
+      - source_matchers:
+          - alertname=InfoInhibitor
+        target_matchers:
+          - severity=info
+        equal:
+          - namespace
+          - alertname
 
     receivers:
       - name: blackhole
       - name: alert_manager_critical
         slack_configs:
-          - api_url_file: /mnt/secrets-store/url_critical
+          - api_url_file: /mnt/secrets-store/victoria-metrics-alertmanager-url_critical
             send_resolved: true
             title: '{{ template "slack.monzo.title" . }}'
             icon_emoji: '{{ template "slack.monzo.icon_emoji" . }}'
@@ -190,7 +166,7 @@ alertmanager:
                 url: "{{ .CommonAnnotations.link_url }}"
       - name: alert_manager_warning
         slack_configs:
-          - api_url_file: /mnt/secrets-store/url_warning
+          - api_url_file: /mnt/secrets-store/victoria-metrics-alertmanager-url_warning
             send_resolved: true
             title: '{{ template "slack.monzo.title" . }}'
             icon_emoji: '{{ template "slack.monzo.icon_emoji" . }}'
@@ -214,7 +190,7 @@ alertmanager:
                 url: "{{ .CommonAnnotations.link_url }}"
       - name: alert_manager_low
         slack_configs:
-          - api_url_file: /mnt/secrets-store/url_low
+          - api_url_file: /mnt/secrets-store/victoria-metrics-alertmanager-url_low
             send_resolved: true
             title: '{{ template "slack.monzo.title" . }}'
             icon_emoji: '{{ template "slack.monzo.icon_emoji" . }}'
@@ -255,6 +231,8 @@ vmalert:
   enabled: true
   spec:
     selectAllByDefault: true
+    notifiers:
+      - url: http://vmalertmanager-vm-stack-victoria-metrics-k8s-stack.monitoring.svc:9093
   ingress:
     enabled: true
     annotations:
@@ -285,6 +263,7 @@ vmagent:
           target_label: instance
         static_configs:
         - targets: ['eros.ayanides.cloud:9100']
+
   ingress:
     enabled: true
     annotations:
@@ -321,6 +300,16 @@ kubeApiServer:
 kubeControllerManager:
   enabled: true
 
+  spec:
+    jobLabel: jobLabel
+    endpoints:
+      - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        port: http-metrics
+        scheme: https
+        tlsConfig:
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecureSkipVerify: true
+
 # -Component scraping kubeDns. Use either this or coreDns
 kubeDns:
   enabled: false
@@ -333,16 +322,43 @@ coreDns:
 ##
 kubeEtcd:
   enabled: true
+  service:
+    enabled: true
+    port: 2381
+    targetPort: 2381
+
+  # https://docs.victoriametrics.com/operator/api.html#vmservicescrapespec
+  spec:
+    jobLabel: jobLabel
+    endpoints:
+      - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        port: http-metrics
+
 
 ## Component scraping kube scheduler
 ##
 kubeScheduler:
   enabled: true
+  spec:
+    jobLabel: jobLabel
+    endpoints:
+      - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        port: http-metrics
+        scheme: https
+        tlsConfig:
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecureSkipVerify: true
 
 ## Component scraping kube proxy
 ##
 kubeProxy:
   enabled: true
+
+  spec:
+    jobLabel: jobLabel
+    endpoints:
+      - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        port: http-metrics
 
 ## install vm operator crds
 crds:
