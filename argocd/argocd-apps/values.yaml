@@ -678,6 +678,38 @@ applications:
         prune: true
         selfHeal: true
 
+  - name: vm-stack
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://victoriametrics.github.io/helm-charts/
+        chart: victoria-metrics-k8s-stack
+        targetRevision: 0.18.12
+        helm:
+          skipCrds: true
+          valueFiles:
+          - $values/monitoring/victoria-metrics-stack/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+#        - Replace=true
+        - ServerSideAppply=true
+
+
 # EXPORTERS
   - name: node-exporter
     namespace: argocd
