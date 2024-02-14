@@ -1,5 +1,5 @@
 clusterName: belt
-isSmallCluster: true
+isSmallCluster: false
 globalConfig:
   signing_key: "{{ env.SIGNING_KEY }}"
   account_id: "{{ env.ACCOUNT_ID }}"
@@ -13,13 +13,13 @@ sinksConfig:
 
 enablePlatformPlaybooks: true
 
-# forwarder:
-#   resources:
-#     requests:
-#       cpu: 15m
-#       memory: 204M
-#     limits:
-#       memory: 204M
+kubewatch:
+  resources:
+    requests:
+      cpu: 15m
+      memory: 204M
+    limits:
+      memory: 408M
 
 runner:
   # resources:

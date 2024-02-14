@@ -152,7 +152,7 @@ alertmanager:
             username: "alertmanager"
             color: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}danger{{ "{{" }} else {{ "}}" }}good{{ "{{" }} end {{ "}}" }}'
             title: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}:fire:[FIRING]{{ "{{" }} else {{ "}}" }}[OK]{{ "{{" }} end {{ "}}" }} - {{ "{{" }} .CommonLabels.alertname {{ "}}" }}'
-            titleLink: "https://grafana.ayanides.cloud/dashboards"
+            title_link: "https://grafana.ayanides.cloud/dashboards"
             text: |-
               {{ "{{" }} range .Alerts -{{ "}}" }}
 
@@ -165,14 +165,14 @@ alertmanager:
               {{ "{{" }}- if .Annotations.runbook_url {{ "}}" }} :notebook: *<{{ "{{" }} .Annotations.runbook_url {{ "}}" }}|Runbook>* {{ "{{" }} end {{ "}}" }}
 
               {{ "{{" }} end {{ "}}" }}
-            sendResolved: true
+            send_resolved: true
       - name: alert_manager_warning
         slack_configs:
           - api_url_file: /mnt/secrets-store/victoria-metrics-alertmanager-url_warning
             username: "alertmanager"
             color: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}warning{{ "{{" }} else {{ "}}" }}good{{ "{{" }} end {{ "}}" }}'
             title: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}:warning:[FIRING]{{ "{{" }} else {{ "}}" }}[OK]{{ "{{" }} end {{ "}}" }} - {{ "{{" }} .CommonLabels.alertname {{ "}}" }}'
-            titleLink: "https://grafana.ayanides.cloud/dashboards"
+            title_link: "https://grafana.ayanides.cloud/dashboards"
             text: |-
               {{ "{{" }} range .Alerts -{{ "}}" }}
 
@@ -185,14 +185,14 @@ alertmanager:
               {{ "{{" }}- if .Annotations.runbook_url {{ "}}" }} :notebook: *<{{ "{{" }} .Annotations.runbook_url {{ "}}" }}|Runbook>* {{ "{{" }} end {{ "}}" }}
 
               {{ "{{" }} end {{ "}}" }}
-            sendResolved: true
+            send_resolved: true
       - name: alert_manager_low
         slack_configs:
           - api_url_file: /mnt/secrets-store/victoria-metrics-alertmanager-url_low
             username: "alertmanager"
             color: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}#439FE0{{ "{{" }} else {{ "}}" }}good{{ "{{" }} end {{ "}}" }}'
             title: '{{ "{{" }} if eq .Status "firing" {{ "}}" }}:information_source:[FIRING]{{ "{{" }} else {{ "}}" }}[OK]{{ "{{" }} end {{ "}}" }} - {{ "{{" }} .CommonLabels.alertname {{ "}}" }}'
-            titleLink: "https://grafana.ayanides.cloud/dashboards"
+            title_link: "https://grafana.ayanides.cloud/dashboards"
             text: |-
               {{ "{{" }} range .Alerts -{{ "}}" }}
 
@@ -205,7 +205,7 @@ alertmanager:
               {{ "{{" }}- if .Annotations.runbook_url {{ "}}" }} :notebook: *<{{ "{{" }} .Annotations.runbook_url {{ "}}" }}|Runbook>* {{ "{{" }} end {{ "}}" }}
 
               {{ "{{" }} end {{ "}}" }}
-            sendResolved: true
+            send_resolved: true
 
   monzoTemplate:
     enabled: false
