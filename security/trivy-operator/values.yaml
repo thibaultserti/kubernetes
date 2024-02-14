@@ -1,5 +1,5 @@
 operator:
-  vulnerabilityScannerEnabled: true
+  vulnerabilityScannerEnabled: false
   configAuditScannerEnabled: true
   rbacAssessmentScannerEnabled: true
   clusterComplianceEnabled: true
