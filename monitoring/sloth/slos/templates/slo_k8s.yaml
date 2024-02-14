@@ -1,4 +1,4 @@
-{{- range $slo := .Values.slos }}
+{{- range $slo := .Values.slos_k8s }}
 ---
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
@@ -11,9 +11,10 @@ spec:
       objective: {{ $slo.objective }}
       description: "Common SLO based on availability for HTTP request responses."
       sli:
-        events:
-          errorQuery: count_over_time((probe_http_status_code{target="{{ $slo.name }}"}>=400)[{{`{{ .window }}`}}:]) OR on() vector(0)
-          totalQuery: count_over_time(probe_http_status_code{target="{{ $slo.name }}"}[{{`{{ .window }}`}}:]) OR on() vector(0)
+        plugin:
+          id: "sloth-common/traefik/v2/availability"
+          options:
+            service_name_regex: "^.*{{ $slo.name }}.*$"
       alerting:
         name: MyServiceHighErrorRate
         labels:
@@ -24,9 +25,12 @@ spec:
       objective: {{ $slo.objective }}
       description: "Common SLO based on latency for HTTP request."
       sli:
-        events:
-          errorQuery: sum_over_time((count(quantile(0.95, probe_duration_seconds{target="{{ $slo.name }}"}) > 1))[{{`{{.window}}`}}:]) OR on() vector(0)
-          totalQuery: sum_over_time((count(quantile(0.95, probe_duration_seconds{target="{{ $slo.name }}"})))[{{`{{.window}}`}}:]) OR on() vector(0)
+        plugin:
+          id: "sloth-common/traefik/v2/latency"
+          options:
+            service_name_regex: "^.*{{ $slo.name }}.*$"
+            bucket: "1"
+            exclude_errors: "true"
       alerting:
         name: MyServiceHighLatency
         labels:

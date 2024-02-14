@@ -50,7 +50,7 @@ vmsingle:
   enabled: true
   # https://docs.victoriametrics.com/operator/api/#vmsinglespec
   spec:
-    retentionPeriod: "14"
+    retentionPeriod: "30"
     storage:
       accessModes:
         - ReadWriteOnce

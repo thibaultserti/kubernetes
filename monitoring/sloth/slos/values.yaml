@@ -3,6 +3,7 @@ slos:
     objective: 95
   - name: semaphore
     objective: 95
+slos_k8s:
   - name: traefik
     objective: 95
   - name: kubernetes-dashboard

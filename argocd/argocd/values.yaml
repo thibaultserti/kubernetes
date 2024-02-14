@@ -27,6 +27,7 @@ configs:
         - "*"
         kinds:
         - VMServiceScrape
+        - VMPodScrape
         - VMRule
     resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
       jqPathExpressions:
