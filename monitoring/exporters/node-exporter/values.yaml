@@ -1,7 +1,7 @@
+fullNameOverride: node-exporter
 prometheus:
   monitor:
     enabled: true
-    jobLabel: "node-exporter"
     relabelings:
     - action: replace
       sourceLabels: [__meta_kubernetes_pod_node_name]
