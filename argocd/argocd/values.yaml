@@ -23,6 +23,11 @@ configs:
           - ClusterBackgroundScanReport
         clusters:
           - '*'
+      - apiGroups:
+        - "*"
+        kinds:
+        - VMServiceScrape
+        - VMRule
     resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
       jqPathExpressions:
       - '.webhooks[]?.clientConfig.caBundle'
