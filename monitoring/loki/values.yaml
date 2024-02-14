@@ -115,11 +115,11 @@ singleBinary:
 test:
   enabled: false
 
-gateway:
-  # resources:
-  #   requests:
-  #     cpu: 15m
-  #     memory: 105M
+# gateway:
+#   resources:
+#     requests:
+#       cpu: 15m
+#       memory: 105M
 
 
 monitoring:

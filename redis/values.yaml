@@ -2,13 +2,13 @@ auth:
   enabled: false
   sentinel: false
 
-master:
-  # resources:
-  #   requests:
-  #     cpu: 35m
-  #     memory: 53M
-  #   limits:
-  #     memory: 53M
+# master:
+#   resources:
+#     requests:
+#       cpu: 35m
+#       memory: 53M
+#     limits:
+#       memory: 53M
 
 replica:
   replicaCount: 1

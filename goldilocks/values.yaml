@@ -1,22 +1,22 @@
-controller:
-  # resources:
-  #   requests:
-  #     cpu: 93m
-  #     memory: 105M
-  #   limits:
-  #     memory: 105M
+# controller:
+#   resources:
+#     requests:
+#       cpu: 93m
+#       memory: 105M
+#     limits:
+#       memory: 105M
 
 vpa:
   enabled: true
   updater:
     enabled: false
-  admissionController:
-    # resources:
-    #   requests:
-    #     cpu: 15m
-    #     memory: 105M
-    #   limits:
-    #     memory: 105M
+  # admissionController:
+  #   resources:
+  #     requests:
+  #       cpu: 15m
+  #       memory: 105M
+  #     limits:
+  #       memory: 105M
   recommender:
     extraArgs:
       prometheus-address: http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090
