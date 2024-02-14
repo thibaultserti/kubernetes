@@ -128,25 +128,26 @@ spec:
             statements:
               - merge_maps(cache, ParseJSON(body), "upsert") where IsMatch(body, "^\\{")
 
-              # Traefik
+              # Nginx
               - set(attributes["remote_addr"], cache["remote_addr"])
               - set(attributes["http_host"], cache["http_host"])
               - set(attributes["request_uri"], cache["request_uri"])
               - set(attributes["request_method"], cache["request_method"])
               - set(attributes["status"], cache["status"])
-              # Nginx
+              # Traefik
               - set(attributes["ClientHost"], cache["ClientHost"])
               - set(attributes["RequestHost"], cache["RequestHost"])
               - set(attributes["RequestPath"], cache["RequestPath"])
               - set(attributes["RequestMethod"], cache["RequestMethod"])
               - set(attributes["OriginStatus"], cache["OriginStatus"])
 
+
       attributes:
         actions:
         - action: upsert
           key: loki.attribute.labels
           value: >
-            node_name, namespace, instance, job, pod, container, app, component, filename, stream
+            node_name, namespace, instance, job, pod, container, app, component, filename, stream, systemd_unit
             remote_addr, http_host, request_uri, request_method, status,
             ClientHost, RequestHost, RequestPath, RequestMethod, OriginStatus
 
