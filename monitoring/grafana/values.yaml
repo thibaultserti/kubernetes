@@ -36,6 +36,7 @@ plugins:
   - isovalent-hubble-datasource
   - grafana-worldmap-panel
   - grafana-piechart-panel
+  - camptocamp-prometheus-alertmanager-datasource
 
 admin:
   existingSecret: grafana-secret
