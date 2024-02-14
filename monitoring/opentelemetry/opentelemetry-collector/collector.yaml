@@ -10,8 +10,7 @@ spec:
     requests:
       cpu: 11m
       memory: 116M
-    limits:
-      memory: 116M
+
   env:
     - name: K8S_NODE_NAME
       valueFrom:
