@@ -1,11 +1,11 @@
 tempo:
 
-  resources:
-    requests:
-      cpu: 35m
-      memory: 1739M
-    limits:
-      memory: 1739M
+  # resources:
+  #   requests:
+  #     cpu: 35m
+  #     memory: 1739M
+  #   limits:
+  #     memory: 1739M
 
   reportingEnabled: false
   metricsGenerator:
@@ -76,12 +76,12 @@ tempoQuery:
   tag: null
   pullPolicy: IfNotPresent
 
-  resources:
-    requests:
-      cpu: 11m
-      memory: 53M
-    limits:
-      memory: 53M
+  # resources:
+  #   requests:
+  #     cpu: 11m
+  #     memory: 53M
+  #   limits:
+  #     memory: 53M
 
   enabled: true
 

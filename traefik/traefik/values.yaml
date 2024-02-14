@@ -100,9 +100,9 @@ tracing:
     address: otel-collector.monitoring:4318
     insecure: true
 
-resources:
-  requests:
-    cpu: 23m
-    memory: 164M
-  limits:
-    memory: 164M
+# resources:
+#   requests:
+#     cpu: 23m
+#     memory: 164M
+#   limits:
+#     memory: 164M

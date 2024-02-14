@@ -65,12 +65,12 @@ configs:
 # CONTROLLER
 
 controller:
-  resources:
-    requests:
-      cpu: 671m
-      memory: 2540M
-    limits:
-      memory: 2540M
+  # resources:
+  #   requests:
+  #     cpu: 671m
+  #     memory: 2540M
+  #   limits:
+  #     memory: 2540M
 
   metrics:
     enabled: true
@@ -116,20 +116,20 @@ dex:
 
 redis:
   resources:
-    requests:
-      cpu: 11m
-      memory: 53M
-    limits:
-      memory: 53M
+    # requests:
+    #   cpu: 11m
+    #   memory: 53M
+    # limits:
+    #   memory: 53M
 
   exporter:
     enabled: true
-    resources:
-      requests:
-        cpu: 11m
-        memory: 53M
-      limits:
-        memory: 53M
+    # resources:
+    #   requests:
+    #     cpu: 11m
+    #     memory: 53M
+    #   limits:
+    #     memory: 53M
   metrics:
     enabled: true
     serviceMonitor:
@@ -138,12 +138,12 @@ redis:
 # SERVER
 
 server:
-  resources:
-    requests:
-      cpu: 15m
-      memory: 127M
-    limits:
-      memory: 127M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 127M
+  #   limits:
+  #     memory: 127M
 
   metrics:
     enabled: true
@@ -182,12 +182,12 @@ repoServer:
 # APPLICATIONSET
 
 applicationSet:
-  resources:
-    requests:
-      cpu: 15m
-      memory: 105M
-    limits:
-      memory: 105M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 105M
+  #   limits:
+  #     memory: 105M
 
   metrics:
     enabled: true
@@ -197,12 +197,12 @@ applicationSet:
 # NOTIFICATIONS
 
 notifications:
-  resources:
-    requests:
-      cpu: 15m
-      memory: 105M
-    limits:
-      memory: 105M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 105M
+  #   limits:
+  #     memory: 105M
 
   metrics:
     enabled: true

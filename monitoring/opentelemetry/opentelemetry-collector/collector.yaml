@@ -6,10 +6,10 @@ metadata:
     app.kubernetes.io/name: otel-collector
 
 spec:
-  resources:
-    requests:
-      cpu: 11m
-      memory: 116M
+  # resources:
+  #   requests:
+  #     cpu: 11m
+  #     memory: 116M
 
   env:
     - name: K8S_NODE_NAME

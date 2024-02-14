@@ -13,21 +13,21 @@ sinksConfig:
 
 enablePlatformPlaybooks: true
 
-forwarder:
-  resources:
-    requests:
-      cpu: 15m
-      memory: 204M
-    limits:
-      memory: 204M
+# forwarder:
+#   resources:
+#     requests:
+#       cpu: 15m
+#       memory: 204M
+#     limits:
+#       memory: 204M
 
 runner:
-  resources:
-    requests:
-      cpu: 410m
-      memory: 765M
-    limits:
-      memory: 765M
+  # resources:
+  #   requests:
+  #     cpu: 410m
+  #     memory: 765M
+  #   limits:
+  #     memory: 765M
 
   additional_env_vars:
   - name: SIGNING_KEY

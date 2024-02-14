@@ -36,30 +36,30 @@ teleportConfig:
 proxyListenerMode: multiplex
 
 
-auth:
-  resources:
-    requests:
-      cpu: 11m
-      memory: 110M
-    limits:
-      memory: 110M
+# auth:
+#   resources:
+#     requests:
+#       cpu: 11m
+#       memory: 110M
+#     limits:
+#       memory: 110M
 
-operator:
-  enabled: true
-  resources:
-    requests:
-      cpu: 11m
-      memory: 64M
-    limits:
-      memory: 64M
+# operator:
+#   enabled: true
+#   resources:
+#     requests:
+#       cpu: 11m
+#       memory: 64M
+#     limits:
+#       memory: 64M
 
-proxy:
-  resources:
-    requests:
-      cpu: 15m
-      memory: 105M
-    limits:
-      memory: 105M
+# proxy:
+#   resources:
+#     requests:
+#       cpu: 15m
+#       memory: 105M
+#     limits:
+#       memory: 105M
 
 podSecurityPolicy:
   enabled: false

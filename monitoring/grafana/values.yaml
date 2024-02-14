@@ -1,9 +1,9 @@
-resources:
-  requests:
-    cpu: 11m
-    memory: 184M
-  limits:
-    memory: 184M
+# resources:
+#   requests:
+#     cpu: 11m
+#     memory: 184M
+#   limits:
+#     memory: 184M
 
 serviceMonitor:
   enabled: true
@@ -58,12 +58,12 @@ persistence:
   storageClassName: "default"
 
 sidecar:
-  resources:
-    requests:
-      cpu: 11m
-      memory: 127M
-    limits:
-      memory: 127M
+  # resources:
+  #   requests:
+  #     cpu: 11m
+  #     memory: 127M
+  #   limits:
+  #     memory: 127M
 # Managed by Terraform
   datasources:
     enabled: false

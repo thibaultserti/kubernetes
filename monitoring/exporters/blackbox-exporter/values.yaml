@@ -1,10 +1,10 @@
 fullnameOverride: blackbox-exporter
-resources:
-  requests:
-    cpu: 23m
-    memory: 105M
-  limits:
-    memory: 105M
+# resources:
+#   requests:
+#     cpu: 23m
+#     memory: 105M
+#   limits:
+#     memory: 105M
 
 serviceMonitor:
   enabled: true

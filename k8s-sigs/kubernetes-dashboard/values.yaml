@@ -15,19 +15,19 @@ ingress:
 
 metricsScraper:
   enabled: true
-  resources:
-    requests:
-      cpu: 11m
-      memory: 53M
-    limits:
-      memory: 53M
+  # resources:
+  #   requests:
+  #     cpu: 11m
+  #     memory: 53M
+  #   limits:
+  #     memory: 53M
 
-resources:
-  requests:
-    cpu: 11m
-    memory: 53M
-  limits:
-    memory: 53M
+# resources:
+#   requests:
+#     cpu: 11m
+#     memory: 53M
+#   limits:
+#     memory: 53M
 
 rbac:
   clusterReadOnlyRole: true

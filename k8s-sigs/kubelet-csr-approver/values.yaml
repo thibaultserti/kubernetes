@@ -3,9 +3,9 @@ providerIpPrefixes: 192.168.1.0/24
 maxExpirationSeconds: 86400
 bypassDnsResolution: true
 
-resources:
-  requests:
-    cpu: 15m
-    memory: 105M
-  limits:
-    memory: 105M
+# resources:
+#   requests:
+#     cpu: 15m
+#     memory: 105M
+#   limits:
+#     memory: 105M

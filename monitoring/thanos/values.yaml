@@ -2,10 +2,10 @@ existingObjstoreSecret: thanos-objstore-secret
 
 query:
   enabled: true
-  resources:
-    requests:
-      cpu: 15m
-      memory: 105M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 105M
   ingress:
     enabled: true
     ingressClassName: traefik
@@ -46,12 +46,12 @@ query:
 
 queryFrontend:
   enabled: true
-  resources:
-    requests:
-      cpu: 15m
-      memory: 105M
-    limits:
-      memory: 105M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 105M
+  #   limits:
+  #     memory: 105M
   extraFlags:
     - |
       --tracing.config=type: OTLP
@@ -63,12 +63,12 @@ queryFrontend:
 
 bucketweb:
   enabled: true
-  resources:
-    requests:
-      cpu: 15m
-      memory: 105M
-    limits:
-      memory: 105M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 105M
+  #   limits:
+  #     memory: 105M
   ingress:
     enabled: true
     ingressClassName: traefik
@@ -89,10 +89,10 @@ bucketweb:
 
 compactor:
   enabled: true
-  resources:
-    requests:
-      cpu: 23m
-      memory: 2408M
+  # resources:
+  #   requests:
+  #     cpu: 23m
+  #     memory: 2408M
   persistence:
     storageClass: default
     size: 100Gi
@@ -122,10 +122,10 @@ compactor:
 
 storegateway:
   enabled: true
-  resources:
-    requests:
-      cpu: 15m
-      memory: 250M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 250M
   persistence:
     storageClass: default
     size: 10Gi

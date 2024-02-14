@@ -11,26 +11,26 @@ ingress:
 serviceMonitor:
   enabled: true
 
-pyroscope:
-  resources:
-    requests:
-      cpu: 23m
-      memory: 443M
-    limits:
-      memory: 443M
+# pyroscope:
+#   resources:
+#     requests:
+#       cpu: 23m
+#       memory: 443M
+#     limits:
+#       memory: 443M
 
-agent:
-  resources:
-    requests:
-      cpu: 23m
-      memory: 164M
-    limits:
-      memory: 164M
+# agent:
+#   resources:
+#     requests:
+#       cpu: 23m
+#       memory: 164M
+#     limits:
+#       memory: 164M
 
-  configReloader:
-    resources:
-      requests:
-        cpu: 11m
-        memory: 53M
-      limits:
-        memory: 53M
+#   configReloader:
+#     resources:
+#       requests:
+#         cpu: 11m
+#         memory: 53M
+#       limits:
+#         memory: 53M

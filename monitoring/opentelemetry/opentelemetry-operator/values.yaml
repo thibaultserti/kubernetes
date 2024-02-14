@@ -10,22 +10,22 @@ manager:
     defaultRules: # WorkqueueDepth keep firing
       enabled: false
 
-  resources:
-    requests:
-      cpu: 11m
-      memory: 64M
-    limits:
-      memory: 64M
+  # resources:
+  #   requests:
+  #     cpu: 11m
+  #     memory: 64M
+  #   limits:
+  #     memory: 64M
 
 admissionWebhooks:
   create: true
   certManager:
     enabled: true
 
-kubeRBACProxy:
-  resources:
-    requests:
-      cpu: 11m
-      memory: 53M
-    limits:
-      memory: 53M
+# kubeRBACProxy:
+#   resources:
+#     requests:
+#       cpu: 11m
+#       memory: 53M
+#     limits:
+#       memory: 53M

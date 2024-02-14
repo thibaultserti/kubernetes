@@ -20,9 +20,9 @@ spec:
         env:
         - name: DOCKER_ENABLE_SECURITY
           value: "false"
-        resources:
-          requests:
-            cpu: 15m
-            memory: 588M
-          limits:
-            memory: 588M
+        # resources:
+        #   requests:
+        #     cpu: 15m
+        #     memory: 588M
+        #   limits:
+        #     memory: 588M

@@ -6,12 +6,12 @@ collectors:
 
 tty: true
 
-resources:
-  requests:
-    cpu: 296m
-    memory: 1103M
-  limits:
-    memory: 1103M
+# resources:
+#   requests:
+#     cpu: 296m
+#     memory: 1103M
+#   limits:
+#     memory: 1103M
 
 falco:
   rules_file:

@@ -2,9 +2,9 @@ serviceMonitor:
   enabled: true
   interval: 60m
 
-resources:
-  requests:
-    cpu: 15m
-    memory: 105M
-  limits:
-    memory: 105M
+# resources:
+#   requests:
+#     cpu: 15m
+#     memory: 105M
+#   limits:
+#     memory: 105M

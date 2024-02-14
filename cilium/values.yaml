@@ -1,21 +1,21 @@
 cluster:
   name: belt
 
-resources:
-  requests:
-    cpu: 93m
-    memory: 477M
-  limits:
-    memory: 477M
+# resources:
+#   requests:
+#     cpu: 93m
+#     memory: 477M
+#   limits:
+#     memory: 477M
 
 hubble:
   enabled: true
-  resources:
-    requests:
-      cpu: 11m
-      memory: 53M
-    limits:
-      memory: 53M
+  # resources:
+  #   requests:
+  #     cpu: 11m
+  #     memory: 53M
+  #   limits:
+  #     memory: 53M
   metrics:
     enabled:
       - dns
@@ -35,12 +35,12 @@ hubble:
 
   relay:
     enabled: true
-    resources:
-      requests:
-        cpu: 15m
-        memory: 105M
-      limits:
-        memory: 105M
+    # resources:
+    #   requests:
+    #     cpu: 15m
+    #     memory: 105M
+    #   limits:
+    #     memory: 105M
     prometheus:
       enabled: true
       port: 9966
@@ -70,12 +70,12 @@ prometheus:
 
 operator:
   enabled: true
-  resources:
-    requests:
-      cpu: 15m
-      memory: 105M
-    limits:
-      memory: 105M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 105M
+  #   limits:
+  #     memory: 105M
   prometheus:
     enabled: true
     serviceMonitor:

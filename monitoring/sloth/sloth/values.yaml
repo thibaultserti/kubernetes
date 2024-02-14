@@ -11,18 +11,18 @@ securityContext:
   container:
     allowPrivilegeEscalation: false
 
-resources:
-  requests:
-    cpu: 11m
-    memory: 79M
-  limits:
-    memory: 79M
+# resources:
+#   requests:
+#     cpu: 11m
+#     memory: 79M
+#   limits:
+#     memory: 79M
 
-commonPlugins:
-  gitRepo:
-    resources:
-      requests:
-        cpu: 11m
-        memory: 53M
-      limits:
-        memory: 53M
+# commonPlugins:
+#   gitRepo:
+#     resources:
+#       requests:
+#         cpu: 11m
+#         memory: 53M
+#       limits:
+#         memory: 53M

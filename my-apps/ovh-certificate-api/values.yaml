@@ -65,12 +65,12 @@ app:
     runAsNonRoot: false
 
 
-  resources:
-    requests:
-      cpu: 15m
-      memory: 256M
-    limits:
-      memory: 256M
+  # resources:
+  #   requests:
+  #     cpu: 15m
+  #     memory: 256M
+  #   limits:
+  #     memory: 256M
 
 
   extraSecretMounts:
