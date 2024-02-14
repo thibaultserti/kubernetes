@@ -155,7 +155,8 @@ customRules:
 
     - list: falco_hostpid_images
       items: [
-        longhornio/longhorn-manager
+        longhornio/longhorn-manager,
+        quay.io/prometheus/node-exporter
       ]
 
     - list: falco_sensitive_mount_images
