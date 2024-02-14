@@ -55,9 +55,9 @@ applications:
       managedNamespaceMetadata:
         labels:
           goldilocks.fairwinds.com/enabled: "true"
-      automated:
-        selfHeal: true
-        prune: true
+      # automated:
+      #   selfHeal: true
+      #   prune: true
 
   # CILIUM
   # Issue with https://github.com/cilium/cilium-cli/issues/1396
