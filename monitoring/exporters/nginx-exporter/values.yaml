@@ -1,4 +1,5 @@
 nginxServer: "http://eros.ayanides.cloud:8080/status"
+fullnameOverride: nginx-exporter
 
 serviceMonitor:
   enabled: true

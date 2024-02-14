@@ -77,7 +77,7 @@ alertmanager:
   spec:
     serviceAccountName: "vmalertmanager-vm-stack-victoria-metrics-k8s-stack"
     selectAllByDefault: true
-    externalURL: "https://alertmanager2.ayanides.cloud/"
+    externalURL: "https://alertmanager.ayanides.cloud/"
     volumeMounts:
       - mountPath: /mnt/secrets-store
         name: secrets-store-inline
@@ -230,7 +230,7 @@ alertmanager:
     path: /
     pathType: Prefix
     hosts:
-      - alertmanager2.ayanides.cloud
+      - alertmanager.ayanides.cloud
 
 
 vmalert:
@@ -273,10 +273,7 @@ vmagent:
           target_label: instance
         static_configs:
         - targets: ['eros.ayanides.cloud:9100']
-      - job_name: prometheus-node-exporter
-        relabel_configs:
-        - source_labels: [job]
-          target_label:
+
   ingress:
     enabled: true
     annotations:

@@ -1,3 +1,4 @@
+fullnameOverride: blackbox-exporter
 resources:
   requests:
     cpu: 23m

@@ -609,50 +609,50 @@ applications:
         - CreateNamespace=true
 
 # KUBE-PROMETHEUS-STACK
-  - name: prometheus-stack
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: monitoring
-    destination:
-      namespace: monitoring
-      server: https://kubernetes.default.svc
-    project: monitoring
-    sources:
-      - repoURL: https://prometheus-community.github.io/helm-charts
-        chart: kube-prometheus-stack
-        targetRevision: 55.11.0
-        helm:
-          skipCrds: true
-          valueFiles:
-          - $values/monitoring/prometheus-stack/alertmanager.yaml
-          - $values/monitoring/prometheus-stack/alertmanagerconfig.yaml
-          - $values/monitoring/prometheus-stack/prometheus.yaml
-          - $values/monitoring/prometheus-stack/promrules.yaml
-          - $values/monitoring/prometheus-stack/values.yaml
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        targetRevision: HEAD
-        ref: values
-    ignoreDifferences:
-      - group: admissionregistration.k8s.io
-        kind: MutatingWebhookConfiguration
-        jqPathExpressions:
-          - '.webhooks[]?.clientConfig.caBundle'
-          - '.webhooks[]?.failurePolicy'
-      - group: admissionregistration.k8s.io
-        kind: ValidatingWebhookConfiguration
-        jqPathExpressions:
-          - '.webhooks[]?.clientConfig.caBundle'
-          - '.webhooks[]?.failurePolicy'
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          goldilocks.fairwinds.com/enabled: "true"
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
-        - RespectIgnoreDifferences=true
+  # - name: prometheus-stack
+  #   namespace: argocd
+  #   additionalAnnotations:
+  #     notifications.argoproj.io/subscribe.grafana: monitoring
+  #   destination:
+  #     namespace: monitoring
+  #     server: https://kubernetes.default.svc
+  #   project: monitoring
+  #   sources:
+  #     - repoURL: https://prometheus-community.github.io/helm-charts
+  #       chart: kube-prometheus-stack
+  #       targetRevision: 55.11.0
+  #       helm:
+  #         skipCrds: true
+  #         valueFiles:
+  #         - $values/monitoring/prometheus-stack/alertmanager.yaml
+  #         - $values/monitoring/prometheus-stack/alertmanagerconfig.yaml
+  #         - $values/monitoring/prometheus-stack/prometheus.yaml
+  #         - $values/monitoring/prometheus-stack/promrules.yaml
+  #         - $values/monitoring/prometheus-stack/values.yaml
+  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
+  #       targetRevision: HEAD
+  #       ref: values
+  #   ignoreDifferences:
+  #     - group: admissionregistration.k8s.io
+  #       kind: MutatingWebhookConfiguration
+  #       jqPathExpressions:
+  #         - '.webhooks[]?.clientConfig.caBundle'
+  #         - '.webhooks[]?.failurePolicy'
+  #     - group: admissionregistration.k8s.io
+  #       kind: ValidatingWebhookConfiguration
+  #       jqPathExpressions:
+  #         - '.webhooks[]?.clientConfig.caBundle'
+  #         - '.webhooks[]?.failurePolicy'
+  #   syncPolicy:
+  #     managedNamespaceMetadata:
+  #       labels:
+  #         goldilocks.fairwinds.com/enabled: "true"
+  #     # automated:
+  #     #   selfHeal: true
+  #     #   prune: true
+  #     syncOptions:
+  #       - CreateNamespace=true
+  #       - RespectIgnoreDifferences=true
 
   - name: prometheus-stack-crds
     namespace: argocd
@@ -1124,33 +1124,33 @@ applications:
         - CreateNamespace=true
 
 # THANOS
-  - name: thanos
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: monitoring
-    destination:
-      namespace: monitoring
-      server: https://kubernetes.default.svc
-    project: monitoring
-    sources:
-      - repoURL: https://charts.bitnami.com/bitnami
-        chart: thanos
-        targetRevision: 12.23.2
-        helm:
-          valueFiles:
-          - $values/monitoring/thanos/values.yaml
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        targetRevision: HEAD
-        ref: values
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          goldilocks.fairwinds.com/enabled: "true"
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
+  # - name: thanos
+  #   namespace: argocd
+  #   additionalAnnotations:
+  #     notifications.argoproj.io/subscribe.grafana: monitoring
+  #   destination:
+  #     namespace: monitoring
+  #     server: https://kubernetes.default.svc
+  #   project: monitoring
+  #   sources:
+  #     - repoURL: https://charts.bitnami.com/bitnami
+  #       chart: thanos
+  #       targetRevision: 12.23.2
+  #       helm:
+  #         valueFiles:
+  #         - $values/monitoring/thanos/values.yaml
+  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
+  #       targetRevision: HEAD
+  #       ref: values
+  #   syncPolicy:
+  #     managedNamespaceMetadata:
+  #       labels:
+  #         goldilocks.fairwinds.com/enabled: "true"
+  #     # automated:
+  #     #   selfHeal: true
+  #     #   prune: true
+  #     syncOptions:
+  #       - CreateNamespace=true
 
 # STATUS PAGE
   - name: kuma
