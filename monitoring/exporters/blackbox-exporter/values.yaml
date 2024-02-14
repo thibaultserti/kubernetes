@@ -17,6 +17,7 @@ serviceMonitor:
     - name: google
       url: https://google.com
       hostname: google.com
+      interval: 1s
     - name: pihole
       url: https://pihole.ayanides.cloud
       hostname: pihole.ayanides.cloud
@@ -41,9 +42,18 @@ serviceMonitor:
     - name: grafana
       url: https://grafana.ayanides.cloud
       hostname: grafana.ayanides.cloud
-    - name: prometheus
-      url: https://prometheus.ayanides.cloud
-      hostname: prometheus.ayanides.cloud
+    # - name: prometheus
+    #   url: https://prometheus.ayanides.cloud
+    #   hostname: prometheus.ayanides.cloud
+    - name: victoriametrics
+      url: https://victoriametrics.ayanides.cloud
+      hostname: victoriametrics.ayanides.cloud
+    - name: vmagent
+      url: https://vmagent.ayanides.cloud
+      hostname: vmagent.ayanides.cloud
+    - name: vmalert
+      url: https://vmalert.ayanides.cloud
+      hostname: vmalert.ayanides.cloud
     - name: alertmanager
       url: https://alertmanager.ayanides.cloud
       hostname: alertmanager.ayanides.cloud
@@ -59,18 +69,18 @@ serviceMonitor:
     - name: kyverno
       url: https://kyverno.ayanides.cloud
       hostname: kyverno.ayanides.cloud
-    - name: thanos
-      url: https://thanos.ayanides.cloud
-      hostname: thanos.ayanides.cloud
-    - name: thanos-bucketweb
-      url: https://thanos-bucketweb.ayanides.cloud
-      hostname: thanos-bucketweb.ayanides.cloud
-    - name: thanos-compactor
-      url: https://thanos-compactor.ayanides.cloud
-      hostname: thanos-compactor.ayanides.cloud
-    - name: thanos-storegateway
-      url: https://thanos-storegateway.ayanides.cloud
-      hostname: thanos-storegateway.ayanides.cloud
+    # - name: thanos
+    #   url: https://thanos.ayanides.cloud
+    #   hostname: thanos.ayanides.cloud
+    # - name: thanos-bucketweb
+    #   url: https://thanos-bucketweb.ayanides.cloud
+    #   hostname: thanos-bucketweb.ayanides.cloud
+    # - name: thanos-compactor
+    #   url: https://thanos-compactor.ayanides.cloud
+    #   hostname: thanos-compactor.ayanides.cloud
+    # - name: thanos-storegateway
+    #   url: https://thanos-storegateway.ayanides.cloud
+    #   hostname: thanos-storegateway.ayanides.cloud
     - name: teleport
       url: https://teleport.ayanides.cloud
       hostname: teleport.ayanides.cloud

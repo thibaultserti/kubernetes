@@ -6,6 +6,11 @@ prometheus:
     - action: replace
       sourceLabels: [__meta_kubernetes_pod_node_name]
       targetLabel: nodename
+    - sourceLabels: [job]
+      targetLabel: job
+      action: replace
+      replacement: node-exporter
+
     interval: 30s
 
 resources:
