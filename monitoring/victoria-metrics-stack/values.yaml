@@ -103,7 +103,7 @@ alertmanager:
       routes:
         - receiver: blackhole
           matchers:
-            - alertname=~InfoInhibitor|Watchdog|etcdHighCommitDurations|CPUThrottlingHigh|KubeAPIErrorBudgetBurn #|KubeMemoryOvercommit
+            - alertname=~InfoInhibitor|Watchdog|etcdHighCommitDurations|CPUThrottlingHigh|KubeAPIErrorBudgetBurn
         - receiver: alert_manager_low
           matchers:
             - severity=low
@@ -273,7 +273,10 @@ vmagent:
           target_label: instance
         static_configs:
         - targets: ['eros.ayanides.cloud:9100']
-
+      - job_name: prometheus-node-exporter
+        relabel_configs:
+        - source_labels: [job]
+          target_label:
   ingress:
     enabled: true
     annotations:
