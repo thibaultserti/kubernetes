@@ -256,7 +256,7 @@ vmagent:
   probes: true
   spec:
     externalLabels:
-      cluster_name: belt
+      cluster: belt
     scrapeInterval: 30s
     selectAllByDefault: true
     inlineScrapeConfig: |
