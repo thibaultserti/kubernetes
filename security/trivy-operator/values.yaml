@@ -4,9 +4,15 @@ operator:
   rbacAssessmentScannerEnabled: true
   clusterComplianceEnabled: true
   vulnerabilityScannerScanOnlyCurrentRevisions: true
-  metricsVulnIdEnabled: true
   configAuditScannerScanOnlyCurrentRevisions: true
   metricsFindingsEnabled: true
+  metricsClusterComplianceInfo: true
+  metricsVulnIdEnabled: true
+  metricsImageInfo: true
+  metricsConfigAuditInfo: true
+  metricsRbacAssessmentInfo: true
+  metricsInfraAssessmentInfo: true
+  metricsExposedSecretInfo: true
   exposedSecretScannerEnabled: true
   webhookBroadcastURL: ""
 
@@ -28,9 +34,6 @@ trivy:
   #     limits:
   #       memory: 866M
 
-  # resources:
-  #   requests:
-  #     cpu: 100m
-  #     memory: 750M
-  #   limits:
-  #     memory: 750M
+  resources:
+    requests:
+      memory: 2000M
