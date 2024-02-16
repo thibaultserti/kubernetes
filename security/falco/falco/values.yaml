@@ -90,7 +90,8 @@ customRules:
         expand-controller,
         clusterrole-aggregation-controller,
         default,
-        bootstrap-signer
+        bootstrap-signer,
+        kured
       ]
 
     - list: user_allowed_kube_namespace_image_list
@@ -106,7 +107,8 @@ customRules:
         quay.io/cilium/hubble-relay,
         quay.io/cilium/hubble-ui,
         quay.io/cilium/hubble-ui-backend,
-        ghcr.io/ahrtr/etcd-defrag
+        ghcr.io/ahrtr/etcd-defrag,
+        ghcr.io/kubereboot/kured
       ]
 
     - list: falco_privileged_images
@@ -125,6 +127,7 @@ customRules:
         longhornio/livenessprobe
         longhornio/longhorn-instance-manager,
         quay.io/sustainable_computing_io/kepler,
+        ghcr.io/kubereboot/kured,
       ]
 
     # ignore get secrets
@@ -156,7 +159,8 @@ customRules:
     - list: falco_hostpid_images
       items: [
         longhornio/longhorn-manager,
-        quay.io/prometheus/node-exporter
+        quay.io/prometheus/node-exporter,
+        ghcr.io/kubereboot/kured,
       ]
 
     - list: falco_sensitive_mount_images

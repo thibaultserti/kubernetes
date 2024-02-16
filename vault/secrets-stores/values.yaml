@@ -260,3 +260,10 @@ secretsStores:
         - kubernetesSecretKey: regr.json
           vaultSecretPath: secrets/data/my-apps/ovh-certificate-api
           vaultSecretKey: regr.json
+  - name: kured
+    namespace: kube-system
+    roleName: kured
+    secrets:
+      kured:
+        - kubernetesSecretKey: discord_url
+          vaultSecretPath: secrets/data/kured
