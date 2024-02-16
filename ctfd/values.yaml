@@ -188,6 +188,8 @@ redis:
     existingSecretPasswordKey: redis-password
   architecture: standalone
   master:
+    persistence:
+      storageClass: longhorn
     extraVolumeMounts:
       - mountPath: /mnt/secrets-store
         name: secrets-store-inline
@@ -229,9 +231,9 @@ mariadb:
           volumeAttributes:
             secretProviderClass: ctfd-mariadb
 
-  persistence:
-    enabled: true
-    storageClass: "longhorn"
-    accessModes:
-      - ReadWriteOnce
-    size: 15Gi
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+      accessModes:
+        - ReadWriteOnce
+      size: 15Gi

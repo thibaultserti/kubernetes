@@ -72,7 +72,7 @@ podMonitor:
 persistence:
   enabled: true
   volumeSize: 10Gi
-  storageClass: longhorn
+  storageClassName: longhorn
 
 service:
   type: LoadBalancer

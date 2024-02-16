@@ -16,4 +16,4 @@ persistence:
 
 defaultSettings:
   storageMinimalAvailablePercentage: 10
-  nodeDrainPolicy: always-allow
+  nodeDrainPolicy: allow-if-replica-is-stopped

@@ -2,7 +2,9 @@ auth:
   enabled: false
   sentinel: false
 
-# master:
+master:
+  persistence:
+    storageClass: longhorn
 #   resources:
 #     requests:
 #       cpu: 35m
@@ -11,6 +13,8 @@ auth:
 #       memory: 53M
 
 replica:
+  persistence:
+    storageClass: longhorn
   replicaCount: 1
   # resources:
   #   requests:
