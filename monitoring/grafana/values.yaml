@@ -55,7 +55,7 @@ extraSecretMounts:
 persistence:
   enabled: true
   size: 5Gi
-  storageClassName: "default"
+  storageClassName: longhorn
 
 sidecar:
   # resources:

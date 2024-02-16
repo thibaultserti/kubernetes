@@ -111,7 +111,7 @@ serviceMonitor:
 
 persistence:
   enabled: true
-  storageClassName: "default"
+  storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
   size: 10Gi

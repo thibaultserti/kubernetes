@@ -59,7 +59,7 @@ apiIngress:
 
 persistence:
   enabled: true
-  storageClass: "default"
+  storageClass: longhorn
   mountPath: /bitnami/minio/data
   accessModes:
     - ReadWriteOnce

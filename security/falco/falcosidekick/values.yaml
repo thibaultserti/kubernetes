@@ -30,7 +30,7 @@ webui:
   redis:
     storageEnabled: true
     storageSize: "1Gi"
-    storageClass: "default"
+    storageClass: longhorn
     # resources:
     #   requests:
     #     cpu: 15m

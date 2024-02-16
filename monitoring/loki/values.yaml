@@ -98,7 +98,7 @@ singleBinary:
       value: "const"
 
   persistence:
-    storageClass: "default"
+    storageClass: longhorn
     size: 10Gi
 
   extraVolumeMounts:
