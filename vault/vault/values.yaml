@@ -35,6 +35,27 @@ server:
           - /
     pathType: Prefix
 
+  # extraContainers:
+  #   - name: get-gcp-sa
+  #     image: curlimages/curl:latest
+  #     volumeMounts:
+  #     - name: gcp
+  #       mountPath: /tmp/gcp
+
+  extraEnvironmentVars:
+    GOOGLE_REGION: europe-west1
+    GOOGLE_PROJECT: infra-390806
+    GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp/creds.json
+
+  volumes:
+    - name: gcp
+      secret:
+        secretName: gcp
+
+  volumeMounts:
+    - name: gcp
+      readOnly: true
+      mountPath: "/tmp/gcp"
 
   standalone:
     enabled: "true"
@@ -59,15 +80,14 @@ server:
         path = "/vault/data"
       }
 
-      # Example configuration for using auto-unseal, using Google Cloud KMS. The
-      # GKMS keys must already exist, and the cluster must have a service account
-      # that is authorized to access GCP KMS.
-      #seal "gcpckms" {
-      #   project     = "vault-helm-dev"
-      #   region      = "global"
-      #   key_ring    = "vault-helm-unseal-kr"
-      #   crypto_key  = "vault-helm-unseal-key"
-      #}
+
+      # # Example configuration for using auto-unseal, using Google Cloud KMS. The
+      # # GKMS keys must already exist, and the cluster must have a service account
+      # # that is authorized to access GCP KMS.
+      seal "gcpckms" {
+        key_ring    = "auto-unseal"
+        crypto_key  = "auto-unseal-key"
+      }
 
       # Example configuration for enabling Prometheus metrics in your config.
       telemetry {
