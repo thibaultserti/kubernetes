@@ -7,9 +7,13 @@ ingress:
   host: longhorn.ayanides.cloud
   path: /
 
+preUpgradeChecker:
+  jobEnabled: false
+
 persistence:
   defaultClassReplicaCount: 3
   defaultClass: false
 
 defaultSettings:
   storageMinimalAvailablePercentage: 10
+  nodeDrainPolicy: always-allow

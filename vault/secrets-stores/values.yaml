@@ -267,3 +267,4 @@ secretsStores:
       kured:
         - kubernetesSecretKey: discord_url
           vaultSecretPath: secrets/data/kured
+          vaultSecretKey: discord_url
