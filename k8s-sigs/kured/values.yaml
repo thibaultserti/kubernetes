@@ -29,10 +29,10 @@ configuration:
   metricsPort: 8080
   alertFilterRegexp: "^(CPUThrottlingHigh|InfoInhibitor|Watchdog)$"
   alertFiringOnly: true
-  startTime: "0:00"
-  endTime: "23:00"
+  startTime: "00:00"
+  endTime: "06:00"
   timeZone: "Europe/Paris"
-  period: "0h01m0s"
+  period: "0h30m0s"
   forceReboot: true
   prometheusUrl: "http://vmsingle-vm-stack-victoria-metrics-k8s-stack.monitoring.svc:8429"
   rebootDays: [mo,tu,we,th,fr]
