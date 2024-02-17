@@ -32,7 +32,7 @@ ingress:
       gethomepage.dev/icon: "homepage.png"
     ingressClassName: "traefik"
     hosts:
-      - host: "home.ayanides.cloud"
+      - host: "homepage.ayanides.cloud"
         paths:
           - path: /
             pathType: Prefix
