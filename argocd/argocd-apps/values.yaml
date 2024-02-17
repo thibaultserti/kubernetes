@@ -1608,7 +1608,7 @@ applications:
     sources:
       - repoURL: https://charts.releases.teleport.dev
         chart: teleport-cluster
-        targetRevision: 14.3.4
+        targetRevision: 14.3.6
         helm:
           valueFiles:
           - $values/teleport/values.yaml
