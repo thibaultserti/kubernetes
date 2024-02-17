@@ -52,6 +52,7 @@ vmsingle:
   spec:
     retentionPeriod: "30"
     storage:
+      storageClassName: "longhorn"
       accessModes:
         - ReadWriteOnce
       resources:
