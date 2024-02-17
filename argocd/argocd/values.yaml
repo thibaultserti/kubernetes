@@ -156,6 +156,12 @@ server:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: GitOps on Kubernetes
+      gethomepage.dev/group: Deployment
+      gethomepage.dev/icon: argocd.png
+      gethomepage.dev/name: ArgoCD
+      gethomepage.dev/weight: "10"
     hosts:
       - argocd.ayanides.cloud
     paths:

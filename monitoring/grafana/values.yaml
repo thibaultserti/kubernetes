@@ -18,6 +18,12 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Dashboards for Prometheus/Loki/Tempo
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: grafana.png
+    gethomepage.dev/name: Grafana
+    gethomepage.dev/weight: "10"
   hosts:
     - grafana.ayanides.cloud
   path: "/"
@@ -28,7 +34,7 @@ grafana.ini:
     enabled: false
 
   tracing.opentelemetry.otlp:
-    address:  otel-collector.monitoring:4317
+    address: otel-collector.monitoring:4317
   database:
     instrument_queries: true
 

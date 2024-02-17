@@ -64,6 +64,13 @@ vmsingle:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Victoria Metrics UI
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/pod-selector: "app.kubernetes.io/instance=vm-stack"
+      gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/VictoriaMetrics/VictoriaMetrics@dfbb6e0826b46053712edf61a414926085bb189b/docs/assets/images/favicon.svg
+      gethomepage.dev/name: Victoria Metrics
+      gethomepage.dev/weight: "20"
     path: /
     pathType: Prefix
     hosts:

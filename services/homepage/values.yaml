@@ -9,27 +9,14 @@ serviceAccount:
   create: true
 
 
-controller:
-  strategy: RollingUpdate
-  rollingUpdate:
-    maxSurge: 25%
-    maxUnavailable: 25%
 
 # Enable the ingress to expose Homepage to the network.
 ingress:
   main:
     enabled: true
-    labels:
-      # This label will enable discover of this deployment in Homepage
-      gethomepage.dev/enabled: "true"
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      # These annotations will configure how this deployment is shown in Homepage
-      gethomepage.dev/name: "Homepage"
-      gethomepage.dev/description: "A modern, secure, highly customizable application dashboard."
-      gethomepage.dev/group: "A New Group"
-      gethomepage.dev/icon: "homepage.png"
     ingressClassName: "traefik"
     hosts:
       - host: "homepage.ayanides.cloud"
@@ -43,25 +30,106 @@ config:
   # To use an existing ConfigMap uncomment this line and specify the name
   # useExistingConfigMap: existing-homepage-configmap
   bookmarks:
-    - Developer:
+    - Networking:
         - Github:
-            - abbr: GH
-              href: https://github.com/
+            - icon: github.png
+              href: https://github.com/thibaultserti/
+
+        - LinkedIn:
+            - icon: linkedin.png
+              href: https://linkedin.com/in/thibault-ayanides/
   services:
-    - My First Group:
-        - My First Service:
-            href: http://localhost/
-            description: Homepage is awesome
+    - Deployment:
+        - Semaphore:
+            href: https://semaphore.ayanides.cloud/
+            siteMonitor: https://semaphore.ayanides.cloud/
+            description: Manage servers with Ansible
+            icon: semaphore.png
+        - Terraform:
+            href: https://app.terraform.io/app/thibaultserti/workspaces/
+            siteMonitor: https://app.terraform.io/app/thibaultserti/workspaces/
+            description: Manage service with Terraform
+            icon: terraform.png
 
-    - My Second Group:
-        - My Second Service:
-            href: http://localhost/
-            description: Homepage is the best
+    # - Monitoring:
+    #     - Victoria Metrics:
+    #         href: https://victoriametrics.ayanides.cloud/vmui/
+    #         siteMonitor: https://victoriametrics.ayanides.cloud/vmui/
+    #         description: Victoria Metrics UI
+    #         icon: victoriametrics.png
+    #     - Grafana:
+    #         href: https://grafana.ayanides.cloud/
+    #         siteMonitor: https://grafana.ayanides.cloud/
+    #         description: Dashboards for Prometheus/Loki/Tempo monitoring
+    #         icon: grafan.png
+    #     - Hubble:
+    #         href: https://hubble.ayanides.cloud/
+    #         siteMonitor: https://hubble.ayanides.cloud/
+    #         description: In-Cluster eBPF monitoring
+    #         icon: hubble.png
+    #     - Alertmanager:
+    #         href: https://alertmanager.ayanides.cloud/
+    #         siteMonitor: https://alertmanager.ayanides.cloud/
+    #         description: alerting
+    #         icon: alertmanager.png
+    #     - Pyroscope:
+    #         href: https://pyroscope.ayanides.cloud/
+    #         siteMonitor: https://pyroscope.ayanides.cloud/
+    #         description: eBPF profiling tool
+    #         icon: pyroscope.png
 
-    - My Third Group:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
+    # - Network:
+    #     - Pihole:
+    #         href: https://pihole.ayanides.cloud/
+    #         siteMonitor: https://pihole.ayanides.cloud/
+    #         description: Manage internal DNS
+    #         icon: pihole.png
+    #     - Cloudflare:
+    #         href: https://dash.cloudflare.com/0a3e510d8afc4bc60462b08165725b26/
+    #         siteMonitor: https://dash.cloudflare.com/0a3e510d8afc4bc60462b08165725b26/
+    #         description: Manage external DNS
+    #         icon: cloudflare.png
+    #     - Traefik:
+    #         href: https://traefik.ayanides.cloud/
+    #         siteMonitor: https://traefik.ayanides.cloud/
+    #         description: Manage Kubernetes Ingress
+    #         icon: traefik.png
+    #     - Tailscale:
+    #         href: https://login.tailscale.com/admin/machines/
+    #         siteMonitor: https://login.tailscale.com/admin/machines/
+    #         description: VPN management
+    #         icon: tailscale.png
+
+    # - Security:
+    #     - Vault:
+    #         href: http://vault.ayanides.cloud/
+    #         siteMonitor: http://vault.ayanides.cloud/
+    #         description: Secret Management tool
+    #         icon: vault.png
+    #     - Falco:
+    #         href: http://falco.ayanides.cloud/
+    #         siteMonitor: http://falco.ayanides.cloud/
+    #         description: eBPF runtime security for Kubernetes
+    #         icon: falco.png
+    #     - Kyverno:
+    #         href: http://kyverno.ayanides.cloud/
+    #         siteMonitor: http://kyverno.ayanides.cloud/
+    #         description: Security Policy for Kubernetes
+    #         icon: kyverno.png
+
+    # - Storage:
+    #     - Longhorn:
+    #         href: http://longhorn.ayanides.cloud/
+    #         siteMonitor: http://longhorn.ayanides.cloud/
+    #         description: Block Storage for Kubernetes
+    #         icon: longhorn.png
+
+    #     - Minio:
+    #         href: http://minio.ayanides.cloud/
+    #         siteMonitor: http://minio.ayanides.cloud/
+    #         description: Object Storage
+    #         icon: minio.png
+
   widgets:
     - resources:
         # change backend to 'kubernetes' to use Kubernetes integration. Requires RBAC.
@@ -70,7 +138,7 @@ config:
         cpu: true
         memory: true
     - search:
-        provider: duckduckgo
+        provider: google
         target: _blank
     # Uncomment to enable Kubernetes integration
     - kubernetes:
@@ -96,6 +164,7 @@ persistence:
     enabled: true
     type: emptyDir
     mountPath: /app/config/logs
+  icons:
 
 # resources:
 #   requests:

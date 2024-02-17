@@ -4,10 +4,15 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: eBPF profiling tool
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=pyroscope"
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/grafana/pyroscope@main/images/logo.png?raw=true
+    gethomepage.dev/name: Pyroscope
+    gethomepage.dev/weight: "50"
   hosts:
     - pyroscope.ayanides.cloud
-
-
 serviceMonitor:
   enabled: true
 
