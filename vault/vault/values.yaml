@@ -29,6 +29,12 @@ server:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Secret Management tool
+      gethomepage.dev/group: Security
+      gethomepage.dev/icon: vault.png
+      gethomepage.dev/name: Vault
+      gethomepage.dev/weight: "10"
     hosts:
       - host: vault.ayanides.cloud
         paths:

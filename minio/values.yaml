@@ -44,6 +44,12 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Object Storage
+    gethomepage.dev/group: Storage
+    gethomepage.dev/icon: minio.png
+    gethomepage.dev/name: Minio
+    gethomepage.dev/weight: "20"
 
 apiIngress:
   enabled: true

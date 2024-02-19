@@ -36,6 +36,17 @@ ui:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Security Policy for Kubernetes
+      gethomepage.dev/pod-selector: >-
+            app.kubernetes.io/instance in (
+                kyverno,
+                policy-reporter
+            )
+      gethomepage.dev/group: Security
+      gethomepage.dev/icon: kyverno.png
+      gethomepage.dev/name: Kyverno
+      gethomepage.dev/weight: "20"
     hosts:
       - host: kyverno.ayanides.cloud
         paths:

@@ -55,12 +55,16 @@ hubble:
         traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/description: eBPF profiling tool
-        gethomepage.dev/pod-selector: "app.kubernetes.io/name=pyroscope"
+        gethomepage.dev/description: In-Cluster eBPF monitoring
+        gethomepage.dev/pod-selector: >-
+                app.kubernetes.io/name in (
+                    hubble-ui,
+                    hubble-relay
+                )
         gethomepage.dev/group: Monitoring
-        gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/grafana/pyroscope@main/images/logo.png?raw=true
-        gethomepage.dev/name: Pyroscope
-        gethomepage.dev/weight: "40"
+        gethomepage.dev/icon: cilium.png
+        gethomepage.dev/name: Hubble
+        gethomepage.dev/weight: "50"
       className: "traefik"
       hosts:
         - hubble.ayanides.cloud

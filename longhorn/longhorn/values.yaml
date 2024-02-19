@@ -4,6 +4,19 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Block Storage for Kubernetes
+    gethomepage.dev/pod-selector: >-
+            app in (
+                longhorn-csi-plugin,
+                longhorn-manager,
+                longhorn-driver-deployer,
+                longhorn-backup
+            )
+    gethomepage.dev/group: Storage
+    gethomepage.dev/icon: longhorn.png
+    gethomepage.dev/name: Longhorn
+    gethomepage.dev/weight: "10"
   host: longhorn.ayanides.cloud
   path: /
 

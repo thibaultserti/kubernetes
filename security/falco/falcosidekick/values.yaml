@@ -43,6 +43,17 @@ webui:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: eBPF runtime security for Kubernetes
+      gethomepage.dev/pod-selector: >-
+            app.kubernetes.io/name in (
+                falco,
+                falcosidekick
+            )
+      gethomepage.dev/group: Security
+      gethomepage.dev/icon: falco.png
+      gethomepage.dev/name: Falco
+      gethomepage.dev/weight: "20"
     hosts:
       - host: falco.ayanides.cloud
         paths:
