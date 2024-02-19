@@ -235,6 +235,13 @@ alertmanager:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Metrics/Logs Alerting
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=vmalertmanager"
+      gethomepage.dev/icon: "alertmanager.png"
+      gethomepage.dev/name: Alertmanager
+      gethomepage.dev/weight: "30"
     path: /
     pathType: Prefix
     hosts:

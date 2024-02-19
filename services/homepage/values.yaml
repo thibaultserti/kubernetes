@@ -19,7 +19,7 @@ ingress:
       traefik.ingress.kubernetes.io/router.tls: "true"
     ingressClassName: "traefik"
     hosts:
-      - host: "homepage.ayanides.cloud"
+      - host: "homex.ayanides.cloud"
         paths:
           - path: /
             pathType: Prefix
