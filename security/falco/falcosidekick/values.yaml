@@ -51,7 +51,7 @@ webui:
                 falcosidekick
             )
       gethomepage.dev/group: Security
-      gethomepage.dev/icon: falco.png
+      gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/thibaultserti/kubernetes@main/services/homepage/icons/falco.png
       gethomepage.dev/name: Falco
       gethomepage.dev/weight: "20"
     hosts:

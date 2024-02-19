@@ -17,12 +17,6 @@ ingress:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      gethomepage.dev/enabled: "true"
-      gethomepage.dev/description: Manage Kubernetes Ingress
-      gethomepage.dev/group: Network
-      gethomepage.dev/icon: traefik.png
-      gethomepage.dev/name: Traefik
-      gethomepage.dev/weight: "10"
     ingressClassName: "traefik"
     hosts:
       - host: "home.ayanides.cloud"
@@ -104,6 +98,7 @@ config:
     mode: cluster
   docker:
   settings:
+    fiveColumns: true
 
 persistence:
   logs:

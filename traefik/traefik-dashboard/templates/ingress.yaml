@@ -9,6 +9,12 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.middlewareNames }}
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Manage Kubernetes Ingress
+    gethomepage.dev/group: Network
+    gethomepage.dev/icon: traefik.png
+    gethomepage.dev/name: Traefik
+    gethomepage.dev/weight: "10"
 spec:
   ingressClassName: traefik
   rules:

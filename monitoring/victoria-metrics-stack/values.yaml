@@ -68,7 +68,7 @@ vmsingle:
       gethomepage.dev/description: Victoria Metrics UI
       gethomepage.dev/group: Monitoring
       gethomepage.dev/pod-selector: "app.kubernetes.io/instance=vm-stack"
-      gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/VictoriaMetrics/VictoriaMetrics@dfbb6e0826b46053712edf61a414926085bb189b/docs/assets/images/favicon.svg
+      gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/thibaultserti/kubernetes@main/services/homepage/icons/victoria-metrics.png
       gethomepage.dev/name: Victoria Metrics
       gethomepage.dev/weight: "20"
     path: /

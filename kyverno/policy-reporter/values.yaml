@@ -44,7 +44,8 @@ ui:
                 policy-reporter
             )
       gethomepage.dev/group: Security
-      gethomepage.dev/icon: kyverno.png
+
+      gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/thibaultserti/kubernetes@main/services/homepage/icons/kyverno.png
       gethomepage.dev/name: Kyverno
       gethomepage.dev/weight: "20"
     hosts:
