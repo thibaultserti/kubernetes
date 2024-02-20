@@ -72,10 +72,6 @@ tempo:
 
 
 tempoQuery:
-  repository: grafana/tempo-query
-  tag: null
-  pullPolicy: IfNotPresent
-
   # resources:
   #   requests:
   #     cpu: 11m

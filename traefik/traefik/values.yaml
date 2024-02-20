@@ -5,6 +5,7 @@ additionalArguments:
   - --serversTransport.insecureSkipVerify=true
 
 image:
+  repository: traefik
   tag: v3.0.0-beta5
 
 logs:

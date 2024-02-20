@@ -5,9 +5,9 @@ podAnnotations:
 #   policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>,<Egress/80/TCP/HTTP>,<Ingress/8000/TCP/HTTP>"
 
 # image:
-#   repository: ghcr.io/thibaultserti/efficom-challenge-01
+#   repository: null
 #   pullPolicy: Always
-#   tag: 1.3.0
+#   tag: null
 
 serviceAccount:
   create: true

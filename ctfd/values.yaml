@@ -3,6 +3,7 @@ replicaCount: 1
 image:
   repository: ctfd/ctfd
   pullPolicy: IfNotPresent
+  tag: 3.6.1
 
 security:
   fsGroup: 1001
@@ -161,15 +162,6 @@ fullnameOverride: ""
 
 metrics:
   enabled: true
-  image:
-    registry: docker.io
-    repository: bitnami/mysqld-exporter
-    tag: 0.14.0-debian-11-r27
-    pullPolicy: IfNotPresent
-  resources: {}
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "9104"
   serviceMonitor:
     enabled: true
 
