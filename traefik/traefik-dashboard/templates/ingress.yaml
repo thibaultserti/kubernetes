@@ -11,6 +11,10 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.middlewareNames }}
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Manage Kubernetes Ingress
+    gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/name in (
+            traefik
+        )
     gethomepage.dev/group: Network
     gethomepage.dev/icon: traefik.png
     gethomepage.dev/name: Traefik
