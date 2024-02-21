@@ -93,6 +93,14 @@ config:
           cpu: true
           memory: true
           showLabel: true
+    - openmeteo:
+        label: Lille
+        latitude:  50.633331
+        longitude: 3.06667
+        timezone: Europe/Paris
+        units: metric
+        cache: 5
+
   kubernetes:
     # change mode to 'cluster' to use RBAC service account
     mode: cluster
