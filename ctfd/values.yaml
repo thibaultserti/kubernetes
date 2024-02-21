@@ -173,13 +173,13 @@ redis:
   #     memory: 105M
   #   limits:
   #    memory: 105M
-  serviceAccount:
-    name: ctfd-redis
   auth:
     existingSecret: ctfd-redis-secret
     existingSecretPasswordKey: redis-password
   architecture: standalone
   master:
+    serviceAccount:
+      name: ctfd-redis
     persistence:
       storageClass: longhorn
     extraVolumeMounts:
