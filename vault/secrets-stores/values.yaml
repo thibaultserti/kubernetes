@@ -268,3 +268,14 @@ secretsStores:
         - kubernetesSecretKey: discord_url
           vaultSecretPath: secrets/data/kured
           vaultSecretKey: discord_url
+  - name: external-dns
+    namespace: external-dns
+    roleName: external-dns
+    secrets:
+      pihole:
+        - kubernetesSecretKey: EXTERNAL_DNS_PIHOLE_PASSWORD
+          vaultSecretPath: secrets/data/pihole
+          vaultSecretKey: EXTERNAL_DNS_PIHOLE_PASSWORD
+        - kubernetesSecretKey: EXTERNAL_DNS_PIHOLE_SERVER
+          vaultSecretPath: secrets/data/pihole
+          vaultSecretKey: EXTERNAL_DNS_PIHOLE_SERVER

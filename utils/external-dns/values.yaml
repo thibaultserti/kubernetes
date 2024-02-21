@@ -1,0 +1,32 @@
+
+
+# -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `external-dns` container.
+env:
+  - name: EXTERNAL_DNS_PIHOLE_SERVER
+    valueFrom:
+      secretKeyRef:
+        name: pihole
+        key: EXTERNAL_DNS_PIHOLE_SERVER
+  - name: EXTERNAL_DNS_PIHOLE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: pihole
+        key: EXTERNAL_DNS_PIHOLE_PASSWORD
+
+extraVolumes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: external-dns
+extraVolumeMounts:
+  - mountPath: /mnt/secrets-store
+    name: secrets-store-inline
+
+serviceMonitor:
+  enabled: true
+
+
+provider:
+  name: pihole

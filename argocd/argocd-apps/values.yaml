@@ -294,7 +294,7 @@ applications:
         targetRevision: 3.12.0
         helm:
           valueFiles:
-          - $values/k8s-sigs/metrics-server/values.yaml
+          - $values/utils/metrics-server/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -322,7 +322,7 @@ applications:
         targetRevision: 6.0.8
         helm:
           valueFiles:
-          - $values/k8s-sigs/kubernetes-dashboard/values.yaml
+          - $values/utils/kubernetes-dashboard/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -350,7 +350,7 @@ applications:
         targetRevision: 1.4.1
         helm:
           valueFiles:
-          - $values/k8s-sigs/secrets-store-csi-driver/values.yaml
+          - $values/utils/secrets-store-csi-driver/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -378,7 +378,7 @@ applications:
         targetRevision: 1.0.7
         helm:
           valueFiles:
-          - $values/k8s-sigs/kubelet-csr-approver/values.yaml
+          - $values/utils/kubelet-csr-approver/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -402,7 +402,7 @@ applications:
     project: system
     source:
       repoURL: git@github.com:thibaultserti/kubernetes.git
-      path: k8s-sigs/etcd-defrag
+      path: utils/etcd-defrag
     syncPolicy:
       managedNamespaceMetadata:
         labels:
@@ -427,7 +427,7 @@ applications:
         targetRevision: 5.4.2
         helm:
           valueFiles:
-          - $values/k8s-sigs/kured/values.yaml
+          - $values/utils/kured/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -567,6 +567,36 @@ applications:
         helm:
           valueFiles:
           - values.yaml
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+
+# EXTERNAL DNS
+  - name: external-dns
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: external-dns
+    destination:
+      namespace: external-dns
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://kubernetes-sigs.github.io/external-dns/
+        chart: external-dns
+        targetRevision: 1.14.3
+        helm:
+          valueFiles:
+          - $values/utils/external-dns/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
     syncPolicy:
       managedNamespaceMetadata:
         labels:
