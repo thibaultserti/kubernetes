@@ -127,6 +127,7 @@ spec:
           - context: log
             statements:
               - merge_maps(cache, ParseJSON(body), "upsert") where IsMatch(body, "^\\{")
+              - set(attributes["cluster"], cache["cluster"])
 
               # Nginx
               - set(attributes["remote_addr"], cache["remote_addr"])
@@ -147,7 +148,7 @@ spec:
         - action: upsert
           key: loki.attribute.labels
           value: >
-            node_name, namespace, instance, job, pod, container, app, component, filename, stream, systemd_unit
+            cluster, node_name, namespace, instance, job, pod, container, app, component, filename, stream, systemd_unit
             remote_addr, http_host, request_uri, request_method, status,
             ClientHost, RequestHost, RequestPath, RequestMethod, OriginStatus
 

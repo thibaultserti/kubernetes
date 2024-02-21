@@ -12,6 +12,15 @@ loki:
     #   kvstore:
     #     store: inmemory
 
+  rulerConfig:
+    alertmanager_url: http://vmalertmanager-vm-stack-victoria-metrics-k8s-stack:9093
+    external_url: https://alertmanager.ayanides.cloud
+    enable_alertmanager_v2: true
+    storage:
+      type: local
+      local:
+        directory: /var/loki/rules
+
   ingester:
     chunk_idle_period: 30m
     max_chunk_age: 1h
@@ -108,6 +117,8 @@ read:
   extraVolumeMounts:
     - mountPath: /mnt/secrets-store
       name: secrets-store-inline
+    - name: loki-rules
+      mountPath: "/var/loki/rules/fake"
   extraVolumes:
     - name: secrets-store-inline
       csi:
@@ -115,6 +126,9 @@ read:
         readOnly: true
         volumeAttributes:
           secretProviderClass: loki
+    - name: loki-rules
+      configMap:
+        name: loki-alerting-rules
 
 write:
   replicas: 2

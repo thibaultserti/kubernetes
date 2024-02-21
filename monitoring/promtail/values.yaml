@@ -48,6 +48,8 @@ sidecar:
     #   limits:
     #     memory: 53M
 
+extraArgs:
+  - -client.external-labels=cluster=belt
 
 extraEnv:
   - name: JAEGER_AGENT_HOST
