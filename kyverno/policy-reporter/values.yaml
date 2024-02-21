@@ -13,7 +13,7 @@ profiling:
 
 target:
   loki:
-    host: "http://loki.monitoring:3100"
+    host: "http://loki-write.monitoring:3100"
     skipTLS: true
     path: "/loki/api/v1/push"
     sources:

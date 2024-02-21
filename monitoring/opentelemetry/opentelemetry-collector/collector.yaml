@@ -74,7 +74,7 @@ spec:
       #   enable_open_metrics: true
 
       loki:
-        endpoint: http://loki.monitoring:3100/loki/api/v1/push
+        endpoint: http://loki-write.monitoring:3100/loki/api/v1/push
         default_labels_enabled:
           # disable exporter field
           exporter: false

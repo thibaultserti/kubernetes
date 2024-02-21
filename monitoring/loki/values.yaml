@@ -8,9 +8,9 @@ loki:
   commonConfig:
     path_prefix: /var/loki
     replication_factor: 1
-    ring:
-      kvstore:
-        store: inmemory
+    # ring:
+    #   kvstore:
+    #     store: inmemory
 
   ingester:
     chunk_idle_period: 30m
@@ -26,6 +26,7 @@ loki:
       endpoint: http://minio.minio:9000
       s3ForcePathStyle: true
       insecure: true
+
 
   compactor:
     working_directory: /var/loki/compactor
@@ -72,7 +73,10 @@ singleBinary:
   #   requests:
   #     cpu: 23m
   #     memory: 249M
-  replicas: 1
+  replicas: 0
+
+read:
+  replicas: 2
   extraArgs:
     - '-config.expand-env=true'
     - '-tracing.enabled=true'
@@ -111,6 +115,89 @@ singleBinary:
         readOnly: true
         volumeAttributes:
           secretProviderClass: loki
+
+write:
+  replicas: 2
+  extraArgs:
+    - '-config.expand-env=true'
+    - '-tracing.enabled=true'
+  extraEnv:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: loki-bucket-secret
+          key: S3_LOKI_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: loki-bucket-secret
+          key: S3_LOKI_SECRET_ACCESS_KEY
+
+    - name: JAEGER_AGENT_HOST
+      value: otel-collector.monitoring
+    - name: JAEGER_AGENT_PORT
+      value: "6831"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+
+  persistence:
+    storageClass: longhorn
+    size: 10Gi
+
+  extraVolumeMounts:
+    - mountPath: /mnt/secrets-store
+      name: secrets-store-inline
+  extraVolumes:
+    - name: secrets-store-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: loki
+
+backend:
+  replicas: 2
+  extraArgs:
+    - '-config.expand-env=true'
+    - '-tracing.enabled=true'
+  extraEnv:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: loki-bucket-secret
+          key: S3_LOKI_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: loki-bucket-secret
+          key: S3_LOKI_SECRET_ACCESS_KEY
+
+    - name: JAEGER_AGENT_HOST
+      value: otel-collector.monitoring
+    - name: JAEGER_AGENT_PORT
+      value: "6831"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+
+  persistence:
+    storageClass: longhorn
+    size: 10Gi
+
+  extraVolumeMounts:
+    - mountPath: /mnt/secrets-store
+      name: secrets-store-inline
+  extraVolumes:
+    - name: secrets-store-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: loki
+
 
 test:
   enabled: false
