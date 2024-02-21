@@ -204,6 +204,8 @@ backend:
   extraVolumeMounts:
     - mountPath: /mnt/secrets-store
       name: secrets-store-inline
+    - name: loki-rules
+      mountPath: "/var/loki/rules/fake"
   extraVolumes:
     - name: secrets-store-inline
       csi:
@@ -211,8 +213,9 @@ backend:
         readOnly: true
         volumeAttributes:
           secretProviderClass: loki
-
-
+    - name: loki-rules
+      configMap:
+        name: loki-alerting-rules
 test:
   enabled: false
 
