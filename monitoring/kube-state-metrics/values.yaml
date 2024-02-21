@@ -8,7 +8,7 @@ namespaceOverride: "kube-system"
 #     memory: 105M
 
 extraArgs:
-  - --metric-labels-allowlist pods=[*]
+  - --metric-labels-allowlist=pods=[*]
 
 rbac:
   create: true
