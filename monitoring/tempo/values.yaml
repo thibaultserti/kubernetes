@@ -11,6 +11,23 @@ tempo:
   metricsGenerator:
     enabled: true
     remoteWriteUrl: "http://vmsingle-vm-stack-victoria-metrics-k8s-stack:8429/api/v1/write"
+    processor:
+      # Span metrics create metrics based on span type, duration, name and service.
+      span_metrics:
+          # Configure extra dimensions to add as metric labels.
+          dimensions:
+            - http.method
+            - http.target
+            - http.status_code
+            - service.version
+      # Service graph metrics create node and edge metrics for determinng service interactions.
+      service_graphs:
+          # Configure extra dimensions to add as metric labels.
+          dimensions:
+            - http.method
+            - http.target
+            - http.status_code
+            - service.version
 
   storage:
     trace:
