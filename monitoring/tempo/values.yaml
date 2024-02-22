@@ -1,11 +1,11 @@
 tempo:
 
-  # resources:
-  #   requests:
-  #     cpu: 35m
-  #     memory: 1739M
-  #   limits:
-  #     memory: 1739M
+  resources:
+    requests:
+      cpu: 50m
+      memory: 500Mi
+    limits:
+      memory: 4Gi
 
   reportingEnabled: false
   metricsGenerator:
@@ -20,14 +20,6 @@ tempo:
           - http.target
           - http.status_code
           - service.version
-        filter_policies:
-          - include:
-              match_type: strict
-              attributes:
-                - key: http.target
-                  value: "*"
-                - key: http.status_code
-                  value: "*"
       # Service graph metrics create node and edge metrics for determinng service interactions.
       service_graphs:
         # Configure extra dimensions to add as metric labels.
