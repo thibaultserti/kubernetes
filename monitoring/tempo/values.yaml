@@ -14,20 +14,28 @@ tempo:
     processor:
       # Span metrics create metrics based on span type, duration, name and service.
       span_metrics:
-          # Configure extra dimensions to add as metric labels.
-          dimensions:
-            - http.method
-            - http.target
-            - http.status_code
-            - service.version
+        # Configure extra dimensions to add as metric labels.
+        dimensions:
+          - http.method
+          - http.target
+          - http.status_code
+          - service.version
+        filter_policies:
+          - include:
+              match_type: strict
+              attributes:
+                - key: http.target
+                  value: "*"
+                - key: http.status_code
+                  value: "*"
       # Service graph metrics create node and edge metrics for determinng service interactions.
       service_graphs:
-          # Configure extra dimensions to add as metric labels.
-          dimensions:
-            - http.method
-            - http.target
-            - http.status_code
-            - service.version
+        # Configure extra dimensions to add as metric labels.
+        dimensions:
+          - http.method
+          - http.target
+          - http.status_code
+          - service.version
 
   storage:
     trace:
@@ -150,26 +158,28 @@ config: |
         block_retention: {{ .Values.tempo.retention }}
     distributor:
       receivers:
-        {{- toYaml .Values.tempo.receivers | nindent 8 }}
+        {{- toYaml .Values.tempo.receivers | nindent 4 }}
     ingester:
-      {{- toYaml .Values.tempo.ingester | nindent 6 }}
+      {{- toYaml .Values.tempo.ingester | nindent 2 }}
     server:
-      {{- toYaml .Values.tempo.server | nindent 6 }}
+      {{- toYaml .Values.tempo.server | nindent 2 }}
     storage:
-      {{- toYaml .Values.tempo.storage | nindent 6 }}
+      {{- toYaml .Values.tempo.storage | nindent 2 }}
     querier:
-      {{- toYaml .Values.tempo.querier | nindent 6 }}
+      {{- toYaml .Values.tempo.querier | nindent 2 }}
     query_frontend:
-      {{- toYaml .Values.tempo.queryFrontend | nindent 6 }}
+      {{- toYaml .Values.tempo.queryFrontend | nindent 2 }}
     overrides:
-      {{- toYaml .Values.tempo.global_overrides | nindent 6 }}
+      {{- toYaml .Values.tempo.global_overrides | nindent 2 }}
       {{- if .Values.tempo.metricsGenerator.enabled }}
-          metrics_generator_processors:
-          - 'service-graphs'
-          - 'span-metrics'
+      metrics_generator_processors:
+      - 'service-graphs'
+      - 'span-metrics'
     metrics_generator:
-          storage:
-            path: "/tmp/tempo"
-            remote_write:
-              - url: {{ .Values.tempo.metricsGenerator.remoteWriteUrl }}
+      storage:
+        path: "/tmp/tempo"
+        remote_write:
+          - url: {{ .Values.tempo.metricsGenerator.remoteWriteUrl }}
+      processor:
+        {{- toYaml .Values.tempo.metricsGenerator.processor | nindent 4 }}
       {{- end }}
