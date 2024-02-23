@@ -100,6 +100,7 @@ customRules:
         registry.k8s.io/sig-storage/csi-node-driver-registrar,
         registry.k8s.io/csi-secrets-store/driver-crds,
         registry.k8s.io/metrics-server/metrics-server,
+        registry.k8s.io/pause,
         ghcr.io/postfinance/kubelet-csr-approver,
         registry.k8s.io/coredns/coredns,
         quay.io/cilium/cilium,
@@ -108,7 +109,7 @@ customRules:
         quay.io/cilium/hubble-ui,
         quay.io/cilium/hubble-ui-backend,
         ghcr.io/ahrtr/etcd-defrag,
-        ghcr.io/kubereboot/kured
+        ghcr.io/kubereboot/kured,
       ]
 
     - list: falco_privileged_images
@@ -116,15 +117,15 @@ customRules:
         docker.io/falcosecurity/falco-no-driver,
         docker.io/falcosecurity/falcoctl,
         quay.io/cilium/cilium,
-        registry.k8s.io/kube-proxy
+        registry.k8s.io/kube-proxy,
         registry.k8s.io/sig-storage/csi-node-driver-registrar,
-        registry.k8s.io/sig-storage/livenessprobe
+        registry.k8s.io/sig-storage/livenessprobe,
         registry.k8s.io/csi-secrets-store/driver,
         registry.k8s.io/csi-secrets-store/livenessprobe,
         longhornio/longhorn-engine,
         longhornio/csi-node-driver-registrar,
         longhornio/longhorn-manager,
-        longhornio/livenessprobe
+        longhornio/livenessprobe,
         longhornio/longhorn-instance-manager,
         quay.io/sustainable_computing_io/kepler,
         ghcr.io/kubereboot/kured,
@@ -152,6 +153,9 @@ customRules:
         quay.io/frrouting/frr,
         ghcr.io/ahrtr/etcd-defrag,
         registry.k8s.io/kube-apiserver,
+        registry.k8s.io/etcd,
+        registry.k8s.io/kube-controller-manager,
+        registry.k8s.io/kube-scheduler,
         quay.io/prometheus/node-exporter,
         quay.io/sustainable_computing_io/kepler,
       ]
