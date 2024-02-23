@@ -11,6 +11,7 @@ serviceMonitor:
 serviceAccount:
   create: true
   name: grafana
+  autoMount: true
 
 ingress:
   enabled: true
