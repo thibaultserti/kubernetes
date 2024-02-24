@@ -10,7 +10,7 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-sablier@kubernetescrd
 
 metrics:
   enabled: true
@@ -33,3 +33,7 @@ redis:
 
 memcached:
   enabled: false
+
+labels:
+  sablier.enable: "true"
+  sablier.group: mygroup

@@ -279,7 +279,28 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-# K8S SIGS
+  - name: middlewares
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: traefik
+    destination:
+      namespace: traefik
+      server: https://kubernetes.default.svc
+    project: system
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: traefik/middlewares
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+# UTILS
   - name: metrics-server
     namespace: argocd
     additionalAnnotations:

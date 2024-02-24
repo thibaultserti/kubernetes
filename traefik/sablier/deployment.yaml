@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sablier
+  labels:
+    app: sablier
+spec:
+  selector:
+    matchLabels:
+      app: sablier
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sablier
+    spec:
+      serviceAccountName: sablier-sa
+      containers:
+        - name: sablier
+          image: "acouvreur/sablier:v1.6.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 10000
+              name: sablier
+          volumeMounts:
+            - name: sablier-volume
+              mountPath: /etc/sablier
+          command:
+            - "/etc/sablier/sablier"
+          args:
+            - "--configFile=/etc/sablier/sablier.yaml"
+            - "start"
+      restartPolicy: Always
+      volumes:
+        - name: sablier-volume
+          configMap:
+            name: sablier
+            items:
+              - key: sablier.yaml
+                path: sablier.yaml

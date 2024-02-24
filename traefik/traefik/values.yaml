@@ -39,6 +39,7 @@ ingressRoute:
 providers:
   kubernetesIngress:
     allowExternalNameServices: true
+    allowEmptyServices: true
     publishedService:
       enabled: true
 
@@ -100,6 +101,12 @@ tracing:
   openTelemetry:
     address: otel-collector.monitoring:4318
     insecure: true
+
+experimental:
+  plugins:
+    sablier:
+      moduleName: "github.com/acouvreur/sablier"
+      version: "v1.6.0"
 
 # resources:
 #   requests:

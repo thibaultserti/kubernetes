@@ -6,8 +6,12 @@
     "enabledManagers": [
         "regex",
         "helmv3",
-        "helm-values"
+        "helm-values",
+        "kubernetes"
     ],
+    "kubernetes": {
+        "fileMatch": ["(deployment|cronJob)\\.yaml$"]
+      },
     "labels": ["renovate"],
     "regexManagers": [
         {
