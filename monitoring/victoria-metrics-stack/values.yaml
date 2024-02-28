@@ -287,7 +287,7 @@ vmagent:
         - source_labels: [__meta_kubernetes_node_name]
           target_label: instance
         static_configs:
-        - targets: ['eros.ayanides.cloud:9100']
+        - targets: ['eros.ayanides.cloud:9100', 'themis.ayanides.cloud:9100']
 
   ingress:
     enabled: true
