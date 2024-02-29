@@ -10,7 +10,8 @@
         "kubernetes"
     ],
     "kubernetes": {
-        "fileMatch": ["(?!templates\/)(deployment|cronJob)\\.yaml$"]
+        "fileMatch": ["(deployment|cronJob)\\.yaml$"],
+        "ignorePaths": ["**/templates/**"]
       },
     "labels": ["renovate"],
     "regexManagers": [
