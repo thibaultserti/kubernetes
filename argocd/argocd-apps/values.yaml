@@ -1555,7 +1555,7 @@ applications:
     sources:
       - repoURL: https://falcosecurity.github.io/charts
         chart: falcosidekick
-        targetRevision: 0.7.13
+        targetRevision: 0.7.14
         helm:
           valueFiles:
           - $values/security/falco/falcosidekick/values.yaml
