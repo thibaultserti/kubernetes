@@ -1442,7 +1442,7 @@ applications:
     sources:
       - repoURL: https://kyverno.github.io/policy-reporter
         chart: policy-reporter
-        targetRevision: 2.22.2
+        targetRevision: 2.22.3
         helm:
           valueFiles:
           - $values/kyverno/policy-reporter/values.yaml
