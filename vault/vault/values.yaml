@@ -41,12 +41,15 @@ server:
           - /
     pathType: Prefix
 
-  # extraContainers:
-  #   - name: get-gcp-sa
-  #     image: curlimages/curl:latest
-  #     volumeMounts:
-  #     - name: gcp
-  #       mountPath: /tmp/gcp
+  extraInitContainers:
+    - name: get-gcp-sa
+      image: curlimages/curl:latest
+      command: [sh, -c]
+      args:
+        - curl -o /tmp/gcp/creds.json http://192.168.1.30:8080/keys/vault-unseal@infra-390806.iam.gserviceaccount.com
+      volumeMounts:
+      - name: gcp
+        mountPath: /tmp/gcp
 
   extraEnvironmentVars:
     GOOGLE_REGION: europe-west1
@@ -55,8 +58,7 @@ server:
 
   volumes:
     - name: gcp
-      secret:
-        secretName: gcp
+      emptyDir: {}
 
   volumeMounts:
     - name: gcp
