@@ -81,7 +81,7 @@ customRules:
         secrets-store-csi-driver-upgrade-crds,
         secrets-store-csi-driver-keep-crds,
         kubelet-csr-approver,
-        kube-proxy,
+        certificate-controller,
         kube-state-metrics,
         metrics-server,
         hubble-ui,
@@ -91,7 +91,8 @@ customRules:
         clusterrole-aggregation-controller,
         default,
         bootstrap-signer,
-        kured
+        kured,
+        token-cleaner
       ]
 
     - list: user_allowed_kube_namespace_image_list
@@ -122,6 +123,10 @@ customRules:
         registry.k8s.io/sig-storage/livenessprobe,
         registry.k8s.io/csi-secrets-store/driver,
         registry.k8s.io/csi-secrets-store/livenessprobe,
+        registry.k8s.io/kube-apiserver,
+        registry.k8s.io/etcd,
+        registry.k8s.io/kube-controller-manager,
+        registry.k8s.io/kube-scheduler,
         longhornio/longhorn-engine,
         longhornio/csi-node-driver-registrar,
         longhornio/longhorn-manager,
@@ -152,6 +157,7 @@ customRules:
         quay.io/metallb/speaker,
         quay.io/frrouting/frr,
         ghcr.io/ahrtr/etcd-defrag,
+        registry.k8s.io/kube-proxy,
         registry.k8s.io/kube-apiserver,
         registry.k8s.io/etcd,
         registry.k8s.io/kube-controller-manager,
