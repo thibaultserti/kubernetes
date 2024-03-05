@@ -92,7 +92,9 @@ customRules:
         default,
         bootstrap-signer,
         kured,
-        token-cleaner
+        token-cleaner,
+        legacy-service-account-token-cleaner,
+        ttl-after-finished-controller
       ]
 
     - list: user_allowed_kube_namespace_image_list
@@ -102,6 +104,10 @@ customRules:
         registry.k8s.io/csi-secrets-store/driver-crds,
         registry.k8s.io/metrics-server/metrics-server,
         registry.k8s.io/pause,
+        registry.k8s.io/kube-apiserver,
+        registry.k8s.io/etcd,
+        registry.k8s.io/kube-controller-manager,
+        registry.k8s.io/kube-scheduler,
         ghcr.io/postfinance/kubelet-csr-approver,
         registry.k8s.io/coredns/coredns,
         quay.io/cilium/cilium,
@@ -127,6 +133,7 @@ customRules:
         registry.k8s.io/etcd,
         registry.k8s.io/kube-controller-manager,
         registry.k8s.io/kube-scheduler,
+        registry.k8s.io/kube-proxy,
         longhornio/longhorn-engine,
         longhornio/csi-node-driver-registrar,
         longhornio/longhorn-manager,
