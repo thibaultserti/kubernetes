@@ -347,7 +347,7 @@ applications:
     sources:
       - repoURL: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
         chart: secrets-store-csi-driver
-        targetRevision: 1.4.1
+        targetRevision: 1.4.2
         helm:
           valueFiles:
           - $values/utils/secrets-store-csi-driver/values.yaml
