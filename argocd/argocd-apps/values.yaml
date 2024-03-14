@@ -620,7 +620,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: grafana
-        targetRevision: 7.3.6
+        targetRevision: 7.3.7
         helm:
           valueFiles:
           - $values/monitoring/grafana/values.yaml
