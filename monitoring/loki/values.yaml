@@ -59,7 +59,7 @@ loki:
       insecure: true
 
 ingress:
-  enabled: true
+  enabled: false #wait fix https://github.com/grafana/helm-charts/issues/3028
   ingressClassName: "traefik"
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure

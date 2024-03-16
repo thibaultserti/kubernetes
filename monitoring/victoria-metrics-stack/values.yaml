@@ -61,6 +61,7 @@ vmsingle:
 
   ingress:
     enabled: true
+    ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
@@ -232,6 +233,7 @@ alertmanager:
 
   ingress:
     enabled: true
+    ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
@@ -256,6 +258,7 @@ vmalert:
       - url: http://vmalertmanager-vm-stack-victoria-metrics-k8s-stack.monitoring.svc:9093
   ingress:
     enabled: true
+    ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
@@ -291,6 +294,7 @@ vmagent:
 
   ingress:
     enabled: true
+    ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
