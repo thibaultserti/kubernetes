@@ -37,3 +37,5 @@ trivy:
   resources:
     requests:
       memory: 2000M
+    limits:
+      memory: 4000M
