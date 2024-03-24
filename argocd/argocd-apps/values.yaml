@@ -424,7 +424,7 @@ applications:
     sources:
       - repoURL: https://kubereboot.github.io/charts
         chart: kured
-        targetRevision: 5.4.4
+        targetRevision: 5.4.5
         helm:
           valueFiles:
           - $values/utils/kured/values.yaml
