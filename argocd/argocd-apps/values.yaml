@@ -72,7 +72,7 @@ applications:
     sources:
       - repoURL: https://helm.cilium.io
         chart: cilium
-        targetRevision: 1.15.2
+        targetRevision: 1.15.3
         helm:
           valueFiles:
           - $values/cilium/values.yaml
