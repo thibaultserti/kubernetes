@@ -1164,7 +1164,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: pyroscope
-        targetRevision: 1.5.0
+        targetRevision: 1.5.1
         helm:
           valueFiles:
           - $values/monitoring/pyroscope/values.yaml
