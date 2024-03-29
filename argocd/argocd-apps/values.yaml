@@ -1499,7 +1499,7 @@ applications:
     sources:
       - repoURL: https://charts.fairwinds.com/stable
         chart: polaris
-        targetRevision: 5.17.0
+        targetRevision: 5.17.1
         helm:
           valueFiles:
           - $values/security/polaris/values.yaml
