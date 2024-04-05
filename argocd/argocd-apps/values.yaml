@@ -590,7 +590,7 @@ applications:
     sources:
       - repoURL: https://kubernetes-sigs.github.io/external-dns/
         chart: external-dns
-        targetRevision: 1.14.3
+        targetRevision: 1.14.4
         helm:
           valueFiles:
           - $values/utils/external-dns/values.yaml
