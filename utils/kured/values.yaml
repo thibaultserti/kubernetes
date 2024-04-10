@@ -42,6 +42,7 @@ configuration:
   lockTtl: 3600"
   lockReleaseDelay: 600
   drainTimeout: 1200
+  drainGracePeriod: 600
   preferNoScheduleTaint: "weave.works/kured-node-reboot"
   logFormat: "json"
   concurrency: 1
