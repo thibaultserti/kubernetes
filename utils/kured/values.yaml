@@ -27,7 +27,7 @@ configuration:
   useRebootSentinelHostPath: true
   metricsHost: "0.0.0.0"
   metricsPort: 8080
-  alertFilterRegexp: "^(CPUThrottlingHigh|InfoInhibitor|Watchdog)$"
+  alertFilterRegexp: "^(CPUThrottlingHigh|InfoInhibitor|Watchdog|etcdHighNumberOfFailedGRPCRequests|etcdHighCommitDurations)$"
   alertFiringOnly: true
   startTime: "00:00"
   endTime: "06:00"
@@ -39,6 +39,9 @@ configuration:
   rebootSentinel: "/var/run/reboot-required"
   rebootCommand: "/bin/systemctl reboot"
   annotateNodes: true
+  lockTtl: 3600"
+  lockReleaseDelay: 600
+  drainTimeout: 1200
   preferNoScheduleTaint: "weave.works/kured-node-reboot"
   logFormat: "json"
   concurrency: 1
