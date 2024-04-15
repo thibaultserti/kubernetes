@@ -6,6 +6,18 @@ fullnameOverride: blackbox-exporter
 #   limits:
 #     memory: 105M
 
+podSecurityContext:
+  sysctls:
+  - name: net.ipv4.ping_group_range
+    value: "0 65536" # make icmp work
+
+config:
+  modules:
+    icmp:
+      prober: icmp
+      icmp:
+        preferred_ip_protocol: "ip4"
+
 serviceMonitor:
   enabled: true
   selfMonitor:
@@ -14,6 +26,21 @@ serviceMonitor:
   defaults:
     interval: 1m
   targets:
+    - name: eros
+      url: 192.168.1.40
+      module: icmp
+    - name: themis
+      url: 192.168.1.30
+      module: icmp
+    - name: tycho
+      url: 192.168.1.41
+      module: icmp
+    - name: pallas
+      url: 192.168.1.42
+      module: icmp
+    - name: ceres
+      url: 192.168.1.43
+      module: icmp
     - name: google
       url: https://google.com
       hostname: google.com
@@ -99,3 +126,73 @@ serviceMonitor:
     - name: stirling-pdf
       url: https://stirling-pdf.ayanides.cloud
       hostname: stirling-pdf.ayanides.cloud
+
+
+
+prometheusRule:
+  enabled: true
+  rules:
+    - alert: BlackboxProbeFailed
+      expr: probe_success == 0
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox probe failed (instance {{ $labels.target }})"
+        message: "Probe failed\n  VALUE = {{ $value }}"
+    - alert: BlackboxProbeHttpFailure
+      expr: probe_http_status_code <= 199 OR probe_http_status_code >= 400
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox probe HTTP failure (instance {{ $labels.target }})"
+        message: "HTTP status code is not 200-399\n  VALUE = {{ $value }}"
+    - alert: BlackboxSlowProbe
+      expr: avg_over_time(probe_duration_seconds[1m]) > 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox slow probe (target {{ $labels.target }})"
+        message: "Blackbox probe took more than 1s to complete\n  VALUE = {{ $value }}"
+    - alert: BlackboxProbeSlowHttp
+      expr: avg_over_time(probe_http_duration_seconds[1m]) > 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox probe slow HTTP (instance {{ $labels.target }})"
+        message: "HTTP request took more than 1s\n  VALUE = {{ $value }}"
+    - alert: BlackboxProbeSlowPing
+      expr: avg_over_time(probe_icmp_duration_seconds[1m]) > 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox probe slow ping (instance {{ $labels.target }})"
+        message: "Blackbox ping took more than 1s\n  VALUE = {{ $value }}"
+    - alert: BlackboxSslCertificateWillExpireSoon
+      expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 30
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox SSL certificate will expire soon (instance {{ $labels.target }})"
+        message: "SSL certificate expires in 30 days\n  VALUE = {{ $value }}"
+    - alert: BlackboxSslCertificateWillExpireSoon
+      expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 3
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox SSL certificate will expire soon (instance {{ $labels.target }})"
+        message: "SSL certificate expires in 3 days\n  VALUE = {{ $value }}"
+    - alert: BlackboxSslCertificateExpired
+      expr: probe_ssl_earliest_cert_expiry - time() <= 0
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox SSL certificate expired (instance {{ $labels.target }})"
+        message: "SSL certificate has expired already\n  VALUE = {{ $value }}"
