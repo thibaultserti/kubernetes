@@ -31,7 +31,7 @@ service:
   annotations:
     metallb.universe.tf/loadBalancerIPs: 192.168.1.100
   spec:
-    externalTrafficPolicy: Local
+    externalTrafficPolicy: Cluster # No BGP announcement with metallb instead ....
 
 ingressRoute:
   dashboard:
