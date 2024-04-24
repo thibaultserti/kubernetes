@@ -1,0 +1,198 @@
+fullnameOverride: blackbox-exporter-internal
+# resources:
+#   requests:
+#     cpu: 23m
+#     memory: 105M
+#   limits:
+#     memory: 105M
+
+podSecurityContext:
+  sysctls:
+  - name: net.ipv4.ping_group_range
+    value: "0 65536" # make icmp work
+
+config:
+  modules:
+    icmp:
+      prober: icmp
+      icmp:
+        preferred_ip_protocol: "ip4"
+
+serviceMonitor:
+  enabled: true
+  selfMonitor:
+    enabled: true
+    interval: 1m
+  defaults:
+    interval: 1m
+  targets:
+    - name: eros
+      url: 192.168.1.40
+      module: icmp
+    - name: themis
+      url: 192.168.1.30
+      module: icmp
+    - name: tycho
+      url: 192.168.1.41
+      module: icmp
+    - name: pallas
+      url: 192.168.1.42
+      module: icmp
+    - name: ceres
+      url: 192.168.1.43
+      module: icmp
+    - name: google
+      url: https://google.com
+      hostname: google.com
+      interval: 1s
+    - name: pihole
+      url: https://pihole.ayanides.cloud
+      hostname: pihole.ayanides.cloud
+    - name: semaphore
+      url: https://semaphore.ayanides.cloud
+      hostname: semaphore.ayanides.cloud
+    - name: traefik
+      url: https://traefik.ayanides.cloud
+      hostname: traefik.ayanides.cloud
+    - name: kubernetes-dashboard
+      url: https://kubernetes.ayanides.cloud
+      hostname: kubernetes.ayanides.cloud
+    - name: argocd
+      url: https://argocd.ayanides.cloud
+      hostname: argocd.ayanides.cloud
+    - name: vault
+      url: https://vault.ayanides.cloud
+      hostname: vault.ayanides.cloud
+    - name: longhorn
+      url: https://longhorn.ayanides.cloud
+      hostname: longhorn.ayanides.cloud
+    - name: grafana
+      url: https://grafana.ayanides.cloud
+      hostname: grafana.ayanides.cloud
+    # - name: prometheus
+    #   url: https://prometheus.ayanides.cloud
+    #   hostname: prometheus.ayanides.cloud
+    - name: victoriametrics
+      url: https://victoriametrics.ayanides.cloud
+      hostname: victoriametrics.ayanides.cloud
+    - name: vmagent
+      url: https://vmagent.ayanides.cloud
+      hostname: vmagent.ayanides.cloud
+    - name: vmalert
+      url: https://vmalert.ayanides.cloud
+      hostname: vmalert.ayanides.cloud
+    - name: alertmanager
+      url: https://alertmanager.ayanides.cloud
+      hostname: alertmanager.ayanides.cloud
+    - name: hubble
+      url: https://hubble.ayanides.cloud
+      hostname: hubble.ayanides.cloud
+    - name: minio
+      url: https://minio.ayanides.cloud
+      hostname: minio.ayanides.cloud
+    - name: tempo
+      url: https://tempo.ayanides.cloud
+      hostname: tempo.ayanides.cloud
+    - name: kyverno
+      url: https://kyverno.ayanides.cloud
+      hostname: kyverno.ayanides.cloud
+    # - name: thanos
+    #   url: https://thanos.ayanides.cloud
+    #   hostname: thanos.ayanides.cloud
+    # - name: thanos-bucketweb
+    #   url: https://thanos-bucketweb.ayanides.cloud
+    #   hostname: thanos-bucketweb.ayanides.cloud
+    # - name: thanos-compactor
+    #   url: https://thanos-compactor.ayanides.cloud
+    #   hostname: thanos-compactor.ayanides.cloud
+    # - name: thanos-storegateway
+    #   url: https://thanos-storegateway.ayanides.cloud
+    #   hostname: thanos-storegateway.ayanides.cloud
+    - name: teleport
+      url: https://teleport.ayanides.cloud
+      hostname: teleport.ayanides.cloud
+    - name: falco
+      url: https://falco.ayanides.cloud
+      hostname: falco.ayanides.cloud
+    - name: ctfd
+      url: https://ctfd.ayanides.cloud
+      hostname: ctfd.ayanides.cloud
+    - name: ovh-certificate-api
+      url: https://ovh-certificate-api.ayanides.cloud
+      hostname: ovh-certificate-api.ayanides.cloud
+    - name: yopass
+      url: https://yopass.ayanides.cloud
+      hostname: yopass.ayanides.cloud
+    - name: stirling-pdf
+      url: https://stirling-pdf.ayanides.cloud
+      hostname: stirling-pdf.ayanides.cloud
+
+
+
+prometheusRule:
+  enabled: true
+  rules:
+    - alert: BlackboxProbeFailed
+      expr: probe_success == 0
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox probe failed (instance {{ $labels.target }})"
+        message: "Probe failed\n  VALUE = {{ $value }}"
+    - alert: BlackboxProbeHttpFailure
+      expr: probe_http_status_code <= 199 OR probe_http_status_code >= 400
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox probe HTTP failure (instance {{ $labels.target }})"
+        message: "HTTP status code is not 200-399\n  VALUE = {{ $value }}"
+    - alert: BlackboxSlowProbe
+      expr: avg_over_time(probe_duration_seconds[1m]) > 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox slow probe (target {{ $labels.target }})"
+        message: "Blackbox probe took more than 1s to complete\n  VALUE = {{ $value }}"
+    - alert: BlackboxProbeSlowHttp
+      expr: avg_over_time(probe_http_duration_seconds[1m]) > 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox probe slow HTTP (instance {{ $labels.target }})"
+        message: "HTTP request took more than 1s\n  VALUE = {{ $value }}"
+    - alert: BlackboxProbeSlowPing
+      expr: avg_over_time(probe_icmp_duration_seconds[1m]) > 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox probe slow ping (instance {{ $labels.target }})"
+        message: "Blackbox ping took more than 1s\n  VALUE = {{ $value }}"
+    - alert: BlackboxSslCertificateWillExpireSoon
+      expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 30
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Blackbox SSL certificate will expire soon (instance {{ $labels.target }})"
+        message: "SSL certificate expires in 30 days\n  VALUE = {{ $value }}"
+    - alert: BlackboxSslCertificateWillExpireSoon
+      expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 3
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox SSL certificate will expire soon (instance {{ $labels.target }})"
+        message: "SSL certificate expires in 3 days\n  VALUE = {{ $value }}"
+    - alert: BlackboxSslCertificateExpired
+      expr: probe_ssl_earliest_cert_expiry - time() <= 0
+      for: 5m
+      labels:
+        severity: error
+      annotations:
+        summary: "Blackbox SSL certificate expired (instance {{ $labels.target }})"
+        message: "SSL certificate has expired already\n  VALUE = {{ $value }}"

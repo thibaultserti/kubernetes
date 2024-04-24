@@ -1,22 +1,10 @@
-fullnameOverride: blackbox-exporter
+fullnameOverride: blackbox-exporter-external
 # resources:
 #   requests:
 #     cpu: 23m
 #     memory: 105M
 #   limits:
 #     memory: 105M
-
-podSecurityContext:
-  sysctls:
-  - name: net.ipv4.ping_group_range
-    value: "0 65536" # make icmp work
-
-config:
-  modules:
-    icmp:
-      prober: icmp
-      icmp:
-        preferred_ip_protocol: "ip4"
 
 serviceMonitor:
   enabled: true
@@ -26,94 +14,6 @@ serviceMonitor:
   defaults:
     interval: 1m
   targets:
-    - name: eros
-      url: 192.168.1.40
-      module: icmp
-    - name: themis
-      url: 192.168.1.30
-      module: icmp
-    - name: tycho
-      url: 192.168.1.41
-      module: icmp
-    - name: pallas
-      url: 192.168.1.42
-      module: icmp
-    - name: ceres
-      url: 192.168.1.43
-      module: icmp
-    - name: google
-      url: https://google.com
-      hostname: google.com
-      interval: 1s
-    - name: pihole
-      url: https://pihole.ayanides.cloud
-      hostname: pihole.ayanides.cloud
-    - name: semaphore
-      url: https://semaphore.ayanides.cloud
-      hostname: semaphore.ayanides.cloud
-    - name: traefik
-      url: https://traefik.ayanides.cloud
-      hostname: traefik.ayanides.cloud
-    - name: kubernetes-dashboard
-      url: https://kubernetes.ayanides.cloud
-      hostname: kubernetes.ayanides.cloud
-    - name: argocd
-      url: https://argocd.ayanides.cloud
-      hostname: argocd.ayanides.cloud
-    - name: vault
-      url: https://vault.ayanides.cloud
-      hostname: vault.ayanides.cloud
-    - name: longhorn
-      url: https://longhorn.ayanides.cloud
-      hostname: longhorn.ayanides.cloud
-    - name: grafana
-      url: https://grafana.ayanides.cloud
-      hostname: grafana.ayanides.cloud
-    # - name: prometheus
-    #   url: https://prometheus.ayanides.cloud
-    #   hostname: prometheus.ayanides.cloud
-    - name: victoriametrics
-      url: https://victoriametrics.ayanides.cloud
-      hostname: victoriametrics.ayanides.cloud
-    - name: vmagent
-      url: https://vmagent.ayanides.cloud
-      hostname: vmagent.ayanides.cloud
-    - name: vmalert
-      url: https://vmalert.ayanides.cloud
-      hostname: vmalert.ayanides.cloud
-    - name: alertmanager
-      url: https://alertmanager.ayanides.cloud
-      hostname: alertmanager.ayanides.cloud
-    - name: hubble
-      url: https://hubble.ayanides.cloud
-      hostname: hubble.ayanides.cloud
-    - name: minio
-      url: https://minio.ayanides.cloud
-      hostname: minio.ayanides.cloud
-    - name: tempo
-      url: https://tempo.ayanides.cloud
-      hostname: tempo.ayanides.cloud
-    - name: kyverno
-      url: https://kyverno.ayanides.cloud
-      hostname: kyverno.ayanides.cloud
-    # - name: thanos
-    #   url: https://thanos.ayanides.cloud
-    #   hostname: thanos.ayanides.cloud
-    # - name: thanos-bucketweb
-    #   url: https://thanos-bucketweb.ayanides.cloud
-    #   hostname: thanos-bucketweb.ayanides.cloud
-    # - name: thanos-compactor
-    #   url: https://thanos-compactor.ayanides.cloud
-    #   hostname: thanos-compactor.ayanides.cloud
-    # - name: thanos-storegateway
-    #   url: https://thanos-storegateway.ayanides.cloud
-    #   hostname: thanos-storegateway.ayanides.cloud
-    - name: teleport
-      url: https://teleport.ayanides.cloud
-      hostname: teleport.ayanides.cloud
-    - name: falco
-      url: https://falco.ayanides.cloud
-      hostname: falco.ayanides.cloud
     - name: ctfd
       url: https://ctfd.ayanides.cloud
       hostname: ctfd.ayanides.cloud
@@ -126,8 +26,6 @@ serviceMonitor:
     - name: stirling-pdf
       url: https://stirling-pdf.ayanides.cloud
       hostname: stirling-pdf.ayanides.cloud
-
-
 
 prometheusRule:
   enabled: true
@@ -196,3 +94,8 @@ prometheusRule:
       annotations:
         summary: "Blackbox SSL certificate expired (instance {{ $labels.target }})"
         message: "SSL certificate has expired already\n  VALUE = {{ $value }}"
+
+dnsConfig:
+  nameservers:
+    - 1.0.0.1
+dnsPolicy: "None"

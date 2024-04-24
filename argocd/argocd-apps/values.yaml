@@ -794,7 +794,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: blackbox-exporter
+  - name: blackbox-exporter-internal
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -808,7 +808,35 @@ applications:
         targetRevision: 8.13.0
         helm:
           valueFiles:
-          - $values/monitoring/exporters/blackbox-exporter/values.yaml
+          - $values/monitoring/exporters/blackbox-exporter/internal/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: blackbox-exporter-external
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://prometheus-community.github.io/helm-charts
+        chart: prometheus-blackbox-exporter
+        targetRevision: 8.13.0
+        helm:
+          valueFiles:
+          - $values/monitoring/exporters/blackbox-exporter/external/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
