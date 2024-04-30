@@ -1279,7 +1279,7 @@ applications:
     sources:
       - repoURL: https://charts.deliveryhero.io/
         chart: locust
-        targetRevision: 0.31.5
+        targetRevision: 0.31.6
         helm:
           valueFiles:
           - $values/monitoring/locust/values.yaml
