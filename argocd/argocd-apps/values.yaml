@@ -1391,7 +1391,7 @@ applications:
     sources:
       - repoURL: https://kyverno.github.io/kyverno
         chart: kyverno
-        targetRevision: 3.1.4
+        targetRevision: 3.2.0
         helm:
           valueFiles:
           - $values/kyverno/kyverno/values.yaml
