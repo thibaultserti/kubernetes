@@ -941,7 +941,7 @@ applications:
     sources:
       - repoURL: https://falcosecurity.github.io/charts
         chart: falco-exporter
-        targetRevision: 0.9.11
+        targetRevision: 0.11.0
         helm:
           valueFiles:
           - $values/monitoring/exporters/falco-exporter/values.yaml
