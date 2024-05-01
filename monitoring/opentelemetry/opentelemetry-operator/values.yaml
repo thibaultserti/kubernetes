@@ -2,6 +2,9 @@ manager:
   # A full list of valud identifiers can be found here: https://github.com/open-telemetry/opentelemetry-operator/blob/main/pkg/featuregate/featuregate.go
   featureGates: ""
 
+  collectorImage:
+    repository: "otel/opentelemetry-collector-contrib"
+
   serviceMonitor:
     enabled: true
 
@@ -21,6 +24,8 @@ admissionWebhooks:
   create: true
   certManager:
     enabled: true
+
+
 
 # kubeRBACProxy:
 #   resources:
