@@ -112,7 +112,7 @@ alertmanager:
       routes:
         - receiver: blackhole
           matchers:
-            - alertname=~InfoInhibitor|Watchdog|etcdHighCommitDurations|CPUThrottlingHigh|KubeAPIErrorBudgetBurn
+            - alertname=~InfoInhibitor|Watchdog|etcdHighCommitDurations|etcdHighNumberOfFailedGRPCRequests|CPUThrottlingHigh|KubeAPIErrorBudgetBurn
         - receiver: alert_manager_low
           matchers:
             - severity=low
