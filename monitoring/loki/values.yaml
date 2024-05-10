@@ -231,6 +231,9 @@ monitoring:
     grafanaAgent:
       installOperator: false
 
+gateway:
+  enabled: false
+
 lokiCanary:
   enabled: false
 
