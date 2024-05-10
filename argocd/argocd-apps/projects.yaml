@@ -1,6 +1,6 @@
 
 projects:
-  - name: argocd
+  argocd:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -16,7 +16,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: system
+  system:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -44,7 +44,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: vault
+  vault:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -60,7 +60,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: monitoring
+  monitoring:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -81,7 +81,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: minio
+  minio:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -97,7 +97,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: redis
+  redis:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -113,7 +113,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: kyverno
+  kyverno:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -129,7 +129,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: security
+  security:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -151,7 +151,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: goldilocks
+  goldilocks:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -167,7 +167,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: teleport
+  teleport:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -183,7 +183,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: ctfd
+  ctfd:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -199,7 +199,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: my-apps
+  my-apps:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -215,7 +215,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: example
+  example:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}
@@ -233,7 +233,7 @@ projects:
     orphanedResources:
       warn: false
 
-  - name: services
+  services:
     namespace: argocd
     additionalLabels: {}
     additionalAnnotations: {}

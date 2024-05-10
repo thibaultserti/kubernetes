@@ -1,6 +1,6 @@
 applications:
   # ARGOCD
-  - name: argocd
+  argocd:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: argocd
@@ -32,7 +32,7 @@ applications:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
 
-  - name: argocd-apps
+  argocd-apps:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: argocd
@@ -43,7 +43,7 @@ applications:
     sources:
       - repoURL: https://argoproj.github.io/argo-helm
         chart: argocd-apps
-        targetRevision: 1.6.2
+        targetRevision: 2.0.0
         helm:
           valueFiles:
           - $values/argocd/argocd-apps/values.yaml
@@ -55,13 +55,13 @@ applications:
       managedNamespaceMetadata:
         labels:
           goldilocks.fairwinds.com/enabled: "true"
-      # automated:
-      #   selfHeal: true
-      #   prune: true
+      automated:
+        selfHeal: true
+        prune: true
 
   # CILIUM
   # Issue with https://github.com/cilium/cilium-cli/issues/1396
-  - name: cilium
+  cilium:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kube-system
@@ -109,7 +109,7 @@ applications:
         - RespectIgnoreDifferences=true
 
 # CERT-MANAGER
-  - name: cert-manager
+  cert-manager:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: cert-manager
@@ -137,7 +137,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: cluster-issuer
+  cluster-issuer:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: cert-manager
@@ -162,7 +162,7 @@ applications:
         - CreateNamespace=true
 
 # METALLB
-  - name: metallb
+  metallb:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: metallb
@@ -202,7 +202,7 @@ applications:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
 
-  - name: metallb-ipaddress-pool
+  metallb-ipaddress-pool:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: metallb
@@ -227,7 +227,7 @@ applications:
         - CreateNamespace=true
 
 # TRAEFIK
-  - name: traefik
+  traefik:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: traefik
@@ -255,7 +255,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: traefik-dashboard
+  traefik-dashboard:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: traefik
@@ -280,7 +280,7 @@ applications:
         - CreateNamespace=true
 
 # K8S SIGS
-  - name: metrics-server
+  metrics-server:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kube-system
@@ -308,7 +308,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: kubernetes-dashboard
+  kubernetes-dashboard:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kubernetes-dashboard
@@ -336,7 +336,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: secrets-store-csi-driver
+  secrets-store-csi-driver:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kube-system
@@ -364,7 +364,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: kubelet-csr-approver
+  kubelet-csr-approver:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kube-system
@@ -392,7 +392,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: etcd-defrag
+  etcd-defrag:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kube-system
@@ -413,7 +413,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: kured
+  kured:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kube-system
@@ -442,7 +442,7 @@ applications:
         - CreateNamespace=true
 
 # LONGHORN
-  - name: longhorn
+  longhorn:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: longhorn-system
@@ -470,7 +470,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: longhorn-backup
+  longhorn-backup:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: longhorn-system
@@ -494,7 +494,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: storage-classes
+  storage-classes:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: longhorn-system
@@ -519,7 +519,7 @@ applications:
         - CreateNamespace=true
 
 # VAULT
-  - name: vault
+  vault:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: vault
@@ -553,7 +553,7 @@ applications:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
 
-  - name: secrets-stores
+  secrets-stores:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: vault
@@ -579,7 +579,7 @@ applications:
 
 
 # EXTERNAL DNS
-  - name: external-dns
+  external-dns:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: external-dns
@@ -609,7 +609,7 @@ applications:
 
 
 # GRAFANA
-  - name: grafana
+  grafana:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -638,7 +638,7 @@ applications:
         - CreateNamespace=true
 
 # KSM
-  - name: kube-state-metrics
+  kube-state-metrics:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -667,7 +667,7 @@ applications:
         - CreateNamespace=true
 
 # KUBE-PROMETHEUS-STACK
-  # - name: prometheus-stack
+  # prometheus-stack:
   #   namespace: argocd
   #   additionalAnnotations:
   #     notifications.argoproj.io/subscribe.grafana: monitoring
@@ -712,7 +712,7 @@ applications:
   #       - CreateNamespace=true
   #       - RespectIgnoreDifferences=true
 
-  - name: prometheus-stack-crds
+  prometheus-stack-crds:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -736,7 +736,7 @@ applications:
         prune: true
         selfHeal: true
 
-  - name: vm-stack
+  vm-stack:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -766,7 +766,7 @@ applications:
         - CreateNamespace=true
 
 # EXPORTERS
-  - name: node-exporter
+  node-exporter:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -794,7 +794,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: blackbox-exporter-internal
+  blackbox-exporter-internal:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -822,7 +822,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: blackbox-exporter-external
+  blackbox-exporter-external:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -850,7 +850,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: nginx-exporter
+  nginx-exporter:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -878,7 +878,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: pihole-exporter
+  pihole-exporter:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -902,7 +902,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: kepler-exporter
+  kepler-exporter:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -930,7 +930,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: falco-exporter
+  falco-exporter:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -958,7 +958,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: speedtest-exporter
+  speedtest-exporter:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -987,7 +987,7 @@ applications:
         - CreateNamespace=true
 
 # ROBUSTA
-  - name: robusta
+  robusta:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1016,7 +1016,7 @@ applications:
         - CreateNamespace=true
 
 # MINIO
-  - name: minio
+  minio:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: minio
@@ -1045,7 +1045,7 @@ applications:
         - CreateNamespace=true
 
 # OPEN TELEMETRY
-  - name: opentelemetry-operator
+  opentelemetry-operator:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1073,7 +1073,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: opentelemetry-collector
+  opentelemetry-collector:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1095,7 +1095,7 @@ applications:
         - CreateNamespace=true
 
 # LOKI
-  - name: loki
+  loki:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1117,13 +1117,13 @@ applications:
       managedNamespaceMetadata:
         labels:
           goldilocks.fairwinds.com/enabled: "true"
-      # automated:
-      #   selfHeal: true
-      #   prune: true
+      automated:
+        selfHeal: true
+        prune: true
       syncOptions:
         - CreateNamespace=true
 
-  - name: promtail
+  promtail:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1152,7 +1152,7 @@ applications:
         - CreateNamespace=true
 
 # TEMPO
-  - name: tempo
+  tempo:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1181,7 +1181,7 @@ applications:
         - CreateNamespace=true
 
 # PYROSCOPE
-  - name: pyroscope
+  pyroscope:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1210,7 +1210,7 @@ applications:
         - CreateNamespace=true
 
 # THANOS
-  # - name: thanos
+  # thanos:
   #   namespace: argocd
   #   additionalAnnotations:
   #     notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1239,7 +1239,7 @@ applications:
   #       - CreateNamespace=true
 
 # STATUS PAGE
-  - name: kuma
+  kuma:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1268,7 +1268,7 @@ applications:
         - CreateNamespace=true
 
 # LOCUST
-  - name: locust
+  locust:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1298,7 +1298,7 @@ applications:
 
 
 # # MIMIR
-#   - name: mimir
+#   mimir:
 #     namespace: argocd
 #    additionalAnnotations:
 #      notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1327,7 +1327,7 @@ applications:
 #         - CreateNamespace=true
 
 # SLOTH
-  - name: sloth
+  sloth:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1355,7 +1355,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: slos
+  slos:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: monitoring
@@ -1380,7 +1380,7 @@ applications:
         - CreateNamespace=true
 
 # KYVERNO
-  - name: kyverno
+  kyverno:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kyverno
@@ -1409,7 +1409,7 @@ applications:
         - CreateNamespace=true
         - Replace=true
 
-  - name: kyverno-policies
+  kyverno-policies:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kyverno
@@ -1437,7 +1437,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: custom-policies
+  custom-policies:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kyverno
@@ -1459,7 +1459,7 @@ applications:
         - CreateNamespace=true
 
 
-  - name: policy-reporter
+  policy-reporter:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: kyverno
@@ -1488,7 +1488,7 @@ applications:
         - CreateNamespace=true
 
 # SECURITY
-  - name: trivy-operator
+  trivy-operator:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: trivy
@@ -1516,7 +1516,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: polaris
+  polaris:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: polaris
@@ -1544,7 +1544,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: falco
+  falco:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: falco
@@ -1572,7 +1572,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: falcosidekick
+  falcosidekick:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: falco
@@ -1601,7 +1601,7 @@ applications:
         - CreateNamespace=true
 
 # # GOLDILOCKS
-#   - name: goldilocks
+#   goldilocks:
 #     namespace: argocd
 #     additionalAnnotations:
 #       notifications.argoproj.io/subscribe.grafana: goldilocks
@@ -1629,7 +1629,7 @@ applications:
 #       syncOptions:
 #         - CreateNamespace=true
 
-  # - name: tetragon
+  # tetragon:
   #   namespace: argocd
   #   additionalAnnotations:
   #     notifications.argoproj.io/subscribe.grafana: tetragon
@@ -1655,7 +1655,7 @@ applications:
   #       - CreateNamespace=true
 
 # TELEPORT
-  - name: teleport
+  teleport:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: teleport
@@ -1685,7 +1685,7 @@ applications:
 
 
 # # EXAMPLES
-#   - name: opentelemetry-demo
+#   opentelemetry-demo:
 #     namespace: argocd
 #     additionalAnnotations:
 #       notifications.argoproj.io/subscribe.grafana: opentelemtry-demo
@@ -1713,7 +1713,7 @@ applications:
 #       syncOptions:
 #         - CreateNamespace=true
 
-  - name: fastapi-manual-instrumented
+  fastapi-manual-instrumented:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: fastapi-manual-instrumented
@@ -1737,7 +1737,7 @@ applications:
 
 
 # CTFD
-  - name: ctfd
+  ctfd:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: ctfd
@@ -1762,7 +1762,7 @@ applications:
         - CreateNamespace=true
 
 # REDIS
-  - name: redis
+  redis:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: redis
@@ -1791,7 +1791,7 @@ applications:
         - CreateNamespace=true
 
 # HOME PAGE
-  - name: homepage
+  homepage:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: homepage
@@ -1822,7 +1822,7 @@ applications:
 
 # YOPASS
 
-  - name: yopass
+  yopass:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: yopass
@@ -1851,7 +1851,7 @@ applications:
         - CreateNamespace=true
 
 # STRILING PDF
-  - name: stirling-pdf
+  stirling-pdf:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: stirling-pdf
@@ -1874,7 +1874,7 @@ applications:
 
 # MY-APPS
 
-  - name: challenges
+  challenges:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: my-apps
@@ -1898,7 +1898,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
 
-  - name: ovh-certificate-api
+  ovh-certificate-api:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: my-apps
