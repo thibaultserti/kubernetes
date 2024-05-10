@@ -4,6 +4,8 @@ global:
     format: text
     level: info
   domain: argocd.ayanides.cloud
+  image:
+    tag: v2.10.9 # https://github.com/argoproj/argo-cd/issues/18120
 
 
 # CONFIGS
