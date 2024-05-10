@@ -35,7 +35,7 @@ loki:
         store: tsdb
         schema: v13
         index:
-          prefix: index_
+          prefix: loki_index_
           period: 24h
 
   compactor:
@@ -235,5 +235,12 @@ monitoring:
     enabled: false
     grafanaAgent:
       installOperator: false
-  lokiCanary:
-    enabled: false
+
+lokiCanary:
+  enabled: false
+
+resultsCache:
+  enabled: false
+
+chunksCache:
+  enabled: false
