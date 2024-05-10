@@ -1,3 +1,4 @@
+deploymentMode: SimpleScalable
 loki:
 
   auth_enabled: false
