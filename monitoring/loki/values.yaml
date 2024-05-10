@@ -28,6 +28,15 @@ loki:
       s3ForcePathStyle: true
       insecure: true
 
+  schema_config:
+    configs:
+      - from: 2024-05-05
+        object_store: s3
+        store: tsdb
+        schema: v13
+        index:
+          prefix: index_
+          period: 24h
 
   compactor:
     working_directory: /var/loki/compactor
