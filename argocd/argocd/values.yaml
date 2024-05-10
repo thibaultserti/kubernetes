@@ -3,6 +3,7 @@ global:
   logging:
     format: text
     level: info
+  domain: argocd.ayanides.cloud
 
 
 # CONFIGS
