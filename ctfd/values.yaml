@@ -211,6 +211,8 @@ mariadb:
     username: ctfd
     replicationUser: replicate
 
+  networkPolicy:
+    enabled: false
   primary:
     extraVolumeMounts:
       - mountPath: /mnt/secrets-store
