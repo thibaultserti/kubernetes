@@ -28,10 +28,10 @@ loki:
       s3ForcePathStyle: true
       insecure: true
 
-  schema_config:
+  schemaConfig:
     configs:
       - from: 2024-05-05
-        object_store: s3
+        objectStore: s3
         store: tsdb
         schema: v13
         index:
