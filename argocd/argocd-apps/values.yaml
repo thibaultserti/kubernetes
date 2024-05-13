@@ -1084,6 +1084,11 @@ applications:
     source:
       repoURL: git@github.com:thibaultserti/kubernetes.git
       path: monitoring/opentelemetry/opentelemetry-collector
+    ignoreDifferences:
+      - group: opentelemetry.io
+        kind: OpenTelemetryCollector
+        jqPathExpressions:
+          - .spec.config
     syncPolicy:
       managedNamespaceMetadata:
         labels:
