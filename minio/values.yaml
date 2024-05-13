@@ -7,11 +7,10 @@ auth:
 disableWebUI: false
 
 resources:
-  # requests:
-  #   cpu: 182m
-  #   memory: 3667M
-  # limits:
-  #   memory: 3667M
+  requests:
+  limits:
+    cpu: null
+    memory: 4096M
 
 extraEnvVars:
   - name: MINIO_PROMETHEUS_URL
