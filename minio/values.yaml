@@ -9,7 +9,7 @@ disableWebUI: false
 resources:
   requests:
   limits:
-    cpu: null
+    cpu:
     memory: 4096M
 
 extraEnvVars:
