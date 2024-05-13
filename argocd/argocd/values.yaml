@@ -15,6 +15,7 @@ configs:
     admin.enabled: true
     exec.enabled: true
     server.rbac.log.enforce.enable: false
+    timeout.reconciliation: 600s
     # Hide Kyverno Policy in Argo CD UI
     resource.exclusions: |
       - apiGroups:
@@ -68,12 +69,12 @@ configs:
 # CONTROLLER
 
 controller:
-  # resources:
-  #   requests:
-  #     cpu: 671m
-  #     memory: 2540M
-  #   limits:
-  #     memory: 2540M
+  resources:
+#   requests:
+#     cpu: 671m
+#     memory: 2540M
+    limits:
+      cpu: 1
 
   metrics:
     enabled: true
