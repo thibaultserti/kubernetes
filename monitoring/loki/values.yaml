@@ -38,11 +38,6 @@ loki:
           prefix: loki_index_
           period: 24h
 
-  compactor:
-    working_directory: /var/loki/compactor
-    retention_enabled: true
-    delete_request_store: filesystem
-
   frontend:
     max_outstanding_per_tenant: 2048
     compress_responses: true
@@ -59,6 +54,9 @@ loki:
     retention_period: 744h
 
   storage_config:
+    tsdb_shipper:
+      active_index_directory: /loki/index
+      cache_location: /loki/index_cache
     aws:
       endpoint: http://minio.minio:9000
       insecure: true
