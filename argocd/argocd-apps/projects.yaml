@@ -13,8 +13,6 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
 
   system:
     namespace: argocd
@@ -41,8 +39,6 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
 
   vault:
     namespace: argocd
@@ -57,8 +53,6 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
 
   monitoring:
     namespace: argocd
@@ -78,8 +72,6 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
 
   minio:
     namespace: argocd
@@ -110,8 +102,6 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
 
   kyverno:
     namespace: argocd
@@ -126,8 +116,7 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
+
 
   security:
     namespace: argocd
@@ -148,8 +137,7 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
+
 
   goldilocks:
     namespace: argocd
@@ -164,8 +152,7 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
+
 
   teleport:
     namespace: argocd
@@ -180,8 +167,7 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
+
 
   ctfd:
     namespace: argocd
@@ -196,8 +182,7 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
+
 
   my-apps:
     namespace: argocd
@@ -212,8 +197,6 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
 
   example:
     namespace: argocd
@@ -230,8 +213,6 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false
 
   services:
     namespace: argocd
@@ -250,5 +231,3 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-    orphanedResources:
-      warn: false

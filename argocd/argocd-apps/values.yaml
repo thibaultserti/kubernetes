@@ -1660,33 +1660,33 @@ applications:
   #       - CreateNamespace=true
 
 # TELEPORT
-  teleport:
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: teleport
-    destination:
-      namespace: teleport
-      server: https://kubernetes.default.svc
-    project: teleport
-    sources:
-      - repoURL: https://charts.releases.teleport.dev
-        chart: teleport-cluster
-        targetRevision: 15.3.4
-        helm:
-          valueFiles:
-          - $values/teleport/values.yaml
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        targetRevision: HEAD
-        ref: values
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          goldilocks.fairwinds.com/enabled: "true"
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
+  # teleport:
+  #   namespace: argocd
+  #   additionalAnnotations:
+  #     notifications.argoproj.io/subscribe.grafana: teleport
+  #   destination:
+  #     namespace: teleport
+  #     server: https://kubernetes.default.svc
+  #   project: teleport
+  #   sources:
+  #     - repoURL: https://charts.releases.teleport.dev
+  #       chart: teleport-cluster
+  #       targetRevision: 15.3.4
+  #       helm:
+  #         valueFiles:
+  #         - $values/teleport/values.yaml
+  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
+  #       targetRevision: HEAD
+  #       ref: values
+  #   syncPolicy:
+  #     managedNamespaceMetadata:
+  #       labels:
+  #         goldilocks.fairwinds.com/enabled: "true"
+  #     automated:
+  #       selfHeal: true
+  #       prune: true
+  #     syncOptions:
+  #       - CreateNamespace=true
 
 
 # # EXAMPLES
