@@ -42,8 +42,8 @@ slos_k8s:
   #   objective: 95
   # - name: thanos-storegateway
   #   objective: 95
-  - name: teleport
-    objective: 95
+  # - name: teleport
+  #   objective: 95
   - name: falco
     objective: 95
   - name: ctfd
