@@ -104,3 +104,7 @@ reportsController:
 
   metering:
     disabled: false
+
+  resources:
+    limits:
+      memory: 512Mi
