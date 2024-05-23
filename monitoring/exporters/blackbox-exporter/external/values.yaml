@@ -26,6 +26,9 @@ serviceMonitor:
     - name: stirling-pdf
       url: https://stirling-pdf.ayanides.cloud
       hostname: stirling-pdf.ayanides.cloud
+    - name: buzzer
+      url: https://buzzer.ayanides.cloud
+      hostname: buzzer.ayanides.cloud
 
 prometheusRule:
   enabled: true

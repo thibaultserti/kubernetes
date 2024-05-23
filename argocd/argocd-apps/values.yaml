@@ -1826,7 +1826,6 @@ applications:
 
 
 # YOPASS
-
   yopass:
     namespace: argocd
     additionalAnnotations:
@@ -1867,6 +1866,29 @@ applications:
     source:
       repoURL: git@github.com:thibaultserti/kubernetes.git
       path: services/stirling-pdf
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+
+# BUZZER
+  buzzer:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: buzzer
+    destination:
+      namespace: buzzer
+      server: https://kubernetes.default.svc
+    project: services
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: services/buzzer
     syncPolicy:
       managedNamespaceMetadata:
         labels:
