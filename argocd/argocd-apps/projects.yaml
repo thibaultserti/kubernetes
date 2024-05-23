@@ -228,6 +228,8 @@ projects:
         server: https://kubernetes.default.svc
       - namespace: homepage
         server: https://kubernetes.default.svc
+      - namespace: buzzer
+        server: https://kubernetes.default.svc
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"

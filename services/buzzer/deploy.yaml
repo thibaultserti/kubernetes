@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buzzer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buzzer
+  template:
+    metadata:
+      labels:
+        app: buzzer
+    spec:
+      containers:
+      - name: buzzer
+        image: thibaultserti/buzzer:1.0.0
+        ports:
+        - containerPort: 8090
+        # resources:
+        #   requests:
+        #     cpu: 15m
+        #     memory: 588M
+        #   limits:
+        #     memory: 588M
