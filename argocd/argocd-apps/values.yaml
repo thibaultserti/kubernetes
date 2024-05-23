@@ -11,7 +11,7 @@ applications:
     sources:
       - repoURL: https://argoproj.github.io/argo-helm
         chart: argo-cd
-        targetRevision: 6.11.0
+        targetRevision: 6.11.1
         helm:
           valueFiles:
           - $values/argocd/argocd/values.yaml
@@ -1396,7 +1396,7 @@ applications:
     sources:
       - repoURL: https://kyverno.github.io/kyverno
         chart: kyverno
-        targetRevision: 3.2.3
+        targetRevision: 3.2.2
         helm:
           valueFiles:
           - $values/kyverno/kyverno/values.yaml
@@ -1407,9 +1407,9 @@ applications:
       managedNamespaceMetadata:
         labels:
           goldilocks.fairwinds.com/enabled: "true"
-      automated:
-        selfHeal: true
-        prune: true
+      # automated:
+      #   selfHeal: true
+      #   prune: true
       syncOptions:
         - CreateNamespace=true
         - Replace=true
