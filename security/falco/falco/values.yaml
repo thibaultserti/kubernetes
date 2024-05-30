@@ -1,6 +1,6 @@
 driver:
   enabled: true
-
+  kind: modern_ebpf
 collectors:
   enabled: true
 
@@ -13,6 +13,10 @@ tty: true
 #   limits:
 #     memory: 1103M
 
+falcoctl:
+  image:
+    tag: "0.7.2"
+
 falco:
   rules_file:
     - /etc/falco/falco_rules.yaml # https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
@@ -23,8 +27,7 @@ falco:
   plugins:
     - name: k8saudit
       library_path: libk8saudit.so
-      init_config:
-        ""
+      init_config: ""
       open_params: "http://:9765/k8s-audit"
     - name: json
       library_path: libjson.so
@@ -50,9 +53,9 @@ falcoctl:
   config:
     artifact:
       install:
-        refs: [falco-rules:3,k8saudit-rules:0.6]
+        refs: [falco-rules:3,k8saudit-rules:0.7]
       follow:
-        refs: [falco-rules:3,k8saudit-rules:0.6]
+        refs: [falco-rules:3,k8saudit-rules:0.7]
         resources:
           requests:
             cpu: 11m
