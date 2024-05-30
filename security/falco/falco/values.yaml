@@ -1,6 +1,6 @@
 driver:
   enabled: true
-
+  kind: modern_ebpf
 collectors:
   enabled: true
 
@@ -13,6 +13,9 @@ tty: true
 #   limits:
 #     memory: 1103M
 
+image:
+  tag: "0.37.1"
+
 falco:
   rules_file:
     - /etc/falco/falco_rules.yaml # https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
@@ -23,8 +26,7 @@ falco:
   plugins:
     - name: k8saudit
       library_path: libk8saudit.so
-      init_config:
-        ""
+      init_config: ""
       open_params: "http://:9765/k8s-audit"
     - name: json
       library_path: libjson.so
@@ -50,9 +52,9 @@ falcoctl:
   config:
     artifact:
       install:
-        refs: [falco-rules:3,k8saudit-rules:0.6]
+        refs: [falco-rules:3,k8saudit-rules:0.7]
       follow:
-        refs: [falco-rules:3,k8saudit-rules:0.6]
+        refs: [falco-rules:3,k8saudit-rules:0.7]
         resources:
           requests:
             cpu: 11m
@@ -96,6 +98,8 @@ customRules:
         legacy-service-account-token-cleaner,
         ttl-after-finished-controller
       ]
+      override:
+        items: append
 
     - list: user_allowed_kube_namespace_image_list
       items: [
@@ -118,6 +122,8 @@ customRules:
         ghcr.io/ahrtr/etcd-defrag,
         ghcr.io/kubereboot/kured,
       ]
+      override:
+        items: append
 
     - list: falco_privileged_images
       items: [
@@ -142,6 +148,8 @@ customRules:
         quay.io/sustainable_computing_io/kepler,
         ghcr.io/kubereboot/kured,
       ]
+      override:
+        items: append
 
     # ignore get secrets
     - macro: consider_activity_events
@@ -172,6 +180,8 @@ customRules:
         quay.io/prometheus/node-exporter,
         quay.io/sustainable_computing_io/kepler,
       ]
+      override:
+        items: append
 
     - list: falco_hostpid_images
       items: [
@@ -179,6 +189,8 @@ customRules:
         quay.io/prometheus/node-exporter,
         ghcr.io/kubereboot/kured,
       ]
+      override:
+        items: append
 
     - list: falco_sensitive_mount_images
       items: [
@@ -188,5 +200,8 @@ customRules:
         longhornio/longhorn-instance-manager
       ]
 
+
     - rule: Ingress Object without TLS Certificate Created
       enabled: false
+      override:
+        enabled: replace
