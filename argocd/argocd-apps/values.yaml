@@ -319,7 +319,7 @@ applications:
     sources:
       - repoURL: https://kubernetes.github.io/dashboard
         chart: kubernetes-dashboard
-        targetRevision: 6.0.8
+        targetRevision: 7.5.0
         helm:
           valueFiles:
           - $values/utils/kubernetes-dashboard/values.yaml
