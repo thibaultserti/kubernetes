@@ -1493,33 +1493,33 @@ applications:
         - CreateNamespace=true
 
 # SECURITY
-  trivy-operator:
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: trivy
-    destination:
-      namespace: trivy
-      server: https://kubernetes.default.svc
-    project: security
-    sources:
-      - repoURL: https://aquasecurity.github.io/helm-charts/
-        chart: trivy-operator
-        targetRevision: 0.23.2
-        helm:
-          valueFiles:
-          - $values/security/trivy-operator/values.yaml
-      - repoURL: git@github.com:thibaultserti/kubernetes.git
-        targetRevision: HEAD
-        ref: values
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          goldilocks.fairwinds.com/enabled: "true"
-      automated:
-        selfHeal: true
-        prune: true
-      syncOptions:
-        - CreateNamespace=true
+  # trivy-operator:
+  #   namespace: argocd
+  #   additionalAnnotations:
+  #     notifications.argoproj.io/subscribe.grafana: trivy
+  #   destination:
+  #     namespace: trivy
+  #     server: https://kubernetes.default.svc
+  #   project: security
+  #   sources:
+  #     - repoURL: https://aquasecurity.github.io/helm-charts/
+  #       chart: trivy-operator
+  #       targetRevision: 0.23.2
+  #       helm:
+  #         valueFiles:
+  #         - $values/security/trivy-operator/values.yaml
+  #     - repoURL: git@github.com:thibaultserti/kubernetes.git
+  #       targetRevision: HEAD
+  #       ref: values
+  #   syncPolicy:
+  #     managedNamespaceMetadata:
+  #       labels:
+  #         goldilocks.fairwinds.com/enabled: "true"
+  #     automated:
+  #       selfHeal: true
+  #       prune: true
+  #     syncOptions:
+  #       - CreateNamespace=true
 
   polaris:
     namespace: argocd
