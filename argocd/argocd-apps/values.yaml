@@ -1778,7 +1778,7 @@ applications:
     sources:
       - repoURL: https://charts.bitnami.com/bitnami
         chart: redis
-        targetRevision: 19.4.0
+        targetRevision: 19.5.2
         helm:
           valueFiles:
           - $values/redis/values.yaml
