@@ -1837,7 +1837,7 @@ applications:
     sources:
       - repoURL: https://cloudhippie.github.io/charts
         chart: yopass
-        targetRevision: 3.8.2
+        targetRevision: 3.8.3
         helm:
           valueFiles:
           - $values/services/yopass/values.yaml
