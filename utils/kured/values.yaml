@@ -30,7 +30,7 @@ configuration:
   alertFilterRegexp: "^(CPUThrottlingHigh|InfoInhibitor|Watchdog|etcdHighNumberOfFailedGRPCRequests|etcdHighCommitDurations)$"
   alertFiringOnly: true
   startTime: "00:00"
-  endTime: "06:00"
+  endTime: "00:00"
   timeZone: "Europe/Paris"
   period: "0h30m0s"
   forceReboot: true
