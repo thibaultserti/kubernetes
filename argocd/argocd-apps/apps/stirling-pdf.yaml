@@ -1,0 +1,23 @@
+applications:
+
+# STRILING PDF
+  stirling-pdf:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: stirling-pdf
+    destination:
+      namespace: stirling-pdf
+      server: https://kubernetes.default.svc
+    project: services
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: services/stirling-pdf
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

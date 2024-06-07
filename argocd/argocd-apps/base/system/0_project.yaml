@@ -1,0 +1,16 @@
+projects:
+  system:
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: System Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: kube-system
+        server: https://kubernetes.default.svc
+      - namespace: longhorn-system
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"

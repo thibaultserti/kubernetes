@@ -1,0 +1,29 @@
+applications:
+# MINIO
+  minio:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: minio
+    destination:
+      namespace: minio
+      server: https://kubernetes.default.svc
+    project: minio
+    sources:
+      - repoURL: registry-1.docker.io
+        chart: bitnamicharts/minio
+        targetRevision: 14.6.5
+        helm:
+          valueFiles:
+          - $values/minio/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

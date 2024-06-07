@@ -1,0 +1,14 @@
+projects:
+  redis:
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Redis Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: redis
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"

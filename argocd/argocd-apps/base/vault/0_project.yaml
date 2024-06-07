@@ -1,0 +1,14 @@
+projects:
+  vault:
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Vault Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: vault
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"

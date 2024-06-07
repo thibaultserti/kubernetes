@@ -1,0 +1,24 @@
+projects:
+  apps:
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Services Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: yopass
+        server: https://kubernetes.default.svc
+      - namespace: stirling-pdf
+        server: https://kubernetes.default.svc
+      - namespace: homepage
+        server: https://kubernetes.default.svc
+      - namespace: buzzer
+        server: https://kubernetes.default.svc
+      - namespace: ctfd
+        server: https://kubernetes.default.svc
+      - namespace: my-apps
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"

@@ -1,0 +1,107 @@
+applications:
+  kyverno:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kyverno
+    destination:
+      namespace: kyverno
+      server: https://kubernetes.default.svc
+    project: kyverno
+    sources:
+      - repoURL: https://kyverno.github.io/kyverno
+        chart: kyverno
+        targetRevision: 3.2.4
+        helm:
+          valueFiles:
+          - $values/kyverno/kyverno/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+        - Replace=true
+
+  kyverno-policies:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kyverno
+    destination:
+      namespace: kyverno
+      server: https://kubernetes.default.svc
+    project: kyverno
+    sources:
+      - repoURL: https://kyverno.github.io/kyverno
+        chart: kyverno-policies
+        targetRevision: 3.2.3
+        helm:
+          valueFiles:
+          - $values/kyverno/kyverno-policies/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  custom-policies:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kyverno
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: kyverno/custom-policies
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+
+  policy-reporter:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kyverno
+    destination:
+      namespace: kyverno
+      server: https://kubernetes.default.svc
+    project: kyverno
+    sources:
+      - repoURL: https://kyverno.github.io/policy-reporter
+        chart: policy-reporter
+        targetRevision: 2.23.1
+        helm:
+          valueFiles:
+          - $values/kyverno/policy-reporter/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

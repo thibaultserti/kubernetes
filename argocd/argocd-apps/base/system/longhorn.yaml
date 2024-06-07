@@ -1,0 +1,78 @@
+
+applications:
+# LONGHORN
+  longhorn:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: longhorn-system
+    destination:
+      namespace: longhorn-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://charts.longhorn.io
+        chart: longhorn
+        targetRevision: 1.6.2
+        helm:
+          valueFiles:
+          - $values/longhorn/longhorn/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  longhorn-backup:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: longhorn-system
+    destination:
+      namespace: longhorn-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: longhorn/longhorn-backup
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  storage-classes:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: longhorn-system
+    destination:
+      namespace: longhorn-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: longhorn/storage-classes
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

@@ -1,0 +1,23 @@
+applications:
+
+# BUZZER
+  buzzer:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: buzzer
+    destination:
+      namespace: buzzer
+      server: https://kubernetes.default.svc
+    project: services
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: services/buzzer
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

@@ -1,0 +1,21 @@
+applications:
+  fastapi-manual-instrumented:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: fastapi-manual-instrumented
+    destination:
+      namespace: example
+      server: https://kubernetes.default.svc
+    project: example
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: example/fastapi-observability-example/manual-instrumented
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

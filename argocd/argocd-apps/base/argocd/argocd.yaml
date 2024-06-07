@@ -1,0 +1,60 @@
+applications:
+  # ARGOCD
+  argocd:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: argocd
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: argocd
+    sources:
+      - repoURL: https://argoproj.github.io/argo-helm
+        chart: argo-cd
+        targetRevision: 6.11.1
+        helm:
+          valueFiles:
+          - $values/argocd/argocd/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    ignoreDifferences:
+      - kind: Secret
+        name: argocd-secret
+        namespace: argocd
+        jsonPointers:
+          - /data
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      syncOptions:
+        - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+
+  argocd-apps:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: argocd
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: argocd
+    sources:
+      - repoURL: https://argoproj.github.io/argo-helm
+        chart: argocd-apps
+        targetRevision: 2.0.0
+        helm:
+          valueFiles:
+          - $values/argocd/argocd-apps/0_project.yaml
+          - $values/argocd/argocd-apps/projects.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      # automated:
+      #   selfHeal: true
+      #   prune: true

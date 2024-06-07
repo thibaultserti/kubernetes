@@ -1,0 +1,21 @@
+projects:
+  monitoring:
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Monitoring Project
+    clusterResourceBlacklist:
+      - group: cilium.io
+        kind: CiliumIdentity
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: monitoring
+        server: https://kubernetes.default.svc
+      - namespace: kube-system
+        server: https://kubernetes.default.svc
+      - namespace: falco
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"

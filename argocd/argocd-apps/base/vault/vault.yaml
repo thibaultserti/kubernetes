@@ -1,0 +1,87 @@
+
+# VAULT
+  vault:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: vault
+    destination:
+      namespace: vault
+      server: https://kubernetes.default.svc
+    project: vault
+    sources:
+      - repoURL: https://helm.releases.hashicorp.com
+        chart: vault
+        targetRevision: 0.28.0
+        helm:
+          valueFiles:
+          - $values/vault/vault/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    ignoreDifferences:
+      - group: admissionregistration.k8s.io
+        kind: MutatingWebhookConfiguration
+        jqPathExpressions:
+        - .webhooks[]?.clientConfig.caBundle
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+
+  secrets-stores:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: vault
+    destination:
+      namespace: vault
+      server: https://kubernetes.default.svc
+    project: vault
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: vault/secrets-stores
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  secrets-store-csi-driver:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+        chart: secrets-store-csi-driver
+        targetRevision: 1.4.3
+        helm:
+          valueFiles:
+          - $values/utils/secrets-store-csi-driver/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

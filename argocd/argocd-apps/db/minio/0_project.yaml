@@ -1,0 +1,14 @@
+projects:
+  minio:
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Minio Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: minio
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"

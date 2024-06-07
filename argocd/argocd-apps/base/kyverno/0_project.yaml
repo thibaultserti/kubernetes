@@ -1,0 +1,14 @@
+projects:
+  kyverno:
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    description: Kyverno Project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: kyverno
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"

@@ -1,0 +1,29 @@
+applications:
+# HOME PAGE
+  homepage:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: homepage
+    destination:
+      namespace: homepage
+      server: https://kubernetes.default.svc
+    project: services
+    sources:
+      - repoURL: http://jameswynn.github.io/helm-charts
+        chart: homepage
+        targetRevision: 1.2.3
+        helm:
+          valueFiles:
+          - $values/services/homepage/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

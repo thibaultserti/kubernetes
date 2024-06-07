@@ -1,0 +1,84 @@
+applications:
+  falco:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: falco
+    destination:
+      namespace: falco
+      server: https://kubernetes.default.svc
+    project: security
+    sources:
+      - repoURL: https://falcosecurity.github.io/charts
+        chart: falco
+        targetRevision: 4.4.1
+        helm:
+          valueFiles:
+          - $values/security/falco/falco/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  falcosidekick:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: falco
+    destination:
+      namespace: falco
+      server: https://kubernetes.default.svc
+    project: security
+    sources:
+      - repoURL: https://falcosecurity.github.io/charts
+        chart: falcosidekick
+        targetRevision: 0.7.19
+        helm:
+          valueFiles:
+          - $values/security/falco/falcosidekick/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  falco-exporter:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: monitoring
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: monitoring
+    sources:
+      - repoURL: https://falcosecurity.github.io/charts
+        chart: falco-exporter
+        targetRevision: 0.11.0
+        helm:
+          valueFiles:
+          - $values/monitoring/exporters/falco-exporter/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

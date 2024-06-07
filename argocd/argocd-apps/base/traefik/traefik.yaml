@@ -1,0 +1,52 @@
+applications:
+  traefik:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: traefik
+    destination:
+      namespace: traefik
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://traefik.github.io/charts
+        chart: traefik
+        targetRevision: 28.2.0
+        helm:
+          valueFiles:
+          - $values/traefik/traefik/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
+
+  traefik-dashboard:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: traefik
+    destination:
+      namespace: traefik
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: traefik/traefik-dashboard
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

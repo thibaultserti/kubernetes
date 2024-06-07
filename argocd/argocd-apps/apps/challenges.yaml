@@ -1,0 +1,26 @@
+applications:
+# MY-APPS
+
+  challenges:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: my-apps
+    destination:
+      namespace: my-apps
+      server: https://kubernetes.default.svc
+    project: my-apps
+    sources:
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        path: my-apps/challenges
+        helm:
+          valueFiles:
+          - values.yaml
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

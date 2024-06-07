@@ -1,0 +1,28 @@
+applications:
+  kured:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://kubereboot.github.io/charts
+        chart: kured
+        targetRevision: 5.4.5
+        helm:
+          valueFiles:
+          - $values/utils/kured/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true

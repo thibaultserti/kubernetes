@@ -1,0 +1,49 @@
+applications:
+  # CILIUM
+  # Issue with https://github.com/cilium/cilium-cli/issues/1396
+  cilium:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    sources:
+      - repoURL: https://helm.cilium.io
+        chart: cilium
+        targetRevision: 1.15.5
+        helm:
+          valueFiles:
+          - $values/cilium/values.yaml
+      - repoURL: git@github.com:thibaultserti/kubernetes.git
+        targetRevision: HEAD
+        ref: values
+    ignoreDifferences:
+      - kind: Secret
+        name: cilium-ca
+        namespace: kube-system
+        jsonPointers:
+          - /data
+      - kind: Secret
+        name: hubble-ca-secret
+        namespace: kube-system
+        jsonPointers:
+          - /data
+      - kind: Secret
+        name: hubble-server-certs
+        namespace: kube-system
+        jsonPointers:
+          - /data
+      - kind: Secret
+        name: hubble-relay-client-certs
+        namespace: kube-system
+        jsonPointers:
+          - /data
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      syncOptions:
+        - CreateNamespace=true
+        - RespectIgnoreDifferences=true
