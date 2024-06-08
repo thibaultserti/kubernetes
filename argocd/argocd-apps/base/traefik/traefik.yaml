@@ -6,7 +6,7 @@ applications:
     destination:
       namespace: traefik
       server: https://kubernetes.default.svc
-    project: system
+    project: traefik
     sources:
       - repoURL: https://traefik.github.io/charts
         chart: traefik
@@ -34,7 +34,7 @@ applications:
     destination:
       namespace: traefik
       server: https://kubernetes.default.svc
-    project: system
+    project: traefik
     sources:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         path: traefik/traefik-dashboard

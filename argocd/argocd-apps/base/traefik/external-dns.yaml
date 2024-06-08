@@ -6,7 +6,7 @@ applications:
     destination:
       namespace: external-dns
       server: https://kubernetes.default.svc
-    project: system
+    project: traefik
     sources:
       - repoURL: https://kubernetes-sigs.github.io/external-dns/
         chart: external-dns

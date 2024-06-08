@@ -79,11 +79,11 @@ controller:
     #   cpu: 1
 
   metrics:
-    enabled: false
+    enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
     rules:
-      enabled: false
+      enabled: true
       spec:
         - alert: ArgoAppMissing
           expr: |
@@ -139,7 +139,7 @@ redis:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
 
 # SERVER
 
@@ -154,10 +154,10 @@ server:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
 
   ingress:
-    enabled: false
+    enabled: true
     ingressClassName: "traefik"
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
@@ -189,7 +189,7 @@ repoServer:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
 
 # APPLICATIONSET
 
@@ -204,7 +204,7 @@ applicationSet:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
 
 # NOTIFICATIONS
 

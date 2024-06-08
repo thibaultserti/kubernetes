@@ -53,6 +53,8 @@ applications:
           - $values/argocd/argocd-apps/base/traefik/0_project.yaml
           - $values/argocd/argocd-apps/base/traefik/traefik.yaml
           - $values/argocd/argocd-apps/base/traefik/cert-manager.yaml
+          - $values/argocd/argocd-apps/monitoring/0_project.yaml
+          - $values/argocd/argocd-apps/monitoring/prom-crds.yaml
 
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD

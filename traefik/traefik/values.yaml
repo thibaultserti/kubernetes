@@ -29,7 +29,7 @@ logs:
 
 service:
   annotations:
-    io.cilium/lb-ipam-ips": "192.168.1.100"
+    io.cilium/lb-ipam-ips: "192.168.1.100"
 
 ingressRoute:
   dashboard:

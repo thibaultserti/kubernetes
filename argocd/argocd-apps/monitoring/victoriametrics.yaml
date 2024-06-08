@@ -1,28 +1,4 @@
 applications:
-  prometheus-stack-crds:
-    namespace: argocd
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.grafana: monitoring
-    destination:
-      namespace: monitoring
-      server: https://kubernetes.default.svc
-    project: monitoring
-    source:
-      repoURL: https://github.com/prometheus-community/helm-charts.git
-      path: charts/kube-prometheus-stack/charts/crds/
-      directory:
-        recurse: true
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          goldilocks.fairwinds.com/enabled: "true"
-      syncOptions:
-        - CreateNamespace=true
-        - Replace=true
-      automated:
-        prune: true
-        selfHeal: true
-
   vm-stack:
     namespace: argocd
     additionalAnnotations:
