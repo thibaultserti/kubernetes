@@ -48,6 +48,8 @@ applications:
           valueFiles:
           - $values/argocd/argocd-apps/base/argocd/0_project.yaml
           - $values/argocd/argocd-apps/base/argocd/argocd.yaml
+          - $values/argocd/argocd-apps/base/system/0_project.yaml
+          - $values/argocd/argocd-apps/base/system/cilium.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values

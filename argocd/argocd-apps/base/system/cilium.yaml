@@ -15,7 +15,7 @@ applications:
         targetRevision: 1.15.5
         helm:
           valueFiles:
-          - $values/cilium/values.yaml
+          - $values/cilium/cilium/values.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values
@@ -47,3 +47,24 @@ applications:
       syncOptions:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
+
+  cilium-ippools:
+    namespace: argocd
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.grafana: kube-system
+    destination:
+      namespace: kube-system
+      server: https://kubernetes.default.svc
+    project: system
+    source:
+      repoURL: git@github.com:thibaultserti/kubernetes.git
+      path: cilium/configuration
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          goldilocks.fairwinds.com/enabled: "true"
+      automated:
+        selfHeal: true
+        prune: true
+      syncOptions:
+        - CreateNamespace=true
