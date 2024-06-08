@@ -6,7 +6,7 @@ additionalArguments:
 
 image:
   repository: traefik
-  tag: v3.0.0-beta5
+  tag: v3.0.0
 
 logs:
   access:
@@ -29,9 +29,7 @@ logs:
 
 service:
   annotations:
-    metallb.universe.tf/loadBalancerIPs: 192.168.1.100
-  spec:
-    externalTrafficPolicy: Cluster # No BGP announcement with metallb instead ....
+    io.cilium/lb-ipam-ips": "192.168.1.100"
 
 ingressRoute:
   dashboard:
