@@ -1,12 +1,18 @@
 cluster:
   name: belt
 
-# resources:
-#   requests:
-#     cpu: 93m
-#     memory: 477M
-#   limits:
-#     memory: 477M
+
+k8sServiceHost: 192.168.1.10
+k8sServicePort: 6443
+
+kubeProxyReplacement: true
+ipam:
+  mode: kubernetes
+  operator:
+    clusterPoolIPv4PodCIDRList: 10.42.0.0/16
+
+bpf:
+  vlanBypass: 0
 
 hubble:
   enabled: true
@@ -28,7 +34,7 @@ hubble:
       - "httpV2:exemplars=true;sourceContext=workload-name|pod-name|reserved-identity;destinationContext=workload-name|pod-name|reserved-identity;labelsContext=source_namespace,destination_namespace,traffic_direction"
     enableOpenMetrics: true
     serviceMonitor:
-      enabled: true
+      enabled: false
 
   tls:
     enabled: true
@@ -45,7 +51,7 @@ hubble:
       enabled: true
       port: 9966
       serviceMonitor:
-        enabled: true
+        enabled: false
 
   ui:
     enabled: true
@@ -75,7 +81,7 @@ hubble:
 prometheus:
   enabled: true
   serviceMonitor:
-    enabled: true
+    enabled: false
 
 
 
@@ -90,4 +96,4 @@ operator:
   prometheus:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
