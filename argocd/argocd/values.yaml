@@ -5,7 +5,7 @@ global:
     level: info
   domain: argocd.ayanides.cloud
 
-
+fullnameOverride: argocd
 # CONFIGS
 
 configs:
@@ -79,11 +79,11 @@ controller:
     #   cpu: 1
 
   metrics:
-    enabled: true
+    enabled: false
     serviceMonitor:
-      enabled: true
+      enabled: false
     rules:
-      enabled: true
+      enabled: false
       spec:
         - alert: ArgoAppMissing
           expr: |
@@ -139,7 +139,7 @@ redis:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
 
 # SERVER
 
@@ -154,10 +154,10 @@ server:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
 
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: "traefik"
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
@@ -189,7 +189,7 @@ repoServer:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
 
 # APPLICATIONSET
 
@@ -204,11 +204,12 @@ applicationSet:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
 
 # NOTIFICATIONS
 
 notifications:
+  enabled: false
   # resources:
   #   requests:
   #     cpu: 15m
@@ -219,7 +220,7 @@ notifications:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
 
   extraVolumeMounts:
     - mountPath: /mnt/secrets-store
