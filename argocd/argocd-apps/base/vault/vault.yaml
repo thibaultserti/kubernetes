@@ -65,7 +65,7 @@ applications:
     destination:
       namespace: kube-system
       server: https://kubernetes.default.svc
-    project: system
+    project: vault
     sources:
       - repoURL: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
         chart: secrets-store-csi-driver

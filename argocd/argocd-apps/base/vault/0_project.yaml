@@ -9,6 +9,10 @@ projects:
     destinations:
       - namespace: vault
         server: https://kubernetes.default.svc
+      - namespace: kube-system
+        server: https://kubernetes.default.svc
+      - namespace: '*' # for secrets
+        server: '*'
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
