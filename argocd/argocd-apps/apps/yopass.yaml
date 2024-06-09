@@ -7,7 +7,7 @@ applications:
     destination:
       namespace: yopass
       server: https://kubernetes.default.svc
-    project: services
+    project: apps
     sources:
       - repoURL: https://cloudhippie.github.io/charts
         chart: yopass

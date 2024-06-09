@@ -50,12 +50,46 @@ applications:
           - $values/argocd/argocd-apps/base/argocd/argocd.yaml
           - $values/argocd/argocd-apps/base/system/0_project.yaml
           - $values/argocd/argocd-apps/base/system/cilium.yaml
+          - $values/argocd/argocd-apps/base/system/longhorn.yaml
+          - $values/argocd/argocd-apps/base/system/ksm.yaml
+          - $values/argocd/argocd-apps/base/system/kured.yaml
+          - $values/argocd/argocd-apps/base/system/etcd-defrag.yaml
+          - $values/argocd/argocd-apps/base/kyverno/0_project.yaml
+          - $values/argocd/argocd-apps/base/kyverno/kyverno.yaml
           - $values/argocd/argocd-apps/base/traefik/0_project.yaml
+          - $values/argocd/argocd-apps/base/traefik/traefik.yaml
+          - $values/argocd/argocd-apps/base/traefik/cert-manager.yaml
+          # - $values/argocd/argocd-apps/base/traefik/external-dns.yaml
+          - $values/argocd/argocd-apps/base/vault/0_project.yaml
+          - $values/argocd/argocd-apps/base/vault/vault.yaml
           - $values/argocd/argocd-apps/base/traefik/traefik.yaml
           - $values/argocd/argocd-apps/base/traefik/cert-manager.yaml
           - $values/argocd/argocd-apps/monitoring/0_project.yaml
           - $values/argocd/argocd-apps/monitoring/prom-crds.yaml
-
+          # - $values/argocd/argocd-apps/monitoring/exporters.yaml
+          # - $values/argocd/argocd-apps/monitoring/falco.yaml
+          # - $values/argocd/argocd-apps/monitoring/grafana.yaml
+          # - $values/argocd/argocd-apps/monitoring/kepler.yaml
+          # - $values/argocd/argocd-apps/monitoring/kuma.yaml
+          # - $values/argocd/argocd-apps/monitoring/locust.yaml
+          # - $values/argocd/argocd-apps/monitoring/loki.yaml
+          # - $values/argocd/argocd-apps/monitoring/otel.yaml
+          # - $values/argocd/argocd-apps/monitoring/pyroscope.yaml
+          # - $values/argocd/argocd-apps/monitoring/robusta.yaml
+          # - $values/argocd/argocd-apps/monitoring/sloth.yaml
+          # - $values/argocd/argocd-apps/monitoring/tempo.yaml
+          # - $values/argocd/argocd-apps/monitoring/victoriametrics.yaml
+          # - $values/argocd/argocd-apps/db/minio/0_project.yaml
+          # - $values/argocd/argocd-apps/db/minio/minio.yaml
+          - $values/argocd/argocd-apps/db/redis/0_project.yaml
+          - $values/argocd/argocd-apps/db/redis/redis.yaml
+          - $values/argocd/argocd-apps/apps/0_project.yaml
+          - $values/argocd/argocd-apps/apps/buzzer.yaml
+          - $values/argocd/argocd-apps/apps/challenges.yaml
+          # - $values/argocd/argocd-apps/apps/ctfd.yaml
+          - $values/argocd/argocd-apps/apps/homepage.yaml
+          - $values/argocd/argocd-apps/apps/stirling-pdf.yaml
+          - $values/argocd/argocd-apps/apps/yopass.yaml
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         targetRevision: HEAD
         ref: values

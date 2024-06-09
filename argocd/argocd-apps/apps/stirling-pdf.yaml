@@ -8,7 +8,7 @@ applications:
     destination:
       namespace: stirling-pdf
       server: https://kubernetes.default.svc
-    project: services
+    project: apps
     source:
       repoURL: git@github.com:thibaultserti/kubernetes.git
       path: services/stirling-pdf

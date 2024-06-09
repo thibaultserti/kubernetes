@@ -7,6 +7,8 @@ projects:
     sourceRepos:
       - "*"
     destinations:
+      - namespace: example
+        server: https://kubernetes.default.svc
       - namespace: yopass
         server: https://kubernetes.default.svc
       - namespace: stirling-pdf
@@ -16,6 +18,8 @@ projects:
       - namespace: buzzer
         server: https://kubernetes.default.svc
       - namespace: ctfd
+        server: https://kubernetes.default.svc
+      - namespace: buzzer
         server: https://kubernetes.default.svc
       - namespace: my-apps
         server: https://kubernetes.default.svc

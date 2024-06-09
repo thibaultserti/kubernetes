@@ -6,7 +6,7 @@ applications:
     destination:
       namespace: my-apps
       server: https://kubernetes.default.svc
-    project: my-apps
+    project: apps
     sources:
       - repoURL: git@github.com:thibaultserti/kubernetes.git
         path: my-apps/ovh-certificate-api

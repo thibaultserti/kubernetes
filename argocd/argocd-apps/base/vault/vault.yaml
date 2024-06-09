@@ -1,4 +1,4 @@
-
+applications:
 # VAULT
   vault:
     namespace: argocd
