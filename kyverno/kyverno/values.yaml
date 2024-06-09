@@ -1,6 +1,7 @@
 
 crds:
   install: true
+  migrations: false
 
 # Configuration
 config:

@@ -28,6 +28,7 @@ applications:
         - CreateNamespace=true
         - Replace=true
 
+
   kyverno-policies:
     namespace: argocd
     additionalAnnotations:
