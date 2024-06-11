@@ -14,12 +14,12 @@ serviceMonitor:
   defaults:
     interval: 1m
   targets:
-    - name: ctfd
-      url: https://ctfd.ayanides.cloud
-      hostname: ctfd.ayanides.cloud
-    - name: ovh-certificate-api
-      url: https://ovh-certificate-api.ayanides.cloud
-      hostname: ovh-certificate-api.ayanides.cloud
+    # - name: ctfd
+    #   url: https://ctfd.ayanides.cloud
+    #   hostname: ctfd.ayanides.cloud
+    # - name: ovh-certificate-api
+    #   url: https://ovh-certificate-api.ayanides.cloud
+    #   hostname: ovh-certificate-api.ayanides.cloud
     - name: yopass
       url: https://yopass.ayanides.cloud
       hostname: yopass.ayanides.cloud

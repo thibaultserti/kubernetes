@@ -28,6 +28,11 @@ serviceMonitor:
             VALUE = {{`{{`}} $value {{`}}`}}
             LABELS = {{`{{`}} $labels {{`}}`}}
 
+service: # https://artifacthub.io/packages/helm/grafana/promtail/6.15.5?modal=template&template=service-metrics.yaml&compare-to=6.16.0 fix templating issue here
+  labels:
+    toto: aa
+  annotations:
+    toto: aa
 
 config:
   logLevel: info

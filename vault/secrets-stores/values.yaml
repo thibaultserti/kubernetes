@@ -83,13 +83,6 @@ secretsStores:
         - kubernetesSecretKey: robusta_ui_token
           vaultSecretPath: secrets/data/robusta
           vaultSecretKey: robusta_ui_token
-      robusta-auth-config-secret:
-        - kubernetesSecretKey: prv
-          vaultSecretPath: secrets/data/robusta
-          vaultSecretKey: rsa_private
-        - kubernetesSecretKey: pub
-          vaultSecretPath: secrets/data/robusta
-          vaultSecretKey: rsa_public
   - name: minio
     namespace: minio
     roleName: minio
@@ -123,29 +116,6 @@ secretsStores:
         - kubernetesSecretKey: S3_TEMPO_SECRET_ACCESS_KEY
           vaultSecretPath: secrets/data/tempo
           vaultSecretKey: s3_secret_access_key
-  - name: mimir
-    namespace: monitoring
-    roleName: mimir
-    secrets:
-      mimir-bucket-secret:
-        - kubernetesSecretKey: S3_MIMIR_ACCESS_KEY_ID
-          vaultSecretPath: secrets/data/mimir
-          vaultSecretKey: s3_access_key_id
-        - kubernetesSecretKey: S3_MIMIR_SECRET_ACCESS_KEY
-          vaultSecretPath: secrets/data/mimir
-          vaultSecretKey: s3_secret_access_key
-  - name: thanos
-    namespace: monitoring
-    roleName: thanos-query
-    secrets:
-      thanos-objstore-secret:
-        - kubernetesSecretKey: objstore.yml
-          vaultSecretPath: secrets/data/thanos
-          vaultSecretKey: objstoreConfig
-      thanos-tracing-secret:
-        - kubernetesSecretKey: tracing.yml
-          vaultSecretPath: secrets/data/thanos
-          vaultSecretKey: tracingConfig
   - name: longhorn
     namespace: longhorn-system
     roleName: longhorn-service-account

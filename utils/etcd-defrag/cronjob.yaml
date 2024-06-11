@@ -32,15 +32,15 @@ spec:
           volumes:
           - name: ca-crt
             hostPath:
-              path: /etc/kubernetes/pki/etcd/ca.crt
+              path: /var/lib/rancher/k3s/server/tls/etcd/server-ca.crt
               type: File
           - name: client-crt
             hostPath:
-              path: /etc/kubernetes/pki/apiserver-etcd-client.crt
+              path: /var/lib/rancher/k3s/server/tls/etcd/server-client.crt
               type: File
           - name: client-key
             hostPath:
-              path: /etc/kubernetes/pki/apiserver-etcd-client.key
+              path: /var/lib/rancher/k3s/server/tls/etcd/server-client.key
               type: File
           restartPolicy: OnFailure
           hostNetwork: true # needed in order to reach the etcd server with 127.0.0.1:2379

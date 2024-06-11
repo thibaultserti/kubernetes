@@ -38,6 +38,9 @@ tempo:
         access_key:
         secret_key:
         insecure: true
+      wal:
+        path: /tmp/tempo/wal
+      local: {}
 
   # this configuration will listen on all ports and protocols that tempo is capable of.
   # the receives all come from the OpenTelemetry collector.  more configuration information can
@@ -169,7 +172,7 @@ config: |
       - 'span-metrics'
     metrics_generator:
       storage:
-        path: "/tmp/tempo"
+        path: "/tmp/tempo/generator_wal"
         remote_write:
           - url: {{ .Values.tempo.metricsGenerator.remoteWriteUrl }}
       processor:

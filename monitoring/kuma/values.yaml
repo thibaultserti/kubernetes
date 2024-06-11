@@ -21,6 +21,8 @@ volume:
   size: 4Gi
   storageClassName: longhorn
 
+image:
+  tag: "latest"
 
 serviceMonitor:
   enabled: false

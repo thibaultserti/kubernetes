@@ -14,7 +14,7 @@ resources:
 
 extraEnvVars:
   - name: MINIO_PROMETHEUS_URL
-    value: http://prometheus-stack-kube-prom-prometheus.monitoring:9090
+    value: http:/vmagent-vm-stack-victoria-metrics-k8s-stack.monitoring:8429
   - name: MINIO_PROMETHEUS_JOB_ID
     value: minio
 serviceAccount:

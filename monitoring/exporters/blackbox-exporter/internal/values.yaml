@@ -54,9 +54,6 @@ serviceMonitor:
     - name: traefik
       url: https://traefik.ayanides.cloud
       hostname: traefik.ayanides.cloud
-    - name: kubernetes-dashboard
-      url: https://kubernetes.ayanides.cloud
-      hostname: kubernetes.ayanides.cloud
     - name: argocd
       url: https://argocd.ayanides.cloud
       hostname: argocd.ayanides.cloud
@@ -69,9 +66,6 @@ serviceMonitor:
     - name: grafana
       url: https://grafana.ayanides.cloud
       hostname: grafana.ayanides.cloud
-    # - name: prometheus
-    #   url: https://prometheus.ayanides.cloud
-    #   hostname: prometheus.ayanides.cloud
     - name: victoriametrics
       url: https://victoriametrics.ayanides.cloud
       hostname: victoriametrics.ayanides.cloud
@@ -96,30 +90,15 @@ serviceMonitor:
     - name: kyverno
       url: https://kyverno.ayanides.cloud
       hostname: kyverno.ayanides.cloud
-    # - name: thanos
-    #   url: https://thanos.ayanides.cloud
-    #   hostname: thanos.ayanides.cloud
-    # - name: thanos-bucketweb
-    #   url: https://thanos-bucketweb.ayanides.cloud
-    #   hostname: thanos-bucketweb.ayanides.cloud
-    # - name: thanos-compactor
-    #   url: https://thanos-compactor.ayanides.cloud
-    #   hostname: thanos-compactor.ayanides.cloud
-    # - name: thanos-storegateway
-    #   url: https://thanos-storegateway.ayanides.cloud
-    #   hostname: thanos-storegateway.ayanides.cloud
-    # - name: teleport
-    #   url: https://teleport.ayanides.cloud
-    #   hostname: teleport.ayanides.cloud
     - name: falco
       url: https://falco.ayanides.cloud
       hostname: falco.ayanides.cloud
-    - name: ctfd
-      url: https://ctfd.ayanides.cloud
-      hostname: ctfd.ayanides.cloud
-    - name: ovh-certificate-api
-      url: https://ovh-certificate-api.ayanides.cloud
-      hostname: ovh-certificate-api.ayanides.cloud
+    # - name: ctfd
+    #   url: https://ctfd.ayanides.cloud
+    #   hostname: ctfd.ayanides.cloud
+    # - name: ovh-certificate-api
+    #   url: https://ovh-certificate-api.ayanides.cloud
+    #   hostname: ovh-certificate-api.ayanides.cloud
     - name: yopass
       url: https://yopass.ayanides.cloud
       hostname: yopass.ayanides.cloud
