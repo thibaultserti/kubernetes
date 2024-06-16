@@ -2,7 +2,7 @@ cluster:
   name: belt
 
 
-k8sServiceHost: 192.168.1.10
+k8sServiceHost: 192.168.1.41
 k8sServicePort: 6443
 
 kubeProxyReplacement: true
@@ -11,8 +11,7 @@ ipam:
   operator:
     clusterPoolIPv4PodCIDRList: 10.42.0.0/16
 
-bpf:
-  vlanBypass: 0
+
 
 cgroup:
   autoMount:
