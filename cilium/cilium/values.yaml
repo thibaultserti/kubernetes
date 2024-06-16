@@ -14,6 +14,11 @@ ipam:
 bpf:
   vlanBypass: 0
 
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
 hubble:
   enabled: true
   # resources:
