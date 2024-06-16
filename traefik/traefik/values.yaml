@@ -30,6 +30,7 @@ logs:
 service:
   annotations:
     io.cilium/lb-ipam-ips: "192.168.1.100"
+    kube-vip.io/ignore: true
 
 ingressRoute:
   dashboard:
