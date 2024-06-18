@@ -6,7 +6,7 @@ additionalArguments:
 
 image:
   repository: traefik
-  tag: v3.0.2
+  tag: v3.0.3
 
 logs:
   access:
