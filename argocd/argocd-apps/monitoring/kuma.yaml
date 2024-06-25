@@ -11,7 +11,7 @@ applications:
     sources:
       - repoURL: https://dirsigler.github.io/uptime-kuma-helm
         chart: uptime-kuma
-        targetRevision: 2.18.1
+        targetRevision: 2.19.0
         helm:
           valueFiles:
           - $values/monitoring/kuma/values.yaml
