@@ -22,7 +22,7 @@ volume:
   storageClassName: longhorn
 
 image:
-  tag: "latest"
+  tag: "1.23.13"
 
 serviceMonitor:
   enabled: false
