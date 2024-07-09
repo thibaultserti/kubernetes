@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://traefik.github.io/charts
         chart: traefik
-        targetRevision: 28.3.0
+        targetRevision: 29.0.1
         helm:
           valueFiles:
           - $values/traefik/traefik/values.yaml
