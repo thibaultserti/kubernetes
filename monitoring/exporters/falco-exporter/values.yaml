@@ -16,3 +16,6 @@ scc:
 
 prometheusRules:
   enabled: true
+  alerts:
+    critical:
+      enabled: false
