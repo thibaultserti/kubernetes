@@ -16,25 +16,3 @@ scc:
 
 prometheusRules:
   enabled: true
-  alerts:
-    warning:
-      enabled: true
-      rate_interval: "5m"
-      threshold: 0
-    error:
-      enabled: true
-      rate_interval: "5m"
-      threshold: 0
-    critical:
-      enabled: true
-      rate_interval: "5m"
-      threshold: 0
-    alert:
-      enabled: true
-      rate_interval: "5m"
-      threshold: 0
-    emergency:
-      enabled: true
-      rate_interval: "1m"
-      threshold: 0
-    additionalAlerts: {}
