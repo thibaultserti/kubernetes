@@ -6,7 +6,6 @@ additionalArguments:
 
 image:
   repository: traefik
-  tag: v3.1.0
 
 logs:
   access:
@@ -66,6 +65,7 @@ metrics:
     addRoutersLabels: true
     addServicesLabels: true
     serviceMonitor:
+      enabled: true
       metricRelabelings:
         - sourceLabels: [__name__]
           separator: ;
