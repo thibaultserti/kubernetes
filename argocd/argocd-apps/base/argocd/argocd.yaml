@@ -4,6 +4,7 @@ applications:
     namespace: argocd
     additionalAnnotations:
       notifications.argoproj.io/subscribe.grafana: argocd
+      argocd.argoproj.io/compare-options: ServerSideDiff=true
     destination:
       namespace: argocd
       server: https://kubernetes.default.svc
