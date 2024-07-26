@@ -97,7 +97,8 @@ customRules:
         token-cleaner,
         legacy-service-account-token-cleaner,
         ttl-after-finished-controller,
-        kube-vip
+        kube-vip,
+        cilium-envoy
       ]
       override:
         items: append
