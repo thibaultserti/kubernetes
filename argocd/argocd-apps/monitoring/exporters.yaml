@@ -38,7 +38,7 @@ applications:
     sources:
       - repoURL: https://prometheus-community.github.io/helm-charts
         chart: prometheus-blackbox-exporter
-        targetRevision: 8.17.0
+        targetRevision: 9.0.0
         helm:
           valueFiles:
           - $values/monitoring/exporters/blackbox-exporter/internal/values.yaml
@@ -66,7 +66,7 @@ applications:
     sources:
       - repoURL: https://prometheus-community.github.io/helm-charts
         chart: prometheus-blackbox-exporter
-        targetRevision: 8.17.0
+        targetRevision: 9.0.0
         helm:
           valueFiles:
           - $values/monitoring/exporters/blackbox-exporter/external/values.yaml
