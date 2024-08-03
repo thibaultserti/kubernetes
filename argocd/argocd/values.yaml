@@ -88,7 +88,7 @@ configs:
 # CONTROLLER
 
 controller:
-  replicas: 2
+  replicas: 1
   # resources:
 #   requests:
 #     cpu: 671m
@@ -138,37 +138,37 @@ dex:
 
 # REDIS
 
-redis-ha:
-  enabled: true
-  resources:
-    # requests:
-    #   cpu: 11m
-    #   memory: 53M
-    # limits:
-    #   memory: 53M
+# redis-ha:
+#   enabled: true
+#   resources:
+#     # requests:
+#     #   cpu: 11m
+#     #   memory: 53M
+#     # limits:
+#     #   memory: 53M
 
-  exporter:
-    enabled: true
-    serviceMonitor:
-      enabled: true
-    # resources:
-    #   requests:
-    #     cpu: 11m
-    #     memory: 53M
-    #   limits:
-    #     memory: 53M
-  haproxy:
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
+#   exporter:
+#     enabled: true
+#     serviceMonitor:
+#       enabled: true
+#     # resources:
+#     #   requests:
+#     #     cpu: 11m
+#     #     memory: 53M
+#     #   limits:
+#     #     memory: 53M
+#   haproxy:
+#     metrics:
+#       enabled: true
+#       serviceMonitor:
+#         enabled: true
 
 # SERVER
 
 server:
   autoscaling:
     enabled: true
-    minReplicas: 2  # resources:
+    minReplicas: 1  # resources:
   #   requests:
   #     cpu: 15m
   #     memory: 127M
@@ -204,7 +204,7 @@ server:
 repoServer:
   autoscaling:
     enabled: true
-    minReplicas: 2  # resources:
+    minReplicas: 1  # resources:
   #   requests:
   #     cpu: 63m
   #     memory: 1024Mi
@@ -220,7 +220,7 @@ repoServer:
 # APPLICATIONSET
 
 applicationSet:
-  replicas: 2
+  replicas: 1
   # resources:
   #   requests:
   #     cpu: 15m
