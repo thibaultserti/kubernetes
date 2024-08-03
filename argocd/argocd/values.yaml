@@ -149,9 +149,7 @@ dex:
 # SERVER
 
 server:
-  autoscaling:
-    enabled: true
-    minReplicas: 1  # resources:
+
   #   requests:
   #     cpu: 15m
   #     memory: 127M
