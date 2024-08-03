@@ -18,6 +18,23 @@ configs:
     resource.customizations.ignoreResourceUpdates.all: |
       jsonPointers:
       - /status
+    resource.customizations.ignoreResourceUpdates.batch.v1_Job: |
+      jsonPointers:
+      - /status/completionTime
+      - /status/startTime
+      jqPathExpressions:
+      - .status.conditions[].lastTransitionTime
+      - .status.conditions[].lastProbeTime
+    resource.customizations.ignoreResourceUpdates.argoproj.io_Application: |
+      jsonPointers:
+      # Ignore when ownerReferences change, for example when a parent ApplicationSet changes often.
+      - /metadata/ownerReferences
+      # Ignore reconciledAt, since by itself it doesn't indicate any important change.
+      - /status/reconciledAt
+      jqPathExpressions:
+      # Ignore lastTransitionTime for conditions; helpful when SharedResourceWarnings are being regularly updated but not
+      # actually changing in content.
+      - .status.conditions[].lastTransitionTime
     # Hide Kyverno Policy in Argo CD UI
     resource.exclusions: |
       - apiGroups:
