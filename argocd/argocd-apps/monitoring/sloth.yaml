@@ -26,6 +26,9 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
+
 
   slos:
     namespace: argocd
@@ -50,3 +53,5 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true

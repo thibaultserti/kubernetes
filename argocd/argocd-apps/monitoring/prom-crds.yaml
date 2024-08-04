@@ -19,6 +19,8 @@ applications:
       syncOptions:
         - CreateNamespace=true
         - Replace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
       automated:
         prune: true
         selfHeal: true

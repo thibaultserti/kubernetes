@@ -27,6 +27,8 @@ applications:
       syncOptions:
         - CreateNamespace=true
         - Replace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
 
 
   kyverno-policies:
@@ -77,6 +79,8 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
 
 
   policy-reporter:
@@ -106,3 +110,5 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true

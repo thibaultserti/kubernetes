@@ -26,6 +26,9 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
+
 
   falcosidekick:
     namespace: argocd
@@ -54,6 +57,9 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
+
 
   falco-exporter:
     namespace: argocd
@@ -82,3 +88,5 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true

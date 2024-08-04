@@ -27,6 +27,8 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
 
   cluster-issuer:
     namespace: argocd
@@ -51,3 +53,5 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true

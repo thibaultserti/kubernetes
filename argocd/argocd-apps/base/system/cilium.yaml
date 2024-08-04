@@ -47,6 +47,7 @@ applications:
       syncOptions:
         - CreateNamespace=true
         - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
 
   cilium-ippools:
     namespace: argocd
@@ -68,3 +69,5 @@ applications:
         prune: true
       syncOptions:
         - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true

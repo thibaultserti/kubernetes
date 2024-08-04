@@ -101,3 +101,6 @@ applications:
       automated:
         selfHeal: true
         prune: true
+      syncOptions:
+        - RespectIgnoreDifferences=true
+        - ApplyOutOfSyncOnly=true
