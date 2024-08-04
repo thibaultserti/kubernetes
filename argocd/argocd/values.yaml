@@ -35,12 +35,6 @@ configs:
       # Ignore lastTransitionTime for conditions; helpful when SharedResourceWarnings are being regularly updated but not
       # actually changing in content.
       - .status.conditions[].lastTransitionTime
-    resource.customizations.ignoreResourceUpdates.external-secrets.io_ExternalSecret: |
-      jsonPointers:
-      - /status/refreshTime
-      # JQ equivalent of the above:
-      # jqPathExpressions:
-      # - .status.refreshTime
     # Hide Kyverno Policy in Argo CD UI
     resource.exclusions: |
       - apiGroups:
@@ -94,7 +88,7 @@ configs:
 # CONTROLLER
 
 controller:
-  replicas: 1
+  replicas: 2
   # resources:
 #   requests:
 #     cpu: 671m
@@ -144,35 +138,37 @@ dex:
 
 # REDIS
 
-# redis-ha:
-#   enabled: true
-#   resources:
-#     # requests:
-#     #   cpu: 11m
-#     #   memory: 53M
-#     # limits:
-#     #   memory: 53M
+redis-ha:
+  enabled: true
+  resources:
+    # requests:
+    #   cpu: 11m
+    #   memory: 53M
+    # limits:
+    #   memory: 53M
 
-#   exporter:
-#     enabled: true
-#     serviceMonitor:
-#       enabled: true
-#     # resources:
-#     #   requests:
-#     #     cpu: 11m
-#     #     memory: 53M
-#     #   limits:
-#     #     memory: 53M
-#   haproxy:
-#     metrics:
-#       enabled: true
-#       serviceMonitor:
-#         enabled: true
+  exporter:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    # resources:
+    #   requests:
+    #     cpu: 11m
+    #     memory: 53M
+    #   limits:
+    #     memory: 53M
+  haproxy:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
 
 # SERVER
 
 server:
-
+  autoscaling:
+    enabled: true
+    minReplicas: 2  # resources:
   #   requests:
   #     cpu: 15m
   #     memory: 127M
@@ -206,10 +202,9 @@ server:
 # REPOSERVER
 
 repoServer:
-  replicas: 1
   autoscaling:
-    enabled: false
-    minReplicas: 1  # resources:
+    enabled: true
+    minReplicas: 2  # resources:
   #   requests:
   #     cpu: 63m
   #     memory: 1024Mi
@@ -225,7 +220,7 @@ repoServer:
 # APPLICATIONSET
 
 applicationSet:
-  replicas: 1
+  replicas: 2
   # resources:
   #   requests:
   #     cpu: 15m
