@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: loki
-        targetRevision: 6.7.3
+        targetRevision: 6.7.4
         helm:
           valueFiles:
           - $values/monitoring/loki/values.yaml
