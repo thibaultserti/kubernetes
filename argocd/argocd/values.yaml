@@ -138,36 +138,39 @@ dex:
 
 # REDIS
 
-redis-ha:
-  enabled: true
-  resources:
-    # requests:
-    #   cpu: 11m
-    #   memory: 53M
-    # limits:
-    #   memory: 53M
+# redis-ha:
+#   enabled: true
+#   replicas: 2
+#   resources:
+#     # requests:
+#     #   cpu: 11m
+#     #   memory: 53M
+#     # limits:
+#     #   memory: 53M
 
-  exporter:
-    enabled: true
-    serviceMonitor:
-      enabled: true
-    # resources:
-    #   requests:
-    #     cpu: 11m
-    #     memory: 53M
-    #   limits:
-    #     memory: 53M
-  haproxy:
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
+#   exporter:
+#     enabled: true
+#     serviceMonitor:
+#       enabled: true
+#     # resources:
+#     #   requests:
+#     #     cpu: 11m
+#     #     memory: 53M
+#     #   limits:
+#     #     memory: 53M
+#   haproxy:
+#     replicas: 2
+#     metrics:
+#       enabled: true
+#       serviceMonitor:
+#         enabled: true
 
 # SERVER
 
 server:
+  replicas:   2
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 2  # resources:
   #   requests:
   #     cpu: 15m
@@ -202,8 +205,9 @@ server:
 # REPOSERVER
 
 repoServer:
+  replicas: 2
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 2  # resources:
   #   requests:
   #     cpu: 63m

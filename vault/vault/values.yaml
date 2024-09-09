@@ -67,6 +67,7 @@ server:
 
   ha:
     enabled: true
+    replicas: 2
     raft:
       enabled: true
       # Note: Configuration files are stored in ConfigMaps so sensitive data
