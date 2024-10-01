@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://falcosecurity.github.io/charts
         chart: falco
-        targetRevision: 4.8.3
+        targetRevision: 4.9.0
         helm:
           valueFiles:
           - $values/security/falco/falco/values.yaml
