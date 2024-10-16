@@ -11,7 +11,7 @@ applications:
     sources:
       - repoURL: registry-1.docker.io
         chart: bitnamicharts/minio
-        targetRevision: 14.7.15
+        targetRevision: 14.7.16
         helm:
           valueFiles:
           - $values/minio/values.yaml
