@@ -42,7 +42,7 @@ applications:
     sources:
       - repoURL: https://kyverno.github.io/kyverno
         chart: kyverno-policies
-        targetRevision: 3.2.6
+        targetRevision: 3.3.0
         helm:
           valueFiles:
           - $values/kyverno/kyverno-policies/values.yaml
