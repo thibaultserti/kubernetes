@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://robusta-charts.storage.googleapis.com
         chart: robusta
-        targetRevision: 0.18.0
+        targetRevision: 0.19.0
         helm:
           valueFiles:
           - $values/monitoring/robusta/values.yaml
