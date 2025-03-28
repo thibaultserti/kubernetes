@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://kubereboot.github.io/charts
         chart: kured
-        targetRevision: 5.6.0
+        targetRevision: 5.6.1
         helm:
           valueFiles:
           - $values/utils/kured/values.yaml
