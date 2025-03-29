@@ -11,7 +11,7 @@ applications:
     sources:
       - repoURL: https://charts.jetstack.io
         chart: cert-manager
-        targetRevision: v1.16.3
+        targetRevision: v1.17.1
         helm:
           valueFiles:
           - $values/cert-manager/cert-manager/values.yaml
