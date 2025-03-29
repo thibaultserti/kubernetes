@@ -12,7 +12,7 @@ applications:
     sources:
       - repoURL: https://argoproj.github.io/argo-helm
         chart: argo-cd
-        targetRevision: 7.7.21
+        targetRevision: 7.8.15
         helm:
           valueFiles:
           - $values/argocd/argocd/values.yaml
