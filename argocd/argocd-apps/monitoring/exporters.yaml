@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://prometheus-community.github.io/helm-charts
         chart: prometheus-node-exporter
-        targetRevision: 4.45.0
+        targetRevision: 4.45.2
         helm:
           valueFiles:
           - $values/monitoring/exporters/node-exporter/values.yaml
