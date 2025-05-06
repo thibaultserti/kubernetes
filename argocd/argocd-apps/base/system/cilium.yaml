@@ -12,7 +12,7 @@ applications:
     sources:
       - repoURL: https://helm.cilium.io
         chart: cilium
-        targetRevision: 1.17.2
+        targetRevision: 1.17.3
         helm:
           valueFiles:
           - $values/cilium/cilium/values.yaml
