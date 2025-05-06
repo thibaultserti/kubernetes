@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: ctfd/ctfd
   pullPolicy: IfNotPresent
-  tag: 3.7.6
+  tag: 3.7.7
 
 security:
   fsGroup: 1001
