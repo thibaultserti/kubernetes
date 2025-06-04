@@ -11,7 +11,7 @@ applications:
     sources:
       - repoURL: https://sustainable-computing-io.github.io/kepler-helm-chart
         chart: kepler
-        targetRevision: 0.5.18
+        targetRevision: 0.6.0
         helm:
           valueFiles:
           - $values/monitoring/exporters/kepler-exporter/values.yaml
