@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: tempo
-        targetRevision: 1.23.1
+        targetRevision: 1.23.2
         helm:
           valueFiles:
           - $values/monitoring/tempo/values.yaml
