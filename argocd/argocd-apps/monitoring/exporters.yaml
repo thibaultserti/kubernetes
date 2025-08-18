@@ -164,7 +164,7 @@ applications:
     sources:
       - repoURL: https://charts.alekc.dev
         chart: speedtest-exporter
-        targetRevision: 0.1.1
+        targetRevision: 0.1.2
         helm:
           valueFiles:
           - $values/monitoring/exporters/speedtest-exporter/values.yaml
