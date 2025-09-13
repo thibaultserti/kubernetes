@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://grafana.github.io/helm-charts
         chart: grafana
-        targetRevision: 7.3.12
+        targetRevision: 9.4.5
         helm:
           valueFiles:
           - $values/monitoring/grafana/values.yaml
