@@ -10,7 +10,7 @@ applications:
     sources:
       - repoURL: https://victoriametrics.github.io/helm-charts/
         chart: victoria-metrics-k8s-stack
-        targetRevision: 0.63.6
+        targetRevision: 0.65.1
         helm:
           skipCrds: true
           valueFiles:
