@@ -11,7 +11,7 @@ applications:
     sources:
       - repoURL: http://jameswynn.github.io/helm-charts
         chart: homepage
-        targetRevision: 1.2.3
+        targetRevision: 2.1.0
         helm:
           valueFiles:
           - $values/services/homepage/values.yaml
