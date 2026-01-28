@@ -45,7 +45,7 @@ applications:
     sources:
       - repoURL: https://argoproj.github.io/argo-helm
         chart: argocd-apps
-        targetRevision: 2.0.2
+        targetRevision: 2.0.4
         helm:
           valueFiles:
           - $values/argocd/argocd-apps/base/argocd/0_project.yaml
